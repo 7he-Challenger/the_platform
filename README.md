@@ -1,5 +1,6 @@
 # The_platform | Techzara platform front
-
+![pushing](https://github.com/7he-Challenger/the_platform/actions/workflows/github-action-next-js.yml/badge.svg?event=push)
+<!-- ![pull request](https://github.com/7he-Challenger/the_platform/actions/workflows/github-action-next-js.yml/badge.svg?event=pull_request) -->
 ## Requierments
 - node version >= 16.17.1
 - knowledge about javascript, typescript, react, next js
