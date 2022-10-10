@@ -9,13 +9,17 @@ import { getCookiesData } from '~lib/cookies';
 
 const token = getCookiesData(COOKIES_KEY.TOKEN_SESSION)
 
+const option = token ? {
+  Accept: 'application/json',
+  'Content-type': 'application/json',
+  Authorization: `Bearer ${token}`
+} : {
+  Accept: 'application/json'
+}
+
 const axios = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    Accept: 'application/json',
-		'Content-type': 'application/json',
-    Authorization: `Bearer ${token}`
-  },
+  headers: option,
   // withCredentials: true
 })
 
