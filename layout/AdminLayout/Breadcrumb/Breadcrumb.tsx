@@ -1,21 +1,25 @@
 import { Breadcrumb as BSBreadcrumb } from 'react-bootstrap'
+import useBrudcrumb from '~hooks/useBrudcrumb'
 
 export default function Breadcrumb() {
+  const {
+    brundCrumb
+  } = useBrudcrumb()
+
   return (
     <BSBreadcrumb listProps={{ className: 'my-0 ms-2 align-items-center' }}>
-      <BSBreadcrumb.Item
-        linkProps={{ className: 'text-decoration-none' }}
-        href="/"
-      >
-        Home
-      </BSBreadcrumb.Item>
-      <BSBreadcrumb.Item
-        linkProps={{ className: 'text-decoration-none' }}
-        href="https://getbootstrap.com/docs/4.0/components/BSBreadcrumb/"
-      >
-        Library
-      </BSBreadcrumb.Item>
-      <BSBreadcrumb.Item active>Data</BSBreadcrumb.Item>
+      {
+        brundCrumb.map((item, index) => (
+          <BSBreadcrumb.Item
+            key={`brundcrumb-${index}`}
+            linkProps={{ className: index < brundCrumb.length - 1 ? 'text-decoration-none' : '' }}
+            href={index < brundCrumb.length - 1 ? item.url : ''}
+            active={index < brundCrumb.length - 1 ? false : true}
+          >
+            { item.name }
+          </BSBreadcrumb.Item>
+        ))
+      }
     </BSBreadcrumb>
   )
 }
