@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SSRProvider } from 'react-bootstrap'
 import { wrapper } from '~store'
 import LoadingOverlay from '~components/loading-overlay'
-// import { SnackbarProvider } from "nextjs-toast";
+import { SessionProvider } from 'next-auth/react'
 
 
 // You change this configuration value to false so that the Font Awesome core SVG library
@@ -24,8 +24,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   // eslint-disable-next-line react/jsx-props-no-spreading
   return (
     <SSRProvider>
+      <SessionProvider session={pageProps.session}>
         <LoadingOverlay />
         <Component {...pageProps} />
+      </SessionProvider>
     </SSRProvider>
   )
 }
