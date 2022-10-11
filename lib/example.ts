@@ -13,6 +13,6 @@ export const getServerSideProps = async (context: any) => {
  * get token in component on client side 
  */
 export const Component = () => {
-  const { data, status } = useSession()
+  const { data, status }: any = useSession()
   const token = data?.accessToken
 }
