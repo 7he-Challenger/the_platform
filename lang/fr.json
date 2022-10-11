@@ -1,0 +1,13 @@
+{
+  "translation": {
+    "global": {
+      "email": "Email",
+      "password": "Mot de passe",
+      "inputRequired": "Champs obligatoires"
+    },
+    "login": {
+      "invalidEmail": "Email format invalide",
+      "passwordMinimum": "Mot de passe 8 charactères minimum"
+    }
+  }
+}

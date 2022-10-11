@@ -1,0 +1,13 @@
+{
+  "translation": {
+    "global": {
+      "email": "Email",
+      "password": "Password",
+      "inputRequired": "Field required"
+    },
+    "login": {
+      "invalidEmail": "Email invalid format",
+      "passwordMinimum": "Password 8 characters minimum"
+    }
+  }
+}

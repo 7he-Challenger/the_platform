@@ -1,10 +1,15 @@
-import '~styles/globals.scss'
+import '~assets/styles/globals.scss'
+import '~assets/styles/loader.scss'
 import type { AppProps } from 'next/app'
 // Next.js allows you to import CSS directly in .js files.
 // It handles optimization and all the necessary Webpack configuration to make this work.
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SSRProvider } from 'react-bootstrap'
+import { wrapper } from '~store'
+import LoadingOverlay from '~components/loading-overlay'
+import { SessionProvider } from 'next-auth/react'
+
 
 // You change this configuration value to false so that the Font Awesome core SVG library
 // will not try and insert <style> elements into the <head> of the page.
@@ -17,7 +22,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   // to ensure that the auto-generated ids are consistent between the server and client.
   // https://react-bootstrap.github.io/getting-started/server-side-rendering/
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <SSRProvider><Component {...pageProps} /></SSRProvider>
+  return (
+    <SSRProvider>
+      <SessionProvider session={pageProps.session}>
+        <LoadingOverlay />
+        <Component {...pageProps} />
+      </SessionProvider>
+    </SSRProvider>
+  )
 }
-
-export default MyApp
+export default wrapper.withRedux(MyApp);
