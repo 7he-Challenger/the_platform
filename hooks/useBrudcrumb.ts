@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { formatRouteName, generateBrundCrumb } from "~lib/format"
+import { generateBrundCrumb } from "~lib/format"
 
 export type BrundCrumbType = {
   name: string,
