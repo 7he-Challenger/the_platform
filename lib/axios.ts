@@ -2,6 +2,14 @@ import Axios from 'axios';
 /**
  * configuration axios if neede
  * change config depending on how using axios and credential
+ * 
+ * The token is provided from the caller 
+ * from the ~lib/example.ts check example how to get token depending on side using
+ * if trying using axios in server side props fetching 
+ * check getServerSideProps function
+ * else
+ * check Component example
+ * Component example way can be used on custom hooks
  */
 
 const axiosInstance = (token = null) => {
