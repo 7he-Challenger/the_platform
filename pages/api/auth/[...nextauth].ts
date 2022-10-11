@@ -22,7 +22,7 @@ export default NextAuth({
           );
           return result
         } catch (error: any) {
-          console.log('error', error)
+          console.log('error authorize', error)
           throw new Error(error);
         }
       },

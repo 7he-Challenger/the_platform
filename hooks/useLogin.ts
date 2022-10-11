@@ -10,7 +10,6 @@ import { signIn, SignInResponse, useSession } from "next-auth/react";
 const useLogin = () => {
   const dispatch = useAppDispatch()
   const { data, status } = useSession()
-  console.log(data, status)
   /**
    * state input validator
    * using to display error input login
