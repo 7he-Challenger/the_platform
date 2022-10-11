@@ -1,22 +1,16 @@
-import { useRouter } from "next/router";
 import { SyntheticEvent, useEffect, useState } from "react";
-import COOKIES_KEY from "~constantes/cookies";
-import ENDPOINT from "~constantes/enpoint";
 import INPUT_VALIDATION from "~constantes/input-validation";
-import axios from "~lib/axios";
-import { setCookiesData } from "~lib/cookies";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
-// import { useSnackbar } from 'nextjs-toast'
+import { signIn, SignInResponse, useSession } from "next-auth/react";
 
 /**
  * hooks logis page login
  */
 const useLogin = () => {
-  const router = useRouter()
   const dispatch = useAppDispatch()
-  // const snackbar = useSnackbar()
-
+  const { data, status } = useSession()
+  console.log(data, status)
   /**
    * state input validator
    * using to display error input login
@@ -29,7 +23,12 @@ const useLogin = () => {
    */
   const [emailValue, setEmail] = useState<string>('');
   const [passwordValue, setPassword] = useState<string>('');
- 
+
+  /**
+   * state credential
+   * using display error if error credential
+   */
+  const [errorCredential, setErrorCredential] = useState<string>('');
 
   /**
    * Method to handle rule on user email change
@@ -114,41 +113,23 @@ const useLogin = () => {
     dispatch(setLoadingTreatment(true))
     try{
       if(checkInputForm()){
-        const body = {
+        setErrorCredential('')
+        const result: any = await signIn('login', {
           username: emailValue,
-          password: passwordValue
-        }
-
-        const result = await axios.post(
-          ENDPOINT.LOGIN,
-          body
-        )
-
-        if(result.data){
-          const {
-            token,
-            user
-          } = result.data
-
-          setCookiesData(COOKIES_KEY.TOKEN_SESSION, token)
-          setCookiesData(COOKIES_KEY.USER_INFO, user)
+          password: passwordValue,
+          redirect: false
+        })
+        if(result.status == 401){
+          setErrorCredential('Username ou password invalide')
         }
       }
     }catch(e){
-      console.log('error cores')
+      console.log('error login submit', e)
       alert('An error has occured')
     }finally{
       dispatch(setLoadingTreatment(false))
     }
   }
-
-  useEffect(() => {
-    // snackbar.showMessage(
-    //   "This is the Massage",
-    //   "error",
-    //   "filled",
-    // );
-  }, [])
 
   return {
     invalideUser,
@@ -157,12 +138,13 @@ const useLogin = () => {
     handleInputPassword,
     emailValue,
     passwordValue,
-    submitLogin
+    submitLogin,
+    errorCredential
   }
 }
 
 // rule for user email input
-const emailRule = (value: string) => {
+export const emailRule = (value: string) => {
   // const pattern = new RegExp(/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/, 'i');
 
   if(value == null || value == '') return INPUT_VALIDATION.FIELD_REQUIRED;
@@ -171,7 +153,7 @@ const emailRule = (value: string) => {
 }
 
 // rule for user password input
-const passwordRule: any = (value: string) => {
+export const passwordRule: any = (value: string) => {
   if(value == null || value == '') return INPUT_VALIDATION.FIELD_REQUIRED;
   // if(value.length < 8) return PASSWORD_LENGTH_ERROR
   return false;

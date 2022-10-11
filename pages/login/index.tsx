@@ -6,11 +6,9 @@ import {
   Button,
   Col, Container, Form, InputGroup, Row,
 } from 'react-bootstrap'
-import Link from 'next/link'
 import useLogin from '~hooks/useLogin'
 
 const Login: NextPage = (props) => {
-  
   const {
     emailValue,
     passwordValue,
@@ -18,7 +16,8 @@ const Login: NextPage = (props) => {
     handleInputPassword,
     invalidePassword,
     invalideUser,
-    submitLogin
+    submitLogin,
+    errorCredential
   } = useLogin()
 
   return (
@@ -31,7 +30,11 @@ const Login: NextPage = (props) => {
                 <div className="">
                   <h1>Login</h1>
                   <p className="text-black-50">Sign In to your account</p>
-
+                  {
+                    errorCredential && (
+                      <span className="text-danger">{errorCredential}</span>
+                    )
+                  }
                   <form onSubmit={submitLogin}>
                     <InputGroup className="mb-3">
                       <InputGroup.Text>
