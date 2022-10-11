@@ -1,15 +1,16 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import INPUT_VALIDATION from "~constantes/input-validation";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
-import { signIn, SignInResponse, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 /**
  * hooks logis page login
  */
 const useLogin = () => {
   const dispatch = useAppDispatch()
-  const { data, status } = useSession()
+  const router = useRouter()
   /**
    * state input validator
    * using to display error input login
@@ -120,6 +121,8 @@ const useLogin = () => {
         })
         if(result.status == 401){
           setErrorCredential('Username ou password invalide')
+        }else if(!result.error){
+          router.push('/dashboard')
         }
       }
     }catch(e){
