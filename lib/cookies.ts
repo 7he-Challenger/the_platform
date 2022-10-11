@@ -19,10 +19,11 @@ export const getCookiesData = (key: string) => {
 export const setCookiesData = (
   key: string, 
   value: string,
+  req: any = null,
   maxAge: number = 3600,
   path: string = '/'
 ) => {
-  setCookie(null, key, value, {
+  setCookie(req, key, value, {
     maxAge,
     path,
   })
