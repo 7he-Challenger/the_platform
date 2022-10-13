@@ -12,7 +12,7 @@ import Axios from 'axios';
  * Component example way can be used on custom hooks
  */
 
-const axiosInstance = (token = null) => {
+const axiosInstance = (token:string | null = null) => {
   const option = token ? {
     Accept: 'application/json',
     'Content-type': 'application/json',
