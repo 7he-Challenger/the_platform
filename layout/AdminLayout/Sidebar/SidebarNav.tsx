@@ -131,11 +131,11 @@ const SidebarNavGroup = (props: SidebarNavGroupProps) => {
 export default function SidebarNav() {
   return (
     <ul className="list-unstyled">
-      <SidebarNavItem icon={faGauge} href={ROUTES.dashboard}>
+      <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>
         Dashboard
         {/* <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small> */}
       </SidebarNavItem>
-      <SidebarNavItem icon={faCalendar} href={ROUTES.emploi_du_temps}>
+      <SidebarNavItem icon={faCalendar} href={ROUTES.emploi_du_temps.path}>
         Emploi du temps
       </SidebarNavItem>
       <SidebarNavTitle>Theme</SidebarNavTitle>

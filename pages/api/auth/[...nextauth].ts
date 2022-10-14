@@ -57,6 +57,9 @@ export default NextAuth({
   secret: "looselipssinkships",
   session: {
     maxAge: 3600,
-    // strategy: 'database'
+    strategy: 'jwt'
+  },
+  jwt: {
+    maxAge: 3600,
   }
 });

@@ -1,11 +1,18 @@
-import { Table } from "react-bootstrap"
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Button, Table } from "react-bootstrap"
+import Style from '~assets/styles/Activity.module.css';
 
 type ListActivitiesType = {
-  lists: Array<any>
+  lists: Array<any>,
+  handleEdit: Function,
+  handleDelete: Function
 }
 
 const ListActivities = ({
-  lists
+  lists,
+  handleEdit,
+  handleDelete
 }: ListActivitiesType) => {
   return (
     <div>
@@ -27,7 +34,25 @@ const ListActivities = ({
                 <td>{item.title}</td>
                 <td>{item.intervenant}</td>
                 <td>{item.locale}</td>
-                <td></td>
+                <td className={Style.actionContainer}>
+                  <div className="d-flex justify-content-around">
+                    <Button
+                      title="Supprimer activité"
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} size="lg" />
+                    </Button>
+
+                    <Button
+                      title="Modifier activité"
+                      variant="primary"
+                      onClick={() => handleEdit(item)}
+                    >
+                      <FontAwesomeIcon icon={faPencil} size="lg" />
+                    </Button>
+                  </div>
+                </td>
               </tr>
             ))
           }

@@ -39,7 +39,7 @@ export default function HeaderProfileNav() {
 
   useEffect(() => {
     if(logoutRef.current){
-      logoutRef.current.addEventListener('click', () => {
+      const current = logoutRef.current.addEventListener('click', () => {
         if(confirm('Se deconnecter ?')) {
           logOut()
         }

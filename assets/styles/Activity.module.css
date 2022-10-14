@@ -6,3 +6,8 @@
 .marginBottom5 {
   margin-bottom: 5px;
 }
+
+.actionContainer {
+  max-width: 170px !important;
+  width: 200px;
+}

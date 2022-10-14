@@ -1,5 +1,6 @@
 import { AdminLayout } from '~layout'
 import type { NextPage } from 'next'
+
 import { Button, Card, Modal, Tab, Tabs } from 'react-bootstrap';
 import useEmploiDuTemps from '~hooks/useEmploiDuTemps';
 import CreateEmploiDuTemps from '~components/emploi-du-temps/create';
@@ -7,6 +8,8 @@ import ListActivities from '~components/emploi-du-temps/lists';
 import { getSession } from 'next-auth/react';
 import { getActivities } from '~repositories/activities';
 import { RESPONSE_ATTR } from '~constantes/response-attr';
+import ROUTES from '~constantes/routes';
+import { logOut } from '~lib/auth';
 
 const EmploiDuTemps: NextPage = (props) => {
   const {
@@ -19,7 +22,9 @@ const EmploiDuTemps: NextPage = (props) => {
     create,
     toUpdate,
     activities,
-    handleSaveActivity
+    handleSaveActivity,
+    handleDeletActivity,
+    handleEditActivity
   } = useEmploiDuTemps(listsActivities, total)
 
   return (
@@ -38,6 +43,8 @@ const EmploiDuTemps: NextPage = (props) => {
         <Card.Body>
           <ListActivities 
             lists={activities}
+            handleDelete={handleDeletActivity}
+            handleEdit={handleEditActivity}
           />
         </Card.Body>
       </Card>
@@ -71,20 +78,31 @@ const EmploiDuTemps: NextPage = (props) => {
 
 export const getServerSideProps = async (context: any) => {
   const session: any = await getSession(context)
-  let activities: { [key: string]: any[] } = [] as any
   // the token to send in axios instance
   try {
-    activities = await getActivities(session.accessToken)
+    let activities: { [key: string]: any[] } = await getActivities(session.accessToken)
+    return {
+      props: {
+        listsActivities: activities ? activities[RESPONSE_ATTR.data] : [],
+        total: activities ? activities[RESPONSE_ATTR.total] : 0 
+      }
+    }
   }catch(e){
-    
-  }
-
-  return {
-    props: {
-      listsActivities: activities ? activities[RESPONSE_ATTR.data] : [],
-      total: activities ? activities[RESPONSE_ATTR.total] : 0 
+    console.log(e)
+    logOut()
+    return {
+      // redirect: {
+      //   destination: ROUTES.login.path,
+      //   permanent: false
+      // }
+      props: {
+        listsActivities: [],
+        total: 0 
+      }
     }
   }
+
+  
 }
 
 export default EmploiDuTemps

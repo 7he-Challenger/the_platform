@@ -52,7 +52,7 @@ const useEmploiDuTemps = (
    * show modal
    * @param activity 
    */
-  const editActivity = (activity: any) => {
+  const handleEditActivity = (activity: any) => {
     setToUpdate((prev: any) => ({ ...prev, ...activity }))
     showCreate()
   }
@@ -73,9 +73,7 @@ const useEmploiDuTemps = (
         const activity = await saveActivities(token, body, id)
         
         // treatment after save activity
-        const result = await getActivities(token)
-        setActivities(result[RESPONSE_ATTR.data])
-        setTotalItem(result[RESPONSE_ATTR.total])
+        await loadActivity(token)
         hideCreate()
       }catch(e: any){
         console.log('error method save activity', e)
@@ -101,15 +99,29 @@ const useEmploiDuTemps = (
     if(confirm("Supprimer l'activité ?")){
       dispatch(setLoadingTreatment(true))
       try{
-        // const result = await deleteActivity(token, id)
+        const token = data ? data.accessToken : null
+        const result = await deleteActivity(token, id)
 
         // TODO treatment after delete activity
-      }catch(e){
+        await loadActivity(token)
+      }catch(e: any){
         console.log('error method delete activity', e)
+        if(e.response && e.response.status == 401){
+          alertErrorToken()
+          logOut()
+        }else{
+          alertErrorOccured()
+        }
       }finally{
         dispatch(setLoadingTreatment(false))
       }
     }
+  }
+
+  const loadActivity = async (token: string) => {
+    const result = await getActivities(token)
+    setActivities(result[RESPONSE_ATTR.data])
+    setTotalItem(result[RESPONSE_ATTR.total])
   }
 
   return {
@@ -118,7 +130,7 @@ const useEmploiDuTemps = (
     create,
     toUpdate,
     activities,
-    editActivity,
+    handleEditActivity,
     handleSaveActivity,
     handleDeletActivity
   }
