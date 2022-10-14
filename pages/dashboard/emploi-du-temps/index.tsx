@@ -27,7 +27,8 @@ const EmploiDuTemps: NextPage = (props) => {
     handleEditActivity,
     totalItem,
     query: queryActivity,
-    handleNavigatePage
+    handleNavigatePage,
+    handleCancelActivity
   } = useEmploiDuTemps(listsActivities, total)
 
   return (
@@ -54,6 +55,7 @@ const EmploiDuTemps: NextPage = (props) => {
             lists={activities}
             handleDelete={handleDeletActivity}
             handleEdit={handleEditActivity}
+            handleCancel={handleCancelActivity}
           />
         </Card.Body>
       </Card>

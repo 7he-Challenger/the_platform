@@ -102,6 +102,38 @@ const useEmploiDuTemps = (
     }
   }
 
+  const handleCancelActivity = async (
+    id: any 
+  ) => {
+    if(confirm("Annuler l'activité ?")){
+      dispatch(setLoadingTreatment(true))
+      try{
+        const token = data ? data.accessToken : null
+        const body = activities.find(item => item.id == id)
+        body.isEnable = false
+        const activity = await saveActivities(token, body, id)
+        
+        // treatment after save activity
+        await loadActivity(token)
+        hideCreate()
+      }catch(e: any){
+        console.log('error method cancel activity', e)
+        if(e.response && e.response.status == 401){
+          alertErrorToken()
+          logOut()
+        }else{
+          alertErrorOccured()
+        }
+      }finally{
+        dispatch(setLoadingTreatment(false))
+        dispatch(setToast({
+          show: true,
+          message: 'Activité annulé'
+        }))
+      }
+    }
+  }
+
   /**
    * handle submit delete activity
    * @param id 
@@ -190,7 +222,8 @@ const useEmploiDuTemps = (
     handleDeletActivity,
     totalItem,
     query,
-    handleNavigatePage
+    handleNavigatePage,
+    handleCancelActivity
   }
 }
 
