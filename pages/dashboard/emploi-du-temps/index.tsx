@@ -12,16 +12,22 @@ import CreateEmploiDuTemps from '~components/emploi-du-temps/create';
 import ListActivities from '~components/emploi-du-temps/lists';
 import { getSession } from 'next-auth/react';
 import { getActivities } from '~repositories/activities';
+import { RESPONSE_ATTR } from '~constantes/response-attr';
 
-const EmploiDuTemps: NextPage = () => {
+const EmploiDuTemps: NextPage = (props) => {
+  const {
+    listsActivities,
+    total
+  } = props as any
   const {
     showCreate,
     hideCreate,
     create,
     toUpdate,
-    activities
-  } = useEmploiDuTemps()
-  const calendarRef = useRef<any>(null)
+    activities,
+    handleSaveActivity
+  } = useEmploiDuTemps(listsActivities, total)
+  // const calendarRef = useRef<any>(null)
 
   return (
     <AdminLayout>
@@ -95,7 +101,10 @@ const EmploiDuTemps: NextPage = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CreateEmploiDuTemps />
+          <CreateEmploiDuTemps 
+            toUpdate={toUpdate}
+            submitActivity={handleSaveActivity}
+          />
         </Modal.Body>
       </Modal>
     </AdminLayout>
@@ -104,12 +113,18 @@ const EmploiDuTemps: NextPage = () => {
 
 export const getServerSideProps = async (context: any) => {
   const session: any = await getSession(context)
+  let activities: { [key: string]: any[] } = [] as any
   // the token to send in axios instance
-  const activities = await getActivities(session.accessToken)
-  console.log(activities)
+  try {
+    activities = await getActivities(session.accessToken)
+  }catch(e){
+    
+  }
+
   return {
     props: {
-
+      listsActivities: activities ? activities[RESPONSE_ATTR.data] : [],
+      total: activities ? activities[RESPONSE_ATTR.total] : 0 
     }
   }
 }

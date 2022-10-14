@@ -35,3 +35,18 @@ export const generateBrundCrumb = (
 
   return tmpBrundcrumb
 }
+
+/**
+ * format the form data activity to be right formart before seending to post reequest
+ * @param form 
+ */
+export const formatActivityDataForm = (
+  form: any
+) => {
+  const { id, ...data } = form
+  let tmp = { ...data }
+  tmp.type = parseInt(tmp.type)
+  tmp.sponsors = tmp.sponsors.filter((item: any) => item)
+
+  return tmp
+}

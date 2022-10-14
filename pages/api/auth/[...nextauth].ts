@@ -46,14 +46,12 @@ export default NextAuth({
       }
       return token;
     },
-
-      
-      redirect({
-        url,
-        baseUrl
-      }){
-        return baseUrl
-      }
+    redirect({
+      url,
+      baseUrl
+    }){
+      return baseUrl
+    }
   },
   // use env variable in production
   secret: "looselipssinkships",

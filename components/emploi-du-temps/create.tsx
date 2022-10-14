@@ -1,33 +1,136 @@
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Row, Form } from "react-bootstrap";
+import { ACTIVITY_TYPES } from "~constantes/datas";
+import { useFormActivity } from "~hooks/useEmploiDuTemps";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import Style from '~assets/styles/Activity.module.css';
+import { formatActivityDataForm } from "~lib/format";
 
 type CreateEmploiDuTempsType = {
   toUpdate?: any,
+  submitActivity: Function
 }
 
 const CreateEmploiDuTemps = ({
-  toUpdate = null
+  toUpdate = null,
+  submitActivity = () => {}
 }: CreateEmploiDuTempsType) => {
+  const {
+    body,
+    handleAddSponsor,
+    handleRemoveSponsor,
+    handleChangeValueForm
+  } = useFormActivity(toUpdate)
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    submitActivity(formatActivityDataForm(body), body.id)
+  }
+
   return (
-    <Form>
+    <form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formTheme">
-        <Form.Label>Thème *</Form.Label>
-        <Form.Control type="text" />
-        {/* <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text> */}
+        <Form.Label>Title *</Form.Label>
+        <Form.Control 
+          type="text" 
+          value={body.title}
+          onChange={(e) => handleChangeValueForm('title', e.target.value)}
+          required
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formDescription">
+        <Form.Label>Description</Form.Label>
+        <Form.Control 
+          as="textarea"
+          value={body.description} 
+          onChange={(e) => handleChangeValueForm('description', e.target.value)}
+        />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formIntervenant">
-        <Form.Label>Intervenant(e) *</Form.Label>
-        <Form.Control type="text" />
+        <Form.Label>Intervenant(e)</Form.Label>
+        <Form.Control 
+          type="text" 
+          value={body.intervenant}
+          onChange={(e) => handleChangeValueForm('intervenant', e.target.value)}
+        />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formLieu">
-        <Form.Label>Lieu *</Form.Label>
-        <Form.Control type="text" />
+        <Form.Label>Locale</Form.Label>
+        <Form.Control 
+          type="text" 
+          value={body.locale}
+          onChange={(e) => handleChangeValueForm('locale', e.target.value)}
+        />
       </Form.Group>
 
-      <Row>
+      <Form.Group className="mb-3" controlId="formLieu">
+        <Form.Label>Sponsors</Form.Label>
+        {
+          body.sponsors.map((sponsor: any, index: any) => (
+            <Row
+              key={`activity-sponsor-${index}`}
+            >
+              <Col 
+                lg={body.sponsors.length > 1 ? 11 : 12}
+                className={Style.marginBottom5}
+              >
+                <Form.Control 
+                  type="text" 
+                  value={sponsor}
+                  onChange={(e) => handleChangeValueForm('sponsors', e.target.value, index)}
+                />
+              </Col>
+              {
+                body.sponsors.length > 1 && (
+                  <Col 
+                    lg={1}
+                  >
+                    <Button 
+                      title="Supprimer sponsor"
+                      variant="danger"
+                      onClick={() => handleRemoveSponsor(index)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} size="lg" />
+                    </Button>
+                  </Col>
+                )
+              }
+            </Row>
+          ))
+        }
+        <div className={Style.btnAddSponsorContainer}>
+          <Button 
+            title="Ajouter un nouveau sponsor"
+            onClick={handleAddSponsor}
+          >
+            <FontAwesomeIcon icon={faPlus} size="lg" />
+          </Button>
+        </div>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formType">
+        <Form.Label>Type</Form.Label>
+        <Form.Select 
+          aria-label="Select type"
+          value={body.type}
+          onChange={(e) => handleChangeValueForm('type', e.target.value)}
+        >
+          {
+            ACTIVITY_TYPES.map((activityType, index) => (
+              <option key={`activity-type-${index}`} value={activityType.value}>
+                {activityType.name}
+              </option>
+            ))
+          }
+        </Form.Select>
+      </Form.Group>
+
+      
+
+      {/* <Row>
         <Col >
           <Form.Group className="mb-3" controlId="formDate">
             <Form.Label>Date *</Form.Label>
@@ -41,14 +144,14 @@ const CreateEmploiDuTemps = ({
             <Form.Control type="time" />
           </Form.Group>
         </Col>
-      </Row>
+      </Row> */}
 
       <div className="d-flex justify-content-end">
         <Button variant="primary" type="submit">
           Submit
         </Button>
       </div>
-    </Form>
+    </form>
   )
 }
 

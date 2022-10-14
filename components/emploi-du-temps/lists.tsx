@@ -16,8 +16,6 @@ const ListActivities = ({
             <th>Thème</th>
             <th>Intervenant(e)</th>
             <th>Lieu</th>
-            <th>Date</th>
-            <th>Heure</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -25,13 +23,11 @@ const ListActivities = ({
           {
             lists.map((item, index) => (
               <tr key={`activitie-${index}`}>
-                <td>{item.id}</td>
-                <td>{item.theme}</td>
+                <td>{index + 1}</td>
+                <td>{item.title}</td>
                 <td>{item.intervenant}</td>
-                <td>{item.lieu}</td>
-                <td>{item.date}</td>
-                <td>{item.heure}</td>
-                <td><span>test</span></td>
+                <td>{item.locale}</td>
+                <td></td>
               </tr>
             ))
           }
