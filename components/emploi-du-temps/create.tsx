@@ -19,7 +19,8 @@ const CreateEmploiDuTemps = ({
     body,
     handleAddSponsor,
     handleRemoveSponsor,
-    handleChangeValueForm
+    handleChangeValueForm,
+    handleDateChange
   } = useFormActivity(toUpdate)
 
   const handleSubmit = (e: any) => {
@@ -128,23 +129,45 @@ const CreateEmploiDuTemps = ({
         </Form.Select>
       </Form.Group>
 
-      
+      <Form.Group className="mb-3" controlId="formDate">
+        <Form.Label>Date de début</Form.Label>
+        <Row>
+          <Col>
+            <Form.Control 
+              type="date"
+              value={body.start_date.split(' ')[0]}
+              onChange={(e) => handleDateChange('start_date', e.target.value, 'date')}
+            />
+          </Col>
+          <Col>
+            <Form.Control 
+              type="time"
+              value={body.start_date.split(' ')[1]}
+              onChange={(e) => handleDateChange('start_date', e.target.value, 'time')}
+            />
+          </Col>
+        </Row>
+      </Form.Group>
 
-      {/* <Row>
-        <Col >
-          <Form.Group className="mb-3" controlId="formDate">
-            <Form.Label>Date *</Form.Label>
-            <Form.Control type="date" />
-          </Form.Group>
-        </Col>
-
-        <Col>
-          <Form.Group className="mb-3" controlId="formDate">
-            <Form.Label>Heure *</Form.Label>
-            <Form.Control type="time" />
-          </Form.Group>
-        </Col>
-      </Row> */}
+      <Form.Group className="mb-3" controlId="formDate">
+        <Form.Label>Date de fin</Form.Label>
+        <Row>
+          <Col>
+            <Form.Control 
+              type="date"
+              value={body.end_date.split(' ')[0]}
+              onChange={(e) => handleDateChange('end_date', e.target.value, 'date')}
+            />
+          </Col>
+          <Col>
+            <Form.Control 
+              type="time"
+              value={body.end_date.split(' ')[1]}
+              onChange={(e) => handleDateChange('end_date', e.target.value, 'time')}
+            />
+          </Col>
+        </Row>
+      </Form.Group>
 
       <div className="d-flex justify-content-end">
         <Button variant="primary" type="submit">

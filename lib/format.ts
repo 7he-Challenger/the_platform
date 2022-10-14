@@ -1,4 +1,5 @@
 import { BrundCrumbType } from "~hooks/useBrudcrumb"
+import { GetActivitiesQueryType } from "~repositories/activities"
 
 /**
  * format the route path into name title
@@ -49,4 +50,24 @@ export const formatActivityDataForm = (
   tmp.sponsors = tmp.sponsors.filter((item: any) => item)
 
   return tmp
+}
+
+/**
+ * format the query from url to query params of get activities
+ * @param query 
+ */
+export const formatQueryActivityParams = (
+  query: any
+) => {
+  const queryParams: GetActivitiesQueryType = {}
+
+  if(query['page']) queryParams['page'] = query['page'];
+  if(query['startDate[before]']) queryParams['startDate[before]'] = query['startDate[before]'];
+  if(query['startDate[strictily_before]']) queryParams['startDate[strictily_before]'] = query['startDate[strictily_before]'];
+  if(query['startDate[after]']) queryParams['startDate[after]'] = query['startDate[after]'];
+  if(query['startDate[strictily_after]']) queryParams['startDate[strictily_after]'] = query['startDate[strictily_after]'];
+  if(query['title']) queryParams['title'] = query['title'];
+  if(query['description']) queryParams['description'] = query['description'];
+
+  return queryParams
 }

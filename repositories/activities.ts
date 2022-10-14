@@ -1,7 +1,7 @@
 import ENDPOINT from "~constantes/enpoint"
 import axiosInstance from "~lib/axios"
 
-type GetActivitiesQueryType = {
+export type GetActivitiesQueryType = {
   page?: number,
   'startDate[before]'?: string,
   'startDate[strictily_before]'?: string,

@@ -1,13 +1,16 @@
+import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Prev } from "react-bootstrap/esm/PageItem";
+import { isNull } from "util";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
 import { ActivityType } from "~models/activity";
-import { deleteActivity, getActivities, saveActivities } from "~repositories/activities";
+import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities } from "~repositories/activities";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
+import { setToast } from "~store/toast";
 
 /**
  * logics hooks for emploi du temps page
@@ -18,7 +21,13 @@ const useEmploiDuTemps = (
 ) => {
   const dispatch = useAppDispatch()
   const { data, status }: any = useSession()
-  // const { accessToken: token } = data as any
+
+  /**
+   * state query params
+   */
+  const [query, setQuery] = useState<GetActivitiesQueryType>({
+    page: 1
+  })
 
   /**
    * state for create mode
@@ -85,6 +94,10 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
+        dispatch(setToast({
+          show: true,
+          message: 'Activité enregistré'
+        }))
       }
     }
   }
@@ -114,12 +127,54 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
+        dispatch(setToast({
+          show: true,
+          message: 'Activité supprimé'
+        }))
       }
     }
   }
 
-  const loadActivity = async (token: string) => {
-    const result = await getActivities(token)
+  /**
+   * handle click on page to fetch data depending that page
+   * @param page 
+   */
+  const handleNavigatePage = async (page: number) => {
+    setQuery((prev: any) => ({
+      ...prev,
+      page
+    }))
+
+    dispatch(setLoadingTreatment(true))
+    try{
+      const token = data ? data.accessToken : null
+      await loadActivity(token, {
+        ...query,
+        page
+      })
+    }catch(e: any){
+      console.log('error method delete activity', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  } 
+
+  /**
+   * load activity with query provided
+   * @param token 
+   * @param query 
+   */
+  const loadActivity = async (
+    token: string,
+    query?: GetActivitiesQueryType
+  ) => {
+    const result = await getActivities(token, query)
     setActivities(result[RESPONSE_ATTR.data])
     setTotalItem(result[RESPONSE_ATTR.total])
   }
@@ -132,7 +187,10 @@ const useEmploiDuTemps = (
     activities,
     handleEditActivity,
     handleSaveActivity,
-    handleDeletActivity
+    handleDeletActivity,
+    totalItem,
+    query,
+    handleNavigatePage
   }
 }
 
@@ -153,14 +211,16 @@ export const useFormActivity = (
     locale: '',
     intervenant: '',
     sponsors: [],
-    type: 1
+    type: 1,
+    start_date: '',
+    end_date: ''
   }
 
   /**
    * state of form body activity
    * init to toUPdate or initialeData
    */
-  const [body, setBody] = useState(
+  const [body, setBody] = useState<any>(
     toUpdate 
       ? { ...initialeData,...toUpdate }
       : { ...initialeData } 
@@ -225,28 +285,69 @@ export const useFormActivity = (
   }
 
   /**
+   * method handle value change of date input
+   * type for date or time input
+   * @param input 
+   * @param value 
+   * @param type 
+   */
+  const handleDateChange = (
+    input: string,
+    value: string,
+    type: string
+  ) => {
+    setBody((prev: any) => {
+      let tmpPrev = { ...prev }
+      let tmpDate = tmpPrev[input].split(' ')
+      let index = type == 'time' ? 1 : 0
+      tmpDate[index] = value
+      tmpPrev[input] = tmpDate.join(' ')
+
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }
+
+  /**
    * check body change
    * if has data check sponsors data
    * if length == 0 push an empty string
    */
   useEffect(() => {
-    if(body){
+    if(body && body.sponsors.length == 0){
       let tmpBody = { ...body }
-      if(tmpBody.sponsors.length == 0){
-        tmpBody.sponsors.push('')
-        setBody((prev: any) => ({
-          ...prev,
-          ...tmpBody
-        }))
-      }
+      tmpBody.sponsors.push('')
+
+      setBody((prev: any) => ({
+        ...prev,
+        ...tmpBody
+      }))
     }
   }, [body])
+
+  /**
+   * initiate body
+   * set default format date and time
+   */
+  useEffect(() => {
+    let tmpBody = toUpdate 
+      ? { ...initialeData,...toUpdate }
+      : { ...initialeData } 
+
+    tmpBody.start_date = !tmpBody.start_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.start_date).format('YYYY-MM-DD hh:mm')
+    tmpBody.end_date = !tmpBody.end_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.end_date).format('YYYY-MM-DD hh:mm')
+
+    setBody(tmpBody)
+  }, [])
 
   return {
     body,
     handleAddSponsor,
     handleRemoveSponsor,
-    handleChangeValueForm
+    handleChangeValueForm,
+    handleDateChange
   }
 }
 

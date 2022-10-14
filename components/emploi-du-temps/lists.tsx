@@ -1,5 +1,6 @@
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React from "react";
 import { Button, Table } from "react-bootstrap"
 import Style from '~assets/styles/Activity.module.css';
 
@@ -23,6 +24,8 @@ const ListActivities = ({
             <th>Thème</th>
             <th>Intervenant(e)</th>
             <th>Lieu</th>
+            <th>Début</th>
+            <th>Fin</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -34,6 +37,8 @@ const ListActivities = ({
                 <td>{item.title}</td>
                 <td>{item.intervenant}</td>
                 <td>{item.locale}</td>
+                <td>{item.start_date}</td>
+                <td>{item.end_date}</td>
                 <td className={Style.actionContainer}>
                   <div className="d-flex justify-content-around">
                     <Button
@@ -62,4 +67,4 @@ const ListActivities = ({
   )
 }
 
-export default ListActivities
+export default React.memo(ListActivities)
