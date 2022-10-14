@@ -21,3 +21,7 @@ $enable-negative-margins: true;
 @import 'partials/footer';
 
 @import "_custom";
+
+#__next {
+  position: relative !important;
+}
