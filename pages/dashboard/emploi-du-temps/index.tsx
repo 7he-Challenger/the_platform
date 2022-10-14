@@ -1,11 +1,5 @@
 import { AdminLayout } from '~layout'
 import type { NextPage } from 'next'
-
-import FullCalendar from "@fullcalendar/react";
-import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import dayGridPlugin from '@fullcalendar/daygrid' 
-import { useRef } from "react";
 import { Button, Card, Modal, Tab, Tabs } from 'react-bootstrap';
 import useEmploiDuTemps from '~hooks/useEmploiDuTemps';
 import CreateEmploiDuTemps from '~components/emploi-du-temps/create';
@@ -27,7 +21,6 @@ const EmploiDuTemps: NextPage = (props) => {
     activities,
     handleSaveActivity
   } = useEmploiDuTemps(listsActivities, total)
-  // const calendarRef = useRef<any>(null)
 
   return (
     <AdminLayout>
@@ -46,41 +39,6 @@ const EmploiDuTemps: NextPage = (props) => {
           <ListActivities 
             lists={activities}
           />
-          {/* <Tabs
-            defaultActiveKey="lists"
-            id="tabs-activities"
-            className="mb-3"
-          >
-            <Tab eventKey="lists" title="Listes">
-              <ListActivities 
-                lists={activities}
-              />
-            </Tab>
-            <Tab eventKey="calendar" title="Calendrier">
-              <div>
-                <FullCalendar
-                  innerRef={calendarRef}
-                  plugins={[
-                    timeGridPlugin, 
-                    interactionPlugin, 
-                    dayGridPlugin
-                  ]}
-                  editable
-                  selectable
-                  headerToolbar={{
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                  }}
-                  initialView="dayGridMonth"
-                  dateClick={(info) => {
-                    console.log('info', info)
-                  }}
-                  height="auto"
-                />
-              </div>
-            </Tab>
-          </Tabs> */}
         </Card.Body>
       </Card>
 

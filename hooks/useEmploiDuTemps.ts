@@ -2,7 +2,8 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Prev } from "react-bootstrap/esm/PageItem";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
-import { alertErrorOccured } from "~lib/alert";
+import { alertErrorOccured, alertErrorToken } from "~lib/alert";
+import { logOut } from "~lib/auth";
 import { ActivityType } from "~models/activity";
 import { deleteActivity, getActivities, saveActivities } from "~repositories/activities";
 import { useAppDispatch } from "~store/hooks";
@@ -71,14 +72,19 @@ const useEmploiDuTemps = (
         const token = data ? data.accessToken : null
         const activity = await saveActivities(token, body, id)
         
-        // TODO treatment after save activity
+        // treatment after save activity
         const result = await getActivities(token)
         setActivities(result[RESPONSE_ATTR.data])
         setTotalItem(result[RESPONSE_ATTR.total])
         hideCreate()
-      }catch(e){
+      }catch(e: any){
         console.log('error method save activity', e)
-        alertErrorOccured()
+        if(e.response && e.response.status == 401){
+          alertErrorToken()
+          logOut()
+        }else{
+          alertErrorOccured()
+        }
       }finally{
         dispatch(setLoadingTreatment(false))
       }
