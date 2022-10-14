@@ -8,6 +8,7 @@ import { SSRProvider } from 'react-bootstrap'
 import { wrapper } from '~store'
 import LoadingOverlay from '~components/loading-overlay'
 import { SessionProvider } from 'next-auth/react'
+import ToastComponent from '~components/toast'
 
 
 // You change this configuration value to false so that the Font Awesome core SVG library
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }: any) {
   return (
     <SSRProvider>
       <SessionProvider session={pageProps.session}>
+        <ToastComponent />
         <LoadingOverlay />
         <Component {...pageProps} />
       </SessionProvider>

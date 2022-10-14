@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Store } from 'redux';
 import { createWrapper } from "next-redux-wrapper";
 import loadingSlice from '~store/loading-overlay';
+import toastSlice from '~store/toast';
 
 /**
  * Configuring the redux store
@@ -11,7 +12,8 @@ import loadingSlice from '~store/loading-overlay';
 
 export const store: Store = configureStore({
   reducer: {
-    loading: loadingSlice
+    loading: loadingSlice,
+    toast: toastSlice
   }
 })
 
