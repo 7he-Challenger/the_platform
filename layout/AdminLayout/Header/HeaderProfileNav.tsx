@@ -11,12 +11,13 @@ import {
   faMessage,
   faUser,
 } from '@fortawesome/free-regular-svg-icons'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useRef } from 'react'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import {
   faGear, faListCheck, faLock, faPowerOff,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import { logOut } from '~lib/auth'
 
 type NavItemProps = {
   icon: IconDefinition;
@@ -34,6 +35,18 @@ const ProfileDropdownItem = (props: NavItemProps) => {
 }
 
 export default function HeaderProfileNav() {
+  const logoutRef = useRef<any>(null)
+
+  useEffect(() => {
+    if(logoutRef.current){
+      logoutRef.current.addEventListener('click', () => {
+        if(confirm('Se deconnecter ?')) {
+          logOut()
+        }
+      })
+    }
+  }, [logoutRef])
+
   return (
     <Nav>
       <Dropdown as={NavItem}>
@@ -112,11 +125,13 @@ export default function HeaderProfileNav() {
               <ProfileDropdownItem icon={faLock}>Lock Account</ProfileDropdownItem>
             </Dropdown.Item>
           </Link>
-          <Link href="/login" passHref>
-            <Dropdown.Item>
-              <ProfileDropdownItem icon={faPowerOff}>Logout</ProfileDropdownItem>
-            </Dropdown.Item>
-          </Link>
+          <div ref={logoutRef}>
+            <Link href="#">
+              <Dropdown.Item>
+                <ProfileDropdownItem icon={faPowerOff}>Logout</ProfileDropdownItem>
+              </Dropdown.Item>
+            </Link>
+          </div>
         </Dropdown.Menu>
       </Dropdown>
     </Nav>
