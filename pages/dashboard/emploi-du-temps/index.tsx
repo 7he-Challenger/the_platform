@@ -35,13 +35,7 @@ const EmploiDuTemps: NextPage = (props) => {
     <AdminLayout>
       <Card>
         <Card.Header>
-          <div className='d-flex justify-content-between align-items-center'>
-            <PaginationActivity 
-              current={queryActivity.page || 1}
-              handleNavigate={handleNavigatePage}
-              totalItem={totalItem}
-            />
-            
+          <div className='d-flex justify-content-end align-items-center'>
             <Button 
               variant="primary"
               onClick={showCreate}
@@ -58,6 +52,13 @@ const EmploiDuTemps: NextPage = (props) => {
             handleCancel={handleCancelActivity}
           />
         </Card.Body>
+        <Card.Footer>
+          <PaginationActivity 
+            current={queryActivity.page || 1}
+            handleNavigate={handleNavigatePage}
+            totalItem={totalItem}
+          />
+        </Card.Footer>
       </Card>
       <Modal 
         show={create} 
