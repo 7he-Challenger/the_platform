@@ -8,4 +8,14 @@ $enable-negative-margins: true;
 @import "layout/progress";
 @import "layout/sidebar";
 
+@import 'y-slide';
+@import 'partials/variables';
+@import 'partials/globals';
+@import 'partials/loader';
+@import 'partials/nav';
+@import 'partials/hero';
+@import 'partials/description';
+@import 'partials/memories';
+@import 'partials/footer';
+
 @import "_custom";

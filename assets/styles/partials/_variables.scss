@@ -1,0 +1,22 @@
+$padding: 5%;
+$mobile: 760px ;
+$tablet: 1210px ;
+
+$gleick: #0b0b0b;
+$white: white;
+$black: black;
+$blue: #146db6;
+$beige: #ffd18b;
+$pink: #d75a6a;
+$yellow: #ffeb3b;
+
+body{
+    --background: #ffeac7;
+    --text-color: black;
+    --background-2: #fff;
+}
+body.dark{
+    --background: #0b0b0b;
+    --text-color: #fff;
+    --background-2: #101010;
+}
