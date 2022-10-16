@@ -3,13 +3,22 @@ import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { ProgressBar, Dropdown, Button } from "react-bootstrap";
+import AttendBadge from "./Utils/AttendBadge";
+
+interface Member{
+  // id:string;
+  name:string;
+  photoUrl:string;
+  // attendUrl:string;
+  // attendState:Number; /// State of attendance (1 if true, 0 if false, -1 if not set)
+}
 
 /**
  * Header of the table in the page "/appoint"
  *
  * @returns {JSX.Element}
  */
-function TableRowAttendance(): JSX.Element {
+function TableRowAttendance(props:Member): JSX.Element {
   return (
     <tr className="align-middle">
       <td className="text-center">
@@ -18,30 +27,16 @@ function TableRowAttendance(): JSX.Element {
             width={128}
             height={128}
             className="rounded-circle"
-            src="https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg"
+            src={props.photoUrl}
             alt="user@email.com"
           />
         </div>
       </td>
       <td>
-        <div>Yiorgos Avraamu</div>
-        <div className="small text-black-50">
-          <span>New</span> | Registered: Jan 1, 2020
-        </div>
-      </td>
-      <td>
-        <div className="clearfix">
-          <div className="float-start">
-            <div className="fw-semibold">50%</div>
-          </div>
-          <div className="float-end">
-            <small className="text-black-50">Jun 11, 2020 - Jul 10, 2020</small>
-          </div>
-        </div>
-        <ProgressBar className="progress-thin" variant="success" now={50} />
+        <div>{props.name}</div>
       </td>
       <td className="text-center">
-        <FontAwesomeIcon icon={faCcAmex} size="lg" fixedWidth />
+        <AttendBadge state={-1}/>
       </td>
       <td>
         <Dropdown align="end">

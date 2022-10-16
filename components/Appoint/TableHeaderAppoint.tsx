@@ -13,7 +13,6 @@ function TableHeaderAppoint(): JSX.Element {
                 <FontAwesomeIcon icon={faUsers} fixedWidth />
             </th>
             <th>Nom du membre</th>
-            <th>Fréquence de présence</th>
             <th className="text-center">État de présence actuel</th>
             <th aria-label="Action" />
         </tr>

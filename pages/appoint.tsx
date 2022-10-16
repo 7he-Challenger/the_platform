@@ -33,7 +33,7 @@ const Page: NextPage = () => (
             <table className="table border mb-0">
               <TableHeaderAppoint />
               <tbody>
-                <TableRowAttendance />
+                <TableRowAttendance name="Roger Gerard" photoUrl="favicon.ico"/>
               </tbody>
             </table>
           </div>
