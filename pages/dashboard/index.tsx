@@ -38,11 +38,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import React from 'react'
 import { getSession, SessionContext, useSession } from 'next-auth/react'
- if(process.env.NODE_ENV == 'production'){
-  Chart.defaults.font = {
-    family: "Segoe UI",
-  };
- }
+
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Filler)
 
 const random = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min)
