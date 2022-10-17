@@ -1,0 +1,30 @@
+.hero{
+    width: 100%;
+    background: $black;
+    padding: $padding;
+    &-content{
+        position: relative;
+        .haingo{
+            position: absolute;
+        }
+    
+        .top{
+            top: 0;
+        }
+        .bottom{
+            bottom: 0;
+        }
+        .left{
+            left: 0;
+        }
+        .right{
+            right: 0;
+        }
+
+        .image{
+            img{
+                width: 100%;
+            }
+        }
+    }
+}

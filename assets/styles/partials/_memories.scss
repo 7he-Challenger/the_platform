@@ -1,0 +1,133 @@
+@use "sass:math";
+
+.memories
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 $padding;
+    background: var(--background-2);
+    position: relative;
+    overflow: visible;
+    
+    &-content{
+        width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        padding: 60px 0px;
+        h2{
+            font-size: 30px;
+            color: $blue;
+            padding: 10px 0;
+            margin: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .y-slide-container{
+            width: 90%;
+            height: 500px;
+
+            // .slide1{
+            //     background: url('../../images/2020.jpg');
+            //     background-size: cover;
+            // }
+            // .slide2{
+            //     background: url('../../images/versera.jpg');
+            //     background-size: cover;
+            // }
+            // .slide3{
+            //     background: url('../../images/membres.jpg');
+            //     background-size: cover;
+            // }
+            // .slide4{
+            //     background: url('../../images/13fo.jpg');
+            //     background-size: cover;
+            // }
+
+            .y-slide-caption-text
+            {
+                font-weight: bold;
+                color: var(--text-color) !important;
+                background-color: var(--background);
+            }
+        }
+        .y-slider{
+            cursor: pointer;
+            position: absolute;
+            top: 52%;
+        }
+        .y-slide-prev{
+            left: -20px;
+        }
+        .y-slide-next{
+            right: -20px;
+        }
+    }
+
+    .circle-sliced{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 450px;
+    }
+    .haingo{
+        position: absolute;
+        // z-index: -1;
+    }
+    .centered-top-left{
+        left: math.div(-450px,2);
+        top: math.div(-450px,2) + 24px;
+    }
+    .top{
+        top: $padding;
+    }
+    .bottom{
+        bottom: $padding;
+    }
+    .left{
+        left: $padding;
+    }
+    .right{
+        right: $padding;
+    }
+    .middle{
+        left: 40%;
+        top: 40%;
+    }
+    .middle-top{
+        top: 30%;
+    }
+    .middle-right{
+        right: 30%;
+    }
+    .middle-left{
+        left: 30%;
+    }
+    .middle-bottom{
+        bottom: 30%;
+    }
+}
+
+@media(max-width: $mobile){
+    .memories{
+        overflow: hidden;
+        padding: 0;
+        &-content{
+            width: 100%;
+            .y-slide-container{
+                height: 200px;
+            }
+            .y-slider{
+                top: 55%;
+            }
+            .y-slide-prev{
+                left: 0;
+            }
+            .y-slide-next{
+                right: 0;
+            }
+        }
+    }
+}
