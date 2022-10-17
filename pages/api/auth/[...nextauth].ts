@@ -60,5 +60,14 @@ export default NextAuth({
   session: {
     maxAge: 3600,
     // strategy: 'database'
+  },
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        secure: true
+      }
+    },
   }
 });

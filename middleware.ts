@@ -2,8 +2,11 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  console.log(request.cookies)
   const token = request.cookies.get('next-auth.session-token')
+
+  console.log('token', token)
+  console.log('cookie', request.cookies.get('next-auth.session-token'))
+  console.log('cookie', request.cookies.get('__Secure-next-auth.session-token'))
   const url = request.nextUrl.clone()   
 
   if(request.nextUrl.pathname.startsWith('/dashboard')){
