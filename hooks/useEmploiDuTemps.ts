@@ -1,16 +1,22 @@
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { Prev } from "react-bootstrap/esm/PageItem";
-import { isNull } from "util";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
+import { formatQueryActivityParams } from "~lib/format";
 import { ActivityType } from "~models/activity";
 import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities } from "~repositories/activities";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
 import { setToast } from "~store/toast";
+
+const initialeQuery = {
+  page: 1,
+  'startDate[before]': null,
+  'startDate[after]': null,
+  title: null
+}
 
 /**
  * logics hooks for emploi du temps page
@@ -25,9 +31,8 @@ const useEmploiDuTemps = (
   /**
    * state query params
    */
-  const [query, setQuery] = useState<GetActivitiesQueryType>({
-    page: 1
-  })
+  const [query, setQuery] = useState<GetActivitiesQueryType>(initialeQuery)
+  const [filtered, setFiltered] = useState(false)
 
   /**
    * state for create mode
@@ -147,7 +152,6 @@ const useEmploiDuTemps = (
         const token = data ? data.accessToken : null
         const result = await deleteActivity(token, id)
 
-        // TODO treatment after delete activity
         await loadActivity(token)
       }catch(e: any){
         console.log('error method delete activity', e)
@@ -198,6 +202,83 @@ const useEmploiDuTemps = (
   } 
 
   /**
+   * method handle filter change
+   * @param input 
+   * @param value 
+   */
+  const handleFilterChange = (
+    input: string, 
+    value: string
+  ) => {
+    setQuery((prev: any) => {
+      let tmpPrev = { ...prev }
+      tmpPrev[input] = value
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }
+
+  /**
+   * method submit filter form
+   * @param queryFilter 
+   */
+  const submitFilter = async () => {
+    const token = data ? data.accessToken : null
+    dispatch(setLoadingTreatment(true))
+    try{
+      setFiltered(true)
+      const queryFilter = formatQueryActivityParams(query)
+      await loadActivity(token, {
+        ...queryFilter,
+        page: 1
+      })
+    }catch(e: any){
+      console.log('error method filter activity', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  }
+
+  /**
+   * method reset filter
+   * edited params avoid load activity if filter not submited
+   * @param edited 
+   */
+  const resetFilter = async () => {
+    const token = data ? data.accessToken : null
+    dispatch(setLoadingTreatment(true))
+    
+    try{
+      setQuery(initialeQuery)
+      const queryFilter = formatQueryActivityParams(initialeQuery)
+      if(filtered){
+        await loadActivity(token, {
+          ...queryFilter
+        })
+        setFiltered(false)
+      }
+    }catch(e: any){
+      console.log('error method filter activity', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  }
+
+  /**
    * load activity with query provided
    * @param token 
    * @param query 
@@ -223,7 +304,10 @@ const useEmploiDuTemps = (
     totalItem,
     query,
     handleNavigatePage,
-    handleCancelActivity
+    handleCancelActivity,
+    submitFilter,
+    resetFilter,
+    handleFilterChange
   }
 }
 
@@ -369,8 +453,8 @@ export const useFormActivity = (
       ? { ...initialeData,...toUpdate }
       : { ...initialeData } 
 
-    tmpBody.startDate = !tmpBody.start_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.start_date).format('YYYY-MM-DD hh:mm')
-    tmpBody.endDate = !tmpBody.end_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.end_date).format('YYYY-MM-DD hh:mm')
+    tmpBody.startDate = !tmpBody.startDate ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.startDate).format('YYYY-MM-DD hh:mm')
+    tmpBody.endDate = !tmpBody.endDate ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.endDate).format('YYYY-MM-DD hh:mm')
 
     setBody(tmpBody)
   }, [])

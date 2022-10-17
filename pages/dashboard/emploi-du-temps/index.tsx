@@ -10,6 +10,7 @@ import { getActivities } from '~repositories/activities';
 import { RESPONSE_ATTR } from '~constantes/response-attr';
 import { logOut } from '~lib/auth';
 import PaginationActivity from '~components/emploi-du-temps/pagination';
+import ActivityFilter from '~components/emploi-du-temps/filter';
 
 const EmploiDuTemps: NextPage = (props) => {
   const {
@@ -28,11 +29,20 @@ const EmploiDuTemps: NextPage = (props) => {
     totalItem,
     query: queryActivity,
     handleNavigatePage,
-    handleCancelActivity
+    handleCancelActivity,
+    submitFilter,
+    resetFilter,
+    handleFilterChange
   } = useEmploiDuTemps(listsActivities, total)
 
   return (
     <AdminLayout>
+      <ActivityFilter 
+        filter={queryActivity}
+        submitFilter={submitFilter}
+        resetFilter={resetFilter}
+        handleFilterChange={handleFilterChange}
+      />
       <Card>
         <Card.Header>
           <div className='d-flex justify-content-end align-items-center'>
@@ -43,6 +53,7 @@ const EmploiDuTemps: NextPage = (props) => {
               Nouvelle activité
             </Button>
           </div>
+          
         </Card.Header>
         <Card.Body>
           <ListActivities 
@@ -60,6 +71,8 @@ const EmploiDuTemps: NextPage = (props) => {
           />
         </Card.Footer>
       </Card>
+
+      {/* modal form save activity */}
       <Modal 
         show={create} 
         onHide={hideCreate}
