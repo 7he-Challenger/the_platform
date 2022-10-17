@@ -135,15 +135,15 @@ const CreateEmploiDuTemps = ({
           <Col>
             <Form.Control 
               type="date"
-              value={body.start_date.split(' ')[0] || ''}
-              onChange={(e) => handleDateChange('start_date', e.target.value, 'date')}
+              value={body.startDate.split(' ')[0] || ''}
+              onChange={(e) => handleDateChange('startDate', e.target.value, 'date')}
             />
           </Col>
           <Col>
             <Form.Control 
               type="time"
-              value={body.start_date.split(' ')[1] || ''}
-              onChange={(e) => handleDateChange('start_date', e.target.value, 'time')}
+              value={body.startDate.split(' ')[1] || ''}
+              onChange={(e) => handleDateChange('startDate', e.target.value, 'time')}
             />
           </Col>
         </Row>
@@ -155,15 +155,15 @@ const CreateEmploiDuTemps = ({
           <Col>
             <Form.Control 
               type="date"
-              value={body.end_date.split(' ')[0] || ''}
-              onChange={(e) => handleDateChange('end_date', e.target.value, 'date')}
+              value={body.endDate.split(' ')[0] || ''}
+              onChange={(e) => handleDateChange('endDate', e.target.value, 'date')}
             />
           </Col>
           <Col>
             <Form.Control 
               type="time"
-              value={body.end_date.split(' ')[1] || ''}
-              onChange={(e) => handleDateChange('end_date', e.target.value, 'time')}
+              value={body.endDate.split(' ')[1] || ''}
+              onChange={(e) => handleDateChange('endDate', e.target.value, 'time')}
             />
           </Col>
         </Row>

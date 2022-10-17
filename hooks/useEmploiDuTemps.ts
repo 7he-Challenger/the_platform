@@ -245,8 +245,8 @@ export const useFormActivity = (
     intervenant: '',
     sponsors: [],
     type: 1,
-    start_date: '',
-    end_date: ''
+    startDate: '',
+    endDate: ''
   }
 
   /**
@@ -369,8 +369,8 @@ export const useFormActivity = (
       ? { ...initialeData,...toUpdate }
       : { ...initialeData } 
 
-    tmpBody.start_date = !tmpBody.start_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.start_date).format('YYYY-MM-DD hh:mm')
-    tmpBody.end_date = !tmpBody.end_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.end_date).format('YYYY-MM-DD hh:mm')
+    tmpBody.startDate = !tmpBody.start_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.start_date).format('YYYY-MM-DD hh:mm')
+    tmpBody.endDate = !tmpBody.end_date ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.end_date).format('YYYY-MM-DD hh:mm')
 
     setBody(tmpBody)
   }, [])

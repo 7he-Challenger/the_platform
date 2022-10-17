@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react";
 import { Button, Table } from "react-bootstrap"
 import Style from '~assets/styles/Activity.module.css';
+import { formatDate } from "~lib/format";
 
 type ListActivitiesType = {
   lists: Array<any>,
@@ -40,8 +41,8 @@ const ListActivities = ({
                 <td>{item.title}</td>
                 <td>{item.intervenant}</td>
                 <td>{item.locale}</td>
-                <td>{item.start_date}</td>
-                <td>{item.end_date}</td>
+                <td>{formatDate(item.startDate)}</td>
+                <td>{formatDate(item.endDate)}</td>
                 <td>{item.isEnable == false ? 'Annulé' : ''}</td>
                 <td className={Style.actionContainer}>
                   <div className="d-flex justify-content-around">

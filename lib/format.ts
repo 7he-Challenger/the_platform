@@ -1,5 +1,6 @@
 import { BrundCrumbType } from "~hooks/useBrudcrumb"
 import { GetActivitiesQueryType } from "~repositories/activities"
+import moment from 'moment';
 
 /**
  * format the route path into name title
@@ -70,4 +71,10 @@ export const formatQueryActivityParams = (
   if(query['description']) queryParams['description'] = query['description'];
 
   return queryParams
+}
+
+export const formatDate = (date: string) => {
+  return date 
+    ? moment(date).format('YYYY-MM-DD HH:mm')
+    : ''
 }

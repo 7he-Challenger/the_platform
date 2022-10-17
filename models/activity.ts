@@ -18,6 +18,6 @@ export type ActivityType = {
   intervenant?: string
   sponsors?: Array<string>
   type?: number
-  start_date?: string
-  end_date?: string
+  startDate?: string
+  endDate?: string
 }
