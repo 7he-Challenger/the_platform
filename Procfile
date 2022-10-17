@@ -1,1 +1,1 @@
-web: yarn build && yarn start-deploy 
+web: yarn build && yarn 
