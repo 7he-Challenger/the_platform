@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         <nav>
             <a className="logo" href="#">
                 <div className="logo-container">
-                    <img src="assets/icons/logo.jpg" alt="" width="30"/>
+                    <Image src="assets/icons/logo.jpg" alt="logo TechZara" width="30" height="30"/>
                 </div>
                 <span className="text">TechZara</span>
             </a>
@@ -48,6 +48,15 @@ const Home: NextPage = () => {
                 </li>
             </ul>
         </nav>
+        <div className="switch-mode-btn">
+            <input type="checkbox" className="dark-mode-checkbox-activated"/>
+            <div className="moon">
+                <div className="shadow"></div>
+            </div>
+            <div className="sun">
+                <div className="light"></div>
+            </div>
+        </div>
         <section className="hero">
             <div className="hero-content">
                 <div className="haingo top left">
@@ -69,7 +78,7 @@ const Home: NextPage = () => {
                     </svg>                    
                 </div>
                 <div className="image">
-                    <img src="assets/images/share.svg" alt="share"/>
+                    <Image src="assets/images/share.svg" layout='fill' alt="share"/>
                 </div>
             </div>
         </section>
@@ -163,7 +172,7 @@ const Home: NextPage = () => {
                 </h2>
                 <div className="y-slide-container">
                     <div className="y-slide-item slide1">
-                        <Image src="assets/images/2020.jpg" layout='fill'/>
+                        <Image src="assets/images/2020.jpg" layout='fill' alt="#2020"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #2020
@@ -171,7 +180,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>                    
                     <div className="y-slide-item slide2">
-                        <Image src="assets/images/versera.jpg" layout='fill'/>
+                        <Image src="assets/images/versera.jpg" layout='fill' alt="#birthday"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #birthday
@@ -179,7 +188,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>                    
                     <div className="y-slide-item slide3">
-                        <Image src="assets/images/membres.jpg" layout='fill'/>
+                        <Image src="assets/images/membres.jpg" layout='fill' alt="#members_2022"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #members_2022
@@ -187,7 +196,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>                         
                     <div className="y-slide-item slide4">
-                        <Image src="assets/images/13fo.jpg" layout='fill'/>
+                        <Image src="assets/images/13fo.jpg" layout='fill' alt="#13_fô"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #13_fô
@@ -236,7 +245,7 @@ const Home: NextPage = () => {
                 <div className="copyright">
                     <a className="logo" href="#">
                         <div className="logo-container">
-                            <img src="assets/icons/logo.jpg" alt="" width="30"/>
+                        <Image src="assets/icons/logo.jpg" alt="logo TechZara" width="30" height="30"/>
                         </div>
                         <span className="text">TechZara</span>
                     </a> - &copy; copyright 2022
@@ -246,6 +255,7 @@ const Home: NextPage = () => {
     </div>
     <Script src="js/main.js"></Script>
     <Script src="js/y-slide.js"></Script>
+    <Script src="js/darkmode.js"></Script>
     </div>
   )
 }

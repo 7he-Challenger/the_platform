@@ -8,11 +8,13 @@ $enable-negative-margins: true;
 @import "layout/progress";
 @import "layout/sidebar";
 
+@import 'darkmode';
 @import 'y-slide';
 @import 'partials/variables';
 @import 'partials/globals';
 @import 'partials/loader';
 @import 'partials/nav';
+@import 'partials/switchmode';
 @import 'partials/hero';
 @import 'partials/description';
 @import 'partials/memories';
