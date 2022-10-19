@@ -1,11 +1,19 @@
 .hero{
     width: 100%;
-    background: $black;
+    background: var(--background-2);
     padding: $padding;
     &-content{
         position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        min-height: 485px;
+        border-radius: 10px;
         .haingo{
             position: absolute;
+            z-index: 1;
         }
     
         .top{
@@ -21,12 +29,299 @@
             right: 0;
         }
 
-        .image{
+        .cover-animation{
+            width: 200px;
+            height: 200px;
+            transform: scale(0);
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            background-color: #00a2e8;
+            border-radius: 50%;
+            animation: tz-cover-animation 15s infinite;
+            z-index: 1;
+        }
+
+        .topic-animation{
+            position: absolute;
+            top: 0;
             width: 100%;
-            height: 600px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+
+            &::after{
+                content: "";
+                font-size: xx-large;
+                font-size-adjust: 2;
+                font-weight: bold;
+                font-style: italic;
+                color: var(--text-color);
+                animation: tz-topic-animation 15s infinite;
+            }
+        }
+
+        .image{
             img{
                 width: 100%;
             }
+            &.learn{
+                animation: tz-learn-animation 15s infinite;
+            }
+            &.build{
+                animation: tz-build-animation 15s infinite;
+            }
+            &.share{
+                animation: tz-share-animation 15s infinite;
+            }
         }
+    }
+}
+
+@media(max-width: $mobile){
+    .hero{
+        height: 580px;
+        &-content{
+            .top{
+                top: 10%;
+            }
+            .topic-animation{
+                &::after{
+                    font-size-adjust: 1;
+                }
+            }
+        }
+    }
+}
+
+@keyframes tz-cover-animation {
+    0%{
+        transform: scale(0);
+        top: 0%;
+        bottom: auto;
+        left: 0%;
+        right: auto;
+    }
+    5%{
+        transform: scale(0);
+        background-color: #00a2e8;
+    }
+    10%{
+        transform: scale(30);
+        background-color: var(--background);
+    }
+    15%{
+        transform: scale(0);
+        background-color: #00a2e8;
+        top: 0%;
+        bottom: auto;
+        left: 0%;
+        right: auto;
+    }
+    40%{
+        transform: scale(0);
+        background-color: #00a2e8;
+        top: auto;
+        bottom: 0%;
+        left: auto;
+        right: 0%;
+    }
+    46%{
+        transform: scale(30);
+        background-color: var(--background);
+    }
+    52%{
+        transform: scale(0);
+        background-color: #00a2e8;
+        top: auto;
+        bottom: 0%;
+        left: auto;
+        right: 0%;
+    }
+    70%{
+        transform: scale(0);
+        background-color: #00a2e8;
+        top: auto;
+        bottom: 0%;
+        left: 0%;
+        right: auto;
+    }
+    76%{
+        transform: scale(30);
+        background-color: var(--background);
+    }
+    82%{
+        transform: scale(0);
+        background-color: #00a2e8;
+        top: auto;
+        bottom: 0%;
+        left: 0%;
+        right: auto;
+    }
+    95%{
+        transform: scale(0);
+        background-color: #00a2e8;
+    }
+    100%{
+        transform: scale(0);
+        background-color: #00a2e8;
+    }
+}
+
+@keyframes tz-topic-animation {
+    0%{
+        content: "";
+    }
+    5%{
+        content: "";
+    }
+    10%{
+        content: "build";
+    }
+    15%{
+        content: "";
+    }
+    40%{
+        content: "";
+    }
+    46%{
+        content: "share";
+    }
+    52%{
+        content: "";
+    }
+    70%{
+        content: "";
+    }
+    76%{
+        content: "learn";
+    }
+    82%{
+        content: "";
+    }
+    95%{
+        content: "";
+    }
+    100%{
+        content: "";
+    }
+}
+
+@keyframes tz-learn-animation {
+    0%{
+        visibility: visible;
+    }
+    5%{
+        visibility: visible;
+    }
+    10%{
+        visibility: hidden;
+    }
+    15%{
+        visibility: hidden;
+    }
+    40%{
+        visibility: hidden;
+    }
+    46%{
+        visibility: hidden;
+    }
+    52%{
+        visibility: hidden;
+    }
+    70%{
+        visibility: hidden;
+    }
+    76%{
+        visibility: hidden;
+    }
+    82%{
+        visibility: visible;
+    }
+    95%{
+        visibility: visible;
+    }
+    100%{
+        visibility: visible;
+    }
+}
+
+@keyframes tz-build-animation {
+    0%{
+        visibility: hidden;
+    }
+    5%{
+        visibility: hidden;
+    }
+    10%{
+        visibility: hidden;
+    }
+    15%{
+        visibility: visible;
+    }
+    40%{
+        visibility: visible;
+    }
+    46%{
+        visibility: hidden;
+    }
+    52%{
+        visibility: hidden;
+    }
+    70%{
+        visibility: hidden;
+    }
+    76%{
+        visibility: hidden;
+    }
+    82%{
+        visibility: hidden;
+    }
+    95%{
+        visibility: hidden;
+    }
+    100%{
+        visibility: hidden;
+    }
+}
+
+@keyframes tz-share-animation {
+    0%{
+        visibility: hidden;
+    }
+    5%{
+        visibility: hidden;
+    }
+    10%{
+        visibility: hidden;
+    }
+    15%{
+        visibility: hidden;
+    }
+    40%{
+        visibility: hidden;
+    }
+    46%{
+        visibility: hidden;
+    }
+    52%{
+        visibility: visible;
+    }
+    70%{
+        visibility: visible;
+    }
+    76%{
+        visibility: hidden;
+    }
+    82%{
+        visibility: hidden;
+    }
+    95%{
+        visibility: hidden;
+    }
+    100%{
+        visibility: hidden;
     }
 }
