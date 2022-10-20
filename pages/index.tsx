@@ -11,7 +11,7 @@ const Home: NextPage = () => {
       <Head>
         <title>TechZara Platform</title>
         <meta name="description" content="TechZara Platform app" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Head>
 
       {/* <div className="loader-page">
@@ -77,8 +77,16 @@ const Home: NextPage = () => {
                         <rect y="14" width="165" height="4" fill="#FFD18B"/>
                     </svg>                    
                 </div>
-                <div className="image">
-                    <Image src="assets/images/share.svg" layout='fill' alt="share"/>
+                <div className="cover-animation"></div>
+                <div className="topic-animation"></div>
+                <div className="image learn">
+                    <Image src="assets/images/learn.svg" layout="fill" alt="learn"/>
+                </div>
+                <div className="image build">
+                    <Image src="assets/images/build.svg" layout="fill" alt="build"/>
+                </div>
+                <div className="image share">
+                    <Image src="assets/images/share.svg" layout="fill" alt="share"/>
                 </div>
             </div>
         </section>
@@ -172,7 +180,7 @@ const Home: NextPage = () => {
                 </h2>
                 <div className="y-slide-container">
                     <div className="y-slide-item slide1">
-                        <Image src="assets/images/2020.jpg" layout='fill' alt="#2020"/>
+                        <Image src="assets/images/2020.jpg" layout='fill' objectFit='cover' alt="#2020"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #2020
@@ -180,7 +188,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>                    
                     <div className="y-slide-item slide2">
-                        <Image src="assets/images/versera.jpg" layout='fill' alt="#birthday"/>
+                        <Image src="assets/images/versera.jpg" layout='fill' objectFit='cover' alt="#birthday"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #birthday
@@ -188,7 +196,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>                    
                     <div className="y-slide-item slide3">
-                        <Image src="assets/images/membres.jpg" layout='fill' alt="#members_2022"/>
+                        <Image src="assets/images/membres.jpg" layout='fill' objectFit='cover' alt="#members_2022"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #members_2022
@@ -196,7 +204,7 @@ const Home: NextPage = () => {
                         </div>
                     </div>                         
                     <div className="y-slide-item slide4">
-                        <Image src="assets/images/13fo.jpg" layout='fill' alt="#13_fô"/>
+                        <Image src="assets/images/13fo.jpg" layout='fill' objectFit='cover' alt="#13_fô"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
                                 #13_fô
@@ -253,6 +261,7 @@ const Home: NextPage = () => {
             </div>
         </footer>
     </div>
+    <Script src="js/tz-animation.js"></Script>
     <Script src="js/main.js"></Script>
     <Script src="js/y-slide.js"></Script>
     <Script src="js/darkmode.js"></Script>
