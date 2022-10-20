@@ -35,17 +35,11 @@ const ProfileDropdownItem = (props: NavItemProps) => {
 }
 
 export default function HeaderProfileNav() {
-  const logoutRef = useRef<any>(null)
-
-  useEffect(() => {
-    if(logoutRef.current){
-      const current = logoutRef.current.addEventListener('click', () => {
-        if(confirm('Se deconnecter ?')) {
-          logOut()
-        }
-      })
+  const handleLogout = () => {
+    if(confirm('Se deconnecter ?')) {
+      logOut()
     }
-  }, [logoutRef])
+  }
 
   return (
     <Nav>
@@ -125,8 +119,8 @@ export default function HeaderProfileNav() {
               <ProfileDropdownItem icon={faLock}>Lock Account</ProfileDropdownItem>
             </Dropdown.Item>
           </Link>
-          <div ref={logoutRef}>
-            <Link href="#">
+          <div onClick={handleLogout}>
+            <Link href="#" >
               <Dropdown.Item>
                 <ProfileDropdownItem icon={faPowerOff}>Logout</ProfileDropdownItem>
               </Dropdown.Item>
