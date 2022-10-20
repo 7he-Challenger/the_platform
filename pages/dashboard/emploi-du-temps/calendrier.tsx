@@ -9,15 +9,14 @@ import dynamic from "next/dynamic";
 import { useState } from 'react';
 import { ListGroup, Modal } from 'react-bootstrap';
 import { formatDate, formateActivityType } from '~lib/format';
-const Calendar = dynamic(() => import("~/components/calendar"), {
+const Calendar = dynamic(() => import("../../../components/calendar"), {
   ssr: false
 });
 
-const EmploiDuTemps: NextPage = (props) => {
+const EmploiDuTemps: NextPage = (props: any) => {
   const {
     listsActivities,
-    total
-  } = props as any
+  } = props
 
   const [event, setEvent] = useState<any>(null)
   const showEvent = (event: any) => setEvent(event)
@@ -116,7 +115,7 @@ export const getServerSideProps = async (context: any) => {
   
   // the token to send in axios instance
   try {
-    let activities: { [key: string]: any[] } = await getActivities(session.accessToken)
+    let activities: any = await getActivities(session.accessToken)
 
     return {
       props: {

@@ -1,10 +1,10 @@
-import FullCalendar, { EventClickArg, EventInputTransformer, EventSourceInput } from "@fullcalendar/react";
+import FullCalendar, { EventClickArg, EventInput, EventInputTransformer, EventSourceInput } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 type CalendarProps = {
-  events?: any;
+  events?: EventInput[],
   eventDataTransform?: EventInputTransformer,
   eventClick?: ((arg: EventClickArg) => void)
 };
