@@ -108,14 +108,21 @@ const useEmploiDuTemps = (
   }
 
   const handleCancelActivity = async (
-    id: any 
+    id: any,
+    toggling: boolean = false
   ) => {
-    if(confirm("Annuler l'activité ?")){
+    if(
+      confirm(
+        toggling == false
+          ? "Annuler l'activité ?"
+          : "Confirmer l'activité ?"
+      )
+    ){
       dispatch(setLoadingTreatment(true))
       try{
         const token = data ? data.accessToken : null
         const body = activities.find(item => item.id == id)
-        body.isEnable = false
+        body.isEnable = toggling
         const activity = await saveActivities(token, body, id)
         
         // treatment after save activity

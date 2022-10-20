@@ -1,4 +1,4 @@
-import { faClose, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faCheck, faClose, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react";
 import { Button, Table } from "react-bootstrap"
@@ -63,11 +63,26 @@ const ListActivities = ({
                     </Button>
 
                     <Button
-                      title="Annuler activité"
+                      title={
+                        item.isEnable == false 
+                          ? "Confirmer l'activité"
+                          : "Annuler activité"
+                      }
                       variant="dark"
-                      onClick={() => handleCancel(item.id)}
+                      onClick={() => {
+                        item.isEnable == false 
+                          ? handleCancel(item.id, true)
+                          : handleCancel(item.id)
+                      }}
                     >
-                      <FontAwesomeIcon icon={faClose} size="lg" />
+                      <FontAwesomeIcon 
+                        icon={
+                          item.isEnable == false
+                            ? faCheck
+                            : faClose
+                        } 
+                        size="lg" 
+                      />
                     </Button>
                   </div>
                 </td>
