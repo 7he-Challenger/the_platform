@@ -1,5 +1,8 @@
 import '~assets/styles/globals.scss'
 import '~assets/styles/loader.scss'
+import "@fullcalendar/common/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
 // Next.js allows you to import CSS directly in .js files.
 // It handles optimization and all the necessary Webpack configuration to make this work.
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -9,6 +12,8 @@ import { wrapper } from '~store'
 import LoadingOverlay from '~components/loading-overlay'
 import { SessionProvider } from 'next-auth/react'
 import ToastComponent from '~components/toast'
+
+
 
 
 // You change this configuration value to false so that the Font Awesome core SVG library

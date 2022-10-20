@@ -135,14 +135,16 @@ export default function SidebarNav() {
         Dashboard
         {/* <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small> */}
       </SidebarNavItem>
-      <SidebarNavItem icon={faCalendar} href={ROUTES.emploi_du_temps.path}>
-        Emploi du temps
-      </SidebarNavItem>
+      <SidebarNavGroup toggleIcon={faCalendar} toggleText="Emploi du temps">
+        <SidebarNavItem href={ROUTES.emploi_du_temps.path}>Gestion d'activité</SidebarNavItem>
+        <SidebarNavItem href={ROUTES.calendrier_activity.path}>Calendrier</SidebarNavItem>
+      </SidebarNavGroup>
+
       <SidebarNavTitle>Theme</SidebarNavTitle>
       <SidebarNavItem icon={faDroplet} href="colors.html">Colors</SidebarNavItem>
       <SidebarNavItem icon={faPencil} href="typography.html">Typography</SidebarNavItem>
       <SidebarNavTitle>Components</SidebarNavTitle>
-
+      
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
         <SidebarNavItem href="base/accordion.html">Accordion</SidebarNavItem>
         <SidebarNavItem href="base/breadcrumb.html">Breadcrumb</SidebarNavItem>
