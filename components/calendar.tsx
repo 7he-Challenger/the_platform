@@ -1,13 +1,21 @@
-import FullCalendar, { EventSourceInput } from "@fullcalendar/react";
+import FullCalendar, { EventClickArg, EventInputTransformer, EventSourceInput } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 type CalendarProps = {
   events?: any;
+  eventDataTransform?: EventInputTransformer,
+  eventClick?: ((arg: EventClickArg) => void)
 };
 
-const Calendar = ({ events }: CalendarProps) => {
+const Calendar = ({ 
+  events, 
+  eventDataTransform,
+  eventClick 
+}: CalendarProps) => {
+  const dataTransform = (e: any) => (e)
+
   return (
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -31,13 +39,8 @@ const Calendar = ({ events }: CalendarProps) => {
       navLinks={true}
       initialView="dayGridMonth"
       events={events}
-      eventDataTransform={(e) => {
-        return {
-          ...e,
-          start: e.startDate,
-          end: e.endDate,
-        }
-      }}
+      eventDataTransform={eventDataTransform || dataTransform}
+      eventClick={eventClick}
       dayMaxEvents={2}
     />
   );

@@ -1,6 +1,7 @@
 import { BrundCrumbType } from "~hooks/useBrudcrumb"
 import { GetActivitiesQueryType } from "~repositories/activities"
 import moment from 'moment';
+import { ACTIVITY_TYPES } from "~constantes/datas";
 
 /**
  * format the route path into name title
@@ -77,4 +78,9 @@ export const formatDate = (date: string) => {
   return date 
     ? moment(date).format('YYYY-MM-DD HH:mm')
     : ''
+}
+
+export const formateActivityType = (type: number) => {
+  let activityType: any = ACTIVITY_TYPES.find(item => item.value == type)
+  return activityType.name
 }
