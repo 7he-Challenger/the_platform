@@ -1,5 +1,7 @@
+$transitionTime: 0.4s;
+
 *{
-    transition: color 1s, background-color 1s;
+    transition: color $transitionTime, background-color $transitionTime;
 }
 
 .switch-mode-btn{
@@ -31,7 +33,7 @@
         background: $white;
         border: 5px solid $black;
         border-radius: 50%;
-        transition: bottom 1s;
+        transition: bottom $transitionTime;
 
         .shadow{
             width: 100%;
@@ -51,7 +53,7 @@
         background: $black;
         border: 5px solid $white;
         border-radius: 50%;
-        transition: top 1s;
+        transition: top $transitionTime;
         
         .light{
             width: 100%;

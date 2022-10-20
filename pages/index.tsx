@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import Image from 'next/image'
 import styles from '~assets/styles/Home.module.css'
 import Script from 'next/script'
@@ -11,7 +12,7 @@ const Home: NextPage = () => {
       <Head>
         <title>TechZara Platform</title>
         <meta name="description" content="TechZara Platform app" />
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/assets/icons/logo.png" />
       </Head>
 
       {/* <div className="loader-page">
@@ -23,7 +24,7 @@ const Home: NextPage = () => {
             </div>
         </div>
     </div> */}
-    <div className="container">
+    <div className="container flex">
         <nav>
             <a className="logo" href="#">
                 <div className="logo-container">
@@ -38,13 +39,13 @@ const Home: NextPage = () => {
             </div>
             <ul className="menu">
                 <li>
-                    <a href="#">Log in</a>
+                    <Link href="/login">Log in</Link>
                 </li>
                 <li>
-                    <a href="#">Sign up</a>
+                    <Link href="">Sign up</Link>
                 </li>
                 <li>
-                    <a href="#contact">Contact</a>
+                    <Link href="#contact">Contact</Link>
                 </li>
             </ul>
         </nav>
@@ -261,10 +262,10 @@ const Home: NextPage = () => {
             </div>
         </footer>
     </div>
-    <Script src="js/tz-animation.js"></Script>
-    <Script src="js/main.js"></Script>
-    <Script src="js/y-slide.js"></Script>
-    <Script src="js/darkmode.js"></Script>
+    <Script src="js/tz-animation.js" strategy='lazyOnload'></Script>
+    <Script src="js/main.js" strategy='lazyOnload'></Script>
+    <Script src="js/y-slide.js" strategy='lazyOnload'></Script>
+    <Script src="js/darkmode.js" strategy='lazyOnload'></Script>
     </div>
   )
 }
