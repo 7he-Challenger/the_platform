@@ -1,4 +1,4 @@
-import { faCheck, faClose, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faBan, faCheck, faClose, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react";
 import { Button, Table } from "react-bootstrap"
@@ -43,7 +43,26 @@ const ListActivities = ({
                 <td>{item.locale}</td>
                 <td>{formatDate(item.startDate)}</td>
                 <td>{formatDate(item.endDate)}</td>
-                <td>{item.isEnable == false ? 'Annulé' : ''}</td>
+                <td>
+                  <FontAwesomeIcon 
+                    title={
+                      item.isEnable == false
+                        ? "Annulé"
+                        : "Validé"
+                    }
+                    icon={
+                      item.isEnable == false
+                        ? faBan
+                        : faCheck
+                    } 
+                    size="lg" 
+                    color={
+                      item.isEnable == false
+                        ? 'red'
+                        : 'green'
+                    }
+                  />
+                </td>
                 <td className={Style.actionContainer}>
                   <div className="d-flex justify-content-around">
                     <Button
