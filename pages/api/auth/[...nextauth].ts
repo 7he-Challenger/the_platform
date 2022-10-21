@@ -46,19 +46,20 @@ export default NextAuth({
       }
       return token;
     },
-
-      
-      redirect({
-        url,
-        baseUrl
-      }){
-        return baseUrl
-      }
+    redirect({
+      url,
+      baseUrl
+    }){
+      return baseUrl
+    }
   },
   // use env variable in production
   secret: "looselipssinkships",
   session: {
     maxAge: 3600,
-    // strategy: 'database'
+    strategy: 'jwt'
+  },
+  jwt: {
+    maxAge: 3600,
   }
 });

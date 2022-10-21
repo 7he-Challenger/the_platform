@@ -57,10 +57,8 @@ export default function AdminLayout({ children }: PropsWithChildren) {
 
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <Header toggleSidebar={toggleIsShowSidebar} toggleSidebarMd={toggleIsShowSidebarMd} />
-        <div className="body flex-grow-1 px-3">
-          <Container fluid="lg">
-            {children}
-          </Container>
+        <div className="body flex-grow-1 px-3 py-3">
+          {children}
         </div>
         <Footer />
       </div>

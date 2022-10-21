@@ -18,6 +18,7 @@ import {
   faPencil,
   faPuzzlePiece,
   faRightToBracket,
+  faCalendar
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   PropsWithChildren, useContext, useEffect, useState,
@@ -27,6 +28,7 @@ import {
 } from 'react-bootstrap'
 import classNames from 'classnames'
 import Link from 'next/link'
+import ROUTES from '~constantes/routes'
 
 type SidebarNavItemProps = {
   href: string;
@@ -129,19 +131,20 @@ const SidebarNavGroup = (props: SidebarNavGroupProps) => {
 export default function SidebarNav() {
   return (
     <ul className="list-unstyled">
-      <SidebarNavItem icon={faGauge} href="/">
+      <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>
         Dashboard
-        <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
+        {/* <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small> */}
       </SidebarNavItem>
-      <SidebarNavItem icon={faCode} href="/pokemons">
-        Sample
-        <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
-      </SidebarNavItem>
+      <SidebarNavGroup toggleIcon={faCalendar} toggleText="Emploi du temps">
+        <SidebarNavItem href={ROUTES.emploi_du_temps.path}>Gestion d'activité</SidebarNavItem>
+        <SidebarNavItem href={ROUTES.calendrier_activity.path}>Calendrier</SidebarNavItem>
+      </SidebarNavGroup>
+
       <SidebarNavTitle>Theme</SidebarNavTitle>
       <SidebarNavItem icon={faDroplet} href="colors.html">Colors</SidebarNavItem>
       <SidebarNavItem icon={faPencil} href="typography.html">Typography</SidebarNavItem>
       <SidebarNavTitle>Components</SidebarNavTitle>
-
+      
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
         <SidebarNavItem href="base/accordion.html">Accordion</SidebarNavItem>
         <SidebarNavItem href="base/breadcrumb.html">Breadcrumb</SidebarNavItem>

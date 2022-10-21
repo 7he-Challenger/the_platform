@@ -4,6 +4,7 @@ import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { alertErrorOccured } from "~lib/alert";
 
 /**
  * hooks logis page login
@@ -127,7 +128,7 @@ const useLogin = () => {
       }
     }catch(e){
       console.log('error login submit', e)
-      alert('An error has occured')
+      alertErrorOccured()
     }finally{
       dispatch(setLoadingTreatment(false))
     }

@@ -12,13 +12,17 @@ import Axios from 'axios';
  * Component example way can be used on custom hooks
  */
 
-const axiosInstance = (token = null) => {
+const axiosInstance = (
+  token: string | null = null,
+  accept: boolean = false
+) => {
   const option = token ? {
-    Accept: 'application/json',
-    'Content-type': 'application/json',
+    Accept: accept ? 'application/ld+json' : 'application/json',
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`
   } : {
-    Accept: 'application/json'
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   }
 
   const axios = Axios.create({
