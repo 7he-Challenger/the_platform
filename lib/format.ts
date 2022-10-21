@@ -2,6 +2,7 @@ import { BrundCrumbType } from "~hooks/useBrudcrumb"
 import { GetActivitiesQueryType } from "~repositories/activities"
 import moment from 'moment';
 import { ACTIVITY_TYPES } from "~constantes/datas";
+import { GetUserQueryType } from "~repositories/user";
 
 /**
  * format the route path into name title
@@ -70,6 +71,23 @@ export const formatQueryActivityParams = (
   if(query['startDate[strictily_after]']) queryParams['startDate[strictily_after]'] = query['startDate[strictily_after]'];
   if(query['title']) queryParams['title'] = query['title'];
   if(query['description']) queryParams['description'] = query['description'];
+
+  return queryParams
+}
+
+/**
+ * format the query from url to query params of get users
+ * @param query 
+ */
+export const formatQueryUserParams = (
+  query: any 
+) => {
+  const queryParams: GetUserQueryType = {}
+  if(query['page']) queryParams['page'] = query['page'];
+  if(query['username']) queryParams['username'] = query['username'];
+  if(query['firstname']) queryParams['firstname'] = query['firstname'];
+  if(query['lastname']) queryParams['lastname'] = query['lastname'];
+  if(query['isEnable']) queryParams['isEnable'] = query['isEnable'];
 
   return queryParams
 }

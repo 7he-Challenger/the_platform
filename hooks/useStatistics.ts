@@ -10,6 +10,14 @@ const initialLabel = {
 }
 
 const useStatistics = () => {
+  /**
+   * state list user 
+   */
+  const [users, setUsers] = useState<Array<any>>([])
+
+  /**
+   * state for the chart 
+   */
   const [labelsYear, setLabelYear] = useState<Array<any>>(years);
   const [labelsMonth, setLabelMonth] = useState<Array<any>>(months);
   const [labesType, setLabelTypes] = useState<Array<any>>(types);
@@ -17,11 +25,16 @@ const useStatistics = () => {
   const [dataMonth, setDataMonth] = useState<any>(initialLabel)
   const [dataTypes, setDataTypes] = useState<any>(initialLabel)
 
+  const [loading, setLoading] = useState<boolean>(false)
+
   const options: any = {
     responsive: true
   }
 
-  useEffect(() => {
+  const loadUserList = async () => {
+    
+  }
+  const filterUserByYear = () => {
     setDataYear({
       labels: labelsYear,
       datasets: [
@@ -32,7 +45,9 @@ const useStatistics = () => {
         }
       ]
     })
+  }
 
+  const filterUserByMonth = () => {
     setDataMonth({
       labels: labelsMonth,
       datasets: [
@@ -43,12 +58,14 @@ const useStatistics = () => {
         }
       ]
     })
+  }
 
+  const filterUserByActivity = () => {
     setDataTypes({
       labels: labesType,
       datasets: [
         {
-          data: labesType.map(item => (10)),
+          data: [10, 30, 5],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -63,7 +80,13 @@ const useStatistics = () => {
         },
       ],
     })
-  }, [])
+  }
+
+  useEffect(() => {
+    filterUserByYear()
+    filterUserByMonth()
+    filterUserByActivity()
+  }, [users])
 
   return {
     dataYear,
