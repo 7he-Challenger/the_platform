@@ -18,7 +18,8 @@ import {
   faPencil,
   faPuzzlePiece,
   faRightToBracket,
-  faCalendar
+  faCalendar,
+  faUserFriends
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   PropsWithChildren, useContext, useEffect, useState,
@@ -136,14 +137,13 @@ export default function SidebarNav() {
         {/* <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small> */}
       </SidebarNavItem>
       <SidebarNavGroup toggleIcon={faCalendar} toggleText="Emploi du temps">
-        <SidebarNavItem href={ROUTES.emploi_du_temps.path}>Gestion d'activité</SidebarNavItem>
+        <SidebarNavItem href={ROUTES.emploi_du_temps.path}>Gestion d&rsquo;activité</SidebarNavItem>
         <SidebarNavItem href={ROUTES.calendrier_activity.path}>Calendrier</SidebarNavItem>
       </SidebarNavGroup>
 
-      <SidebarNavTitle>Theme</SidebarNavTitle>
-      <SidebarNavItem icon={faDroplet} href="colors.html">Colors</SidebarNavItem>
-      <SidebarNavItem icon={faPencil} href="typography.html">Typography</SidebarNavItem>
-      <SidebarNavTitle>Components</SidebarNavTitle>
+      <SidebarNavTitle>Membre</SidebarNavTitle>
+      <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>Liste des membres</SidebarNavItem>
+      {/* <SidebarNavTitle>Components</SidebarNavTitle>
       
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
         <SidebarNavItem href="base/accordion.html">Accordion</SidebarNavItem>
@@ -210,7 +210,7 @@ export default function SidebarNav() {
       </SidebarNavGroup>
 
       <SidebarNavItem icon={faFileLines} href="docs.html">Docs</SidebarNavItem>
-      <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">Try CoreUI PRO</SidebarNavItem>
+      <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">Try CoreUI PRO</SidebarNavItem> */}
     </ul>
   )
 }
