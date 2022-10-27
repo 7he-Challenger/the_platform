@@ -1,0 +1,7 @@
+const ROLES = {
+  ROLE_ADMIN: 'ROLE_ADMIN',
+  ROLE_USER: 'ROLE_USER',
+  ROLE_MEMBER: 'ROLE_MEMBER',
+}
+
+export default ROLES

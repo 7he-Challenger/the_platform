@@ -3,6 +3,7 @@ import { GetActivitiesQueryType } from "~repositories/activities"
 import moment from "~lib/moment";
 import { ACTIVITY_TYPES } from "~constantes/datas";
 import { GetPresenceQueryType, GetUserQueryType } from "~repositories/user";
+import ROLES from "~constantes/roles";
 
 /**
  * format the route path into name title
@@ -121,6 +122,10 @@ export const formateActivityType = (type: number) => {
   return activityType.name
 }
 
+/**
+ * format presences for statistics
+ * @param presences 
+ */
 export const formatPresenceData = (presences: Array<any>) => {
   const months = moment.monthsShort()
   // get presence statistics for date
@@ -161,3 +166,53 @@ export const formatPresenceData = (presences: Array<any>) => {
 export const getPresenceByYear = (presences: Array<any>) => {
   return presences.filter(item => moment(item.date).isSame(new Date(), 'year'))
 } 
+
+/**
+ * format list users to get registered member only
+ * @param users 
+ */
+export const formatRegisteredMember = (
+  users: Array<any>
+) => {
+  return users.reduce((acc, item) => {
+    if(item.roles.includes(ROLES.ROLE_MEMBER)) acc.push(item)
+    return acc
+  }, [])
+}
+
+export const formatStatisticsRegisteredMember = (
+  users: Array<any>,
+  years: Array<any>,
+  months: Array<any>
+) => {
+  const valueYear = Array.from({length: years.length}, (_,i) => (0))
+  const valueMonth = Array.from({length: months.length}, (_,i) => (0))
+  
+  const registeredYear = users.reduce((acc, item) => {
+    const date = parseInt(moment(item.createdAt).format('YYYY'))
+    const index = years.findIndex(el => el == date)
+    acc[index] = acc[index] + 1;
+    return acc
+  }, [...valueYear])
+
+  const registeredMonth = getMemberYear(users).reduce((acc: any, item: any) => {
+    const date = parseInt(moment(item.createdAt).format('MMM'))
+    const index = months.findIndex(el => el == date)
+    acc[index] = acc[index] + 1;
+    return acc
+  }, [...valueYear])
+
+  return {
+    registeredYear,
+    registeredMonth
+  }
+}
+
+export const getMemberYear = (
+  users: Array<any>
+) => {
+  return users.reduce((acc, item) => {
+    if(moment(item.createdAt).isSame(new Date(), 'year')) acc.push(item)
+    return acc
+  }, [])
+}

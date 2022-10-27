@@ -1,12 +1,11 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { PRESENCE_TEMPLATE } from "~constantes/datas";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
-import { formatPresenceData, formatQueryPresenceParams } from "~lib/format";
+import { formatPresenceData, formatQueryPresenceParams, formatRegisteredMember, formatStatisticsRegisteredMember } from "~lib/format";
 import moment from "~lib/moment";
-import { getAllPresence } from "~repositories/user";
+import { getAllPresence, getAllUser } from "~repositories/user";
 import { RESPONSE_ATTR } from '~constantes/response-attr';
 import { generateListYear } from "~lib/generator";
 
@@ -19,6 +18,7 @@ const initialLabel = {
 }
 
 export const useStatistics = () => {
+  const { data, status }: any = useSession()
   /**
    * state list user 
    */
@@ -41,28 +41,60 @@ export const useStatistics = () => {
   }
 
   const loadUserList = async () => {
-    
+    setLoading(true)
+    try{
+      const token = data ? data.accessToken : null
+      const result = await getAllUser(token)
+      setUsers(result[RESPONSE_ATTR.data])
+    }catch(e: any){
+      console.log('error load user', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      setLoading(false)
+    }
   }
-  const filterUserByYear = () => {
+
+  const filterStatistics = () => {
+    const lists = formatRegisteredMember(users)
+    const {
+      registeredYear,
+      registeredMonth
+    } = formatStatisticsRegisteredMember(
+      lists,
+      years,
+      months
+    )
+    filterUserByYear(registeredYear)
+    filterUserByMonth(registeredMonth)
+    filterUserByActivity()
+  }
+
+  const filterUserByYear = (registeredYear: any) => {
+    
     setDataYear({
       labels: labelsYear,
       datasets: [
         {
           label: 'Membre inscrit',
-          data: years.map(() => (10)),
+          data: registeredYear,
           backgroundColor: 'rgba(18, 200, 255, 0.5)',
         }
       ]
     })
   }
 
-  const filterUserByMonth = () => {
+  const filterUserByMonth = (registeredMonth: any) => {
     setDataMonth({
       labels: labelsMonth,
       datasets: [
         {
           label: 'Membre inscrit',
-          data: labelsMonth.map(() => (10)),
+          data: registeredMonth,
           backgroundColor: 'rgba(18, 200, 255, 0.5)',
         }
       ]
@@ -92,10 +124,12 @@ export const useStatistics = () => {
   }
 
   useEffect(() => {
-    filterUserByYear()
-    filterUserByMonth()
-    filterUserByActivity()
+    filterStatistics()
   }, [users])
+
+  useEffect(() => {
+    loadUserList()
+  }, [])
 
   return {
     dataYear,
