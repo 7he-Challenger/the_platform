@@ -3,7 +3,7 @@ import { AdminLayout } from '~layout'
 import {
   Card, Col, Row,
 } from 'react-bootstrap'
-import { Bar, Pie } from 'react-chartjs-2'
+import { Bar, Line, Pie } from 'react-chartjs-2'
 import {
   BarElement,
   CategoryScale,
@@ -14,10 +14,10 @@ import {
   PointElement,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
 } from 'chart.js'
 import React from 'react'
-import useStatistics from '~hooks/useStatistics'
+import { usePresenceStatistics, useStatistics } from '~hooks/useStatistics'
 
 Chart.register(
   CategoryScale, 
@@ -31,6 +31,8 @@ Chart.register(
   ArcElement
 )
 
+const random = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min)
+
 const Home: NextPage = () => {
   const {
     dataYear,
@@ -38,6 +40,12 @@ const Home: NextPage = () => {
     dataTypes,
     options
   } = useStatistics();
+
+  const {
+    options: optionPresence,
+    dataPresence,
+    dataAveragePresence
+  } = usePresenceStatistics()
 
   return (
     <AdminLayout>
@@ -119,6 +127,60 @@ const Home: NextPage = () => {
                     data={dataTypes} 
                   />
                </div>
+              </div>
+                
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col lg={12}>
+          <Card className="mb-4">
+            <Card.Body>
+              <div className="d-flex justify-content-between">
+                <div>
+                  <h4 className="mb-0">
+                    Statistique présence membres 
+                  </h4>
+                </div>
+              </div>
+              <div
+                style={{
+                  marginTop: '40px',
+                  height: '200px'
+                }}
+                className="d-flex justify-content-center"
+              >
+                <Line
+                  data={dataPresence}
+                  options={optionPresence}
+                />
+              </div>
+                
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col lg={12}>
+          <Card className="mb-4">
+            <Card.Body>
+              <div className="d-flex justify-content-between">
+                <div>
+                  <h4 className="mb-0">
+                    Statistique présence moyenne membres cette année
+                  </h4>
+                </div>
+              </div>
+              <div
+                style={{
+                  marginTop: '40px',
+                  height: '200px'
+                }}
+                className="d-flex justify-content-center"
+              >
+                <Line
+                  data={dataAveragePresence}
+                  options={optionPresence}
+                />
               </div>
                 
             </Card.Body>

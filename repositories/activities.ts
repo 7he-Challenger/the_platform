@@ -4,9 +4,9 @@ import axiosInstance from "~lib/axios"
 export type GetActivitiesQueryType = {
   page?: number,
   'startDate[before]'?: string | null,
-  'startDate[strictily_before]'?: string | null,
+  'startDate[strictly_after]'?: string | null,
   'startDate[after]'?: string | null,
-  'startDate[strictily_after]'?: string | null,
+  'startDate[strictly_before]'?: string | null,
   title?: string | null,
   description?: string | null
 }

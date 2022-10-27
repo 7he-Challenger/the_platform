@@ -1,8 +1,8 @@
 import { BrundCrumbType } from "~hooks/useBrudcrumb"
 import { GetActivitiesQueryType } from "~repositories/activities"
-import moment from 'moment';
+import moment from "~lib/moment";
 import { ACTIVITY_TYPES } from "~constantes/datas";
-import { GetUserQueryType } from "~repositories/user";
+import { GetPresenceQueryType, GetUserQueryType } from "~repositories/user";
 
 /**
  * format the route path into name title
@@ -66,9 +66,9 @@ export const formatQueryActivityParams = (
 
   if(query['page']) queryParams['page'] = query['page'];
   if(query['startDate[before]']) queryParams['startDate[before]'] = query['startDate[before]'];
-  if(query['startDate[strictily_before]']) queryParams['startDate[strictily_before]'] = query['startDate[strictily_before]'];
+  if(query['startDate[strictly_before]']) queryParams['startDate[strictly_after]'] = query['startDate[strictly_before]'];
   if(query['startDate[after]']) queryParams['startDate[after]'] = query['startDate[after]'];
-  if(query['startDate[strictily_after]']) queryParams['startDate[strictily_after]'] = query['startDate[strictily_after]'];
+  if(query['startDate[strictly_after]']) queryParams['startDate[strictly_after]'] = query['startDate[strictly_after]'];
   if(query['title']) queryParams['title'] = query['title'];
   if(query['description']) queryParams['description'] = query['description'];
 
@@ -92,6 +92,24 @@ export const formatQueryUserParams = (
   return queryParams
 }
 
+/**
+ * format the query from url to query params of get activities
+ * @param query 
+ */
+ export const formatQueryPresenceParams = (
+  query: any
+) => {
+  const queryParams: GetPresenceQueryType = {}
+
+  if(query['page']) queryParams['page'] = query['page'];
+  
+  if(query['date[strictly_after]']) queryParams['date[strictly_after]'] = query['startDate[strictly_after]'];
+  if(query['isPresent'] != null) queryParams['isPresent'] = query['isPresent'];
+  if(query['user.username']) queryParams['user.username'] = query['user.username'];
+
+  return queryParams
+}
+
 export const formatDate = (date: string) => {
   return date 
     ? moment(date).format('YYYY-MM-DD HH:mm')
@@ -102,3 +120,44 @@ export const formateActivityType = (type: number) => {
   let activityType: any = ACTIVITY_TYPES.find(item => item.value == type)
   return activityType.name
 }
+
+export const formatPresenceData = (presences: Array<any>) => {
+  const months = moment.monthsShort()
+  // get presence statistics for date
+  const presence = presences.reduce((acc, item) => {
+    const date = moment(item.date).format('YYYY-MM-DD')
+    const indexLabel = acc.labels.findIndex((el: string) => el == date)
+    if(indexLabel > -1){
+      acc.counts[indexLabel] = acc.counts[indexLabel] != undefined
+        ? acc.counts[indexLabel] + 1
+        : 1
+    }else{
+      acc.counts.push(1)
+      acc.labels.push(date)
+    }
+
+    return acc
+  }, {
+    labels: [],
+    counts: []
+  })
+
+  // get average presence of current year by month
+  const averagePresence = getPresenceByYear(presences).reduce((acc, item) => {
+    const date = moment(item.date).format('MMM')
+    const indexLabel = months.findIndex((el: string) => el == date)
+    if(indexLabel > -1){
+      acc[indexLabel] = acc[indexLabel] + 1
+    }
+    return acc
+  }, months.map(() => (0)))
+  
+  return {
+    presence,
+    averagePresence
+  }
+}
+
+export const getPresenceByYear = (presences: Array<any>) => {
+  return presences.filter(item => moment(item.date).isSame(new Date(), 'year'))
+} 

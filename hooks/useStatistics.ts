@@ -1,7 +1,16 @@
-import moment from "moment";
-import { useEffect, useState } from "react";
 
-const years = ['2017', '2018', '2019', '2020', '2021', '2022'];
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { PRESENCE_TEMPLATE } from "~constantes/datas";
+import { alertErrorOccured, alertErrorToken } from "~lib/alert";
+import { logOut } from "~lib/auth";
+import { formatPresenceData, formatQueryPresenceParams } from "~lib/format";
+import moment from "~lib/moment";
+import { getAllPresence } from "~repositories/user";
+import { RESPONSE_ATTR } from '~constantes/response-attr';
+import { generateListYear } from "~lib/generator";
+
+const years = generateListYear(2017, parseInt(moment().format('YYYY')));
 const months = moment.monthsShort()
 const types = ['Etudiants', 'Travaillants', 'Etudiant et travaillant']
 const initialLabel = {
@@ -9,7 +18,7 @@ const initialLabel = {
  datasets: []   
 }
 
-const useStatistics = () => {
+export const useStatistics = () => {
   /**
    * state list user 
    */
@@ -96,4 +105,132 @@ const useStatistics = () => {
   }
 }
 
-export default useStatistics;
+export const usePresenceStatistics = () => {
+  const { data, status }: any = useSession()
+  /**
+   * state list user 
+   */
+  const [presence, setPresence] = useState<Array<any>>([])
+
+  /**
+   * state for the chart 
+   */
+  const [dataPresence, setDatapresence] = useState<any>(initialLabel)
+  const [dataAveragePresence, setAverageDatapresence] = useState<any>(initialLabel)
+
+  const [loading, setLoading] = useState<boolean>(false)
+
+  /**
+   * options for graph
+   */
+  const options: any = {
+    maintainAspectRatio: false,
+    stacked: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          drawOnChartArea: false,
+        },
+        position: 'bottom' as const
+      },
+      y: {
+        beginAtZero: true,
+        // max: 250,
+        ticks: {
+          maxTicksLimit: 5,
+          stepSize: 25,
+        },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        radius: 0,
+        hitRadius: 10,
+        hoverRadius: 4,
+        hoverBorderWidth: 3,
+      },
+    },
+  }
+
+  const loadUserList = async () => {
+    setLoading(true)
+    try{
+      const token = data ? data.accessToken : null
+      const query = {
+        isPresent: 1,
+        'date[strictly_after]': moment().subtract(1,'year').endOf('year').format('YYYY-MM-DD')
+      }
+      const result = await getAllPresence(token, formatQueryPresenceParams(query))
+      setPresence(result[RESPONSE_ATTR.data])
+    }catch(e: any){
+      console.log('error load user', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      setLoading(false)
+    }
+  }
+
+  const filterUserPresence = () => {
+    const {
+      presence: presenceMember,
+      averagePresence
+    } = formatPresenceData(presence);
+    setDatapresence({
+      labels: presenceMember.labels,
+      datasets: [
+        {
+          label: 'Membre présent',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          borderColor: 'rgba(13, 202, 240, 1)',
+          pointHoverBackgroundColor: '#fff',
+          borderWidth: 1,
+          data: presenceMember.counts,
+          xAxisId: 'x'
+        }
+      ]
+    })
+
+    setAverageDatapresence({
+      labels: months,
+      datasets: [
+        {
+          label: 'Membre présent',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          borderColor: 'rgba(13, 202, 240, 1)',
+          pointHoverBackgroundColor: '#fff',
+          borderWidth: 1,
+          data: averagePresence,
+          xAxisId: 'x'
+        }
+      ]
+    })
+  }
+
+  useEffect(() => {
+    filterUserPresence()
+  }, [presence])
+
+  useEffect(() => {
+    loadUserList()
+  }, [])
+
+  return {
+    dataPresence,
+    dataAveragePresence,
+    options,
+    loading
+  }
+}

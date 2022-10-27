@@ -9,6 +9,13 @@ export type GetUserQueryType = {
   isEnable?: boolean | null,
 }
 
+export type GetPresenceQueryType = {
+  page?: number,
+  isPresent?: 0 | 1 | null,
+  'user.username'?: string | null,
+  'date[strictly_after]'?: string | null,
+}
+
 /**
  * get all users list
  * @param token 
@@ -29,6 +36,31 @@ export const getAllUser = async (
     return result.data
   }catch(e: any){
     console.log('error get activities')
+    throw e
+  }
+}
+
+/**
+ * get all presence
+ * @param token 
+ * @param query 
+ */
+export const getAllPresence = async (
+  token: string,
+  query?: GetPresenceQueryType
+) => {
+  const axios = axiosInstance(token, true)
+
+  try{
+    const result = await axios.get(
+      ENDPOINT.PRESENCES,
+      {
+        params: query ? { ...query } : null
+      }
+    )
+    return result.data
+  }catch(e: any){
+    console.log('error get presences year')
     throw e
   }
 }
