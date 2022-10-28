@@ -3,15 +3,16 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
-import { formatPresenceData, formatQueryPresenceParams, formatRegisteredMember, formatStatisticsRegisteredMember } from "~lib/format";
+import { formatPresenceData, formatQueryPresenceParams, formatQueryUserParams, formatRegisteredMember, formatStatisticsRegisteredMember } from "~lib/format";
 import moment from "~lib/moment";
 import { getAllPresence, getAllUser } from "~repositories/user";
 import { RESPONSE_ATTR } from '~constantes/response-attr';
 import { generateListYear } from "~lib/generator";
+import ROLES from "~constantes/roles";
 
 const years = generateListYear(2017, parseInt(moment().format('YYYY')));
 const months = moment.monthsShort()
-const types = ['Etudiants', 'Travaillants', 'Etudiant et travaillant']
+const types = ['Etudiants', 'Employés', 'Autodidactes', 'Chômeurs']
 const initialLabel = {
  labels: [],
  datasets: []   
@@ -44,7 +45,10 @@ export const useStatistics = () => {
     setLoading(true)
     try{
       const token = data ? data.accessToken : null
-      const result = await getAllUser(token)
+      const query = {
+        roleInt: ROLES.ROLE_MEMBER
+      }
+      const result = await getAllUser(token, formatQueryUserParams(query))
       setUsers(result[RESPONSE_ATTR.data])
     }catch(e: any){
       console.log('error load user', e)
@@ -63,15 +67,17 @@ export const useStatistics = () => {
     const lists = formatRegisteredMember(users)
     const {
       registeredYear,
-      registeredMonth
+      registeredMonth,
+      registeredType
     } = formatStatisticsRegisteredMember(
       lists,
       years,
-      months
+      months,
+      types
     )
     filterUserByYear(registeredYear)
     filterUserByMonth(registeredMonth)
-    filterUserByActivity()
+    filterUserByActivity(registeredType)
   }
 
   const filterUserByYear = (registeredYear: any) => {
@@ -101,21 +107,23 @@ export const useStatistics = () => {
     })
   }
 
-  const filterUserByActivity = () => {
+  const filterUserByActivity = (registeredType: any) => {
     setDataTypes({
       labels: labesType,
       datasets: [
         {
-          data: [10, 30, 5],
+          data: registeredType,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)'
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(10, 86, 132, 0.2)'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)'
+            'rgba(255, 206, 86, 1)',
+            'rgba(10, 86, 132, 1)'
           ],
           borderWidth: 1,
         },
@@ -128,14 +136,15 @@ export const useStatistics = () => {
   }, [users])
 
   useEffect(() => {
-    loadUserList()
-  }, [])
+    if(data != undefined) loadUserList()
+  }, [data])
 
   return {
     dataYear,
     dataMonth,
     dataTypes,
-    options
+    options,
+    loading
   }
 }
 
@@ -258,8 +267,8 @@ export const usePresenceStatistics = () => {
   }, [presence])
 
   useEffect(() => {
-    loadUserList()
-  }, [])
+    if(data != undefined) loadUserList()
+  }, [data])
 
   return {
     dataPresence,

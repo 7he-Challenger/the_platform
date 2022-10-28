@@ -18,6 +18,7 @@ import {
 } from 'chart.js'
 import React from 'react'
 import { usePresenceStatistics, useStatistics } from '~hooks/useStatistics'
+import LoadingSection from '~components/loading-section'
 
 Chart.register(
   CategoryScale, 
@@ -38,19 +39,21 @@ const Home: NextPage = () => {
     dataYear,
     dataMonth,
     dataTypes,
-    options
+    options,
+    loading: loadingUser
   } = useStatistics();
 
   const {
     options: optionPresence,
     dataPresence,
-    dataAveragePresence
+    dataAveragePresence,
+    loading: loadingPresence
   } = usePresenceStatistics()
 
   return (
     <AdminLayout>
       <Row>
-        <Col lg={6}>
+        <Col lg={6} className="position-relative">
           <Card className="mb-4">
             <Card.Body>
               <div className="d-flex justify-content-between">
@@ -70,12 +73,16 @@ const Home: NextPage = () => {
                   data={dataYear} 
                 />
               </div>
-                
             </Card.Body>
           </Card>
+          {
+            loadingUser && (
+              <LoadingSection />
+            )
+          }
         </Col>
 
-        <Col lg={6}>
+        <Col lg={6} className="position-relative">
           <Card className="mb-4">
             <Card.Body>
               <div className="d-flex justify-content-between">
@@ -95,12 +102,17 @@ const Home: NextPage = () => {
                   data={dataMonth} 
                 />
               </div>
-                
+              
             </Card.Body>
           </Card>
+          {
+            loadingUser && (
+              <LoadingSection />
+            )
+          }
         </Col>
 
-        <Col lg={12}>
+        <Col lg={12} className="position-relative">
           <Card className="mb-4">
             <Card.Body>
               <div className="d-flex justify-content-between">
@@ -123,17 +135,21 @@ const Home: NextPage = () => {
                   }}
                >
                 <Pie 
-                    options={options} 
-                    data={dataTypes} 
-                  />
+                  options={options} 
+                  data={dataTypes} 
+                />
                </div>
               </div>
-                
             </Card.Body>
           </Card>
+          {
+            loadingUser && (
+              <LoadingSection />
+            )
+          }  
         </Col>
 
-        <Col lg={12}>
+        <Col lg={12} className="position-relative">
           <Card className="mb-4">
             <Card.Body>
               <div className="d-flex justify-content-between">
@@ -155,12 +171,16 @@ const Home: NextPage = () => {
                   options={optionPresence}
                 />
               </div>
-                
             </Card.Body>
           </Card>
+          {
+            loadingPresence && (
+              <LoadingSection />
+            )
+          }
         </Col>
 
-        <Col lg={12}>
+        <Col lg={12} className="position-relative">
           <Card className="mb-4">
             <Card.Body>
               <div className="d-flex justify-content-between">
@@ -182,9 +202,13 @@ const Home: NextPage = () => {
                   options={optionPresence}
                 />
               </div>
-                
             </Card.Body>
           </Card>
+          {
+            loadingPresence && (
+              <LoadingSection />
+            )
+          } 
         </Col>
       </Row>
     </AdminLayout>

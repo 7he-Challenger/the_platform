@@ -7,6 +7,8 @@ export type GetUserQueryType = {
   firstname?: string | null,
   lastname?: string | null,
   isEnable?: boolean | null,
+  roleInt?: number | null,
+  userType?: number | null,
 }
 
 export type GetPresenceQueryType = {

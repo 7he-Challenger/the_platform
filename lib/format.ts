@@ -89,6 +89,8 @@ export const formatQueryUserParams = (
   if(query['firstname']) queryParams['firstname'] = query['firstname'];
   if(query['lastname']) queryParams['lastname'] = query['lastname'];
   if(query['isEnable']) queryParams['isEnable'] = query['isEnable'];
+  if(query['roleInt']) queryParams['roleInt'] = query['roleInt'];
+  if(query['userType']) queryParams['userType'] = query['userType'];
 
   return queryParams
 }
@@ -183,10 +185,12 @@ export const formatRegisteredMember = (
 export const formatStatisticsRegisteredMember = (
   users: Array<any>,
   years: Array<any>,
-  months: Array<any>
+  months: Array<any>,
+  types: Array<any>,
 ) => {
   const valueYear = Array.from({length: years.length}, (_,i) => (0))
   const valueMonth = Array.from({length: months.length}, (_,i) => (0))
+  const valueType = Array.from({length: types.length}, (_,i) => (0))
   
   const registeredYear = users.reduce((acc, item) => {
     const date = parseInt(moment(item.createdAt).format('YYYY'))
@@ -200,11 +204,18 @@ export const formatStatisticsRegisteredMember = (
     const index = months.findIndex(el => el == date)
     acc[index] = acc[index] + 1;
     return acc
-  }, [...valueYear])
+  }, [...valueMonth])
+
+  const registeredType = users.reduce((acc, item) => {
+    const index = types.findIndex(el => el == item.userType)
+    if(index > -1) acc[index] = acc[index] + 1;
+    return acc
+  }, [...valueType])
 
   return {
     registeredYear,
-    registeredMonth
+    registeredMonth,
+    registeredType
   }
 }
 
