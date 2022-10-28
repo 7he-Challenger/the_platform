@@ -175,7 +175,7 @@ export const formatRegisteredMember = (
   users: Array<any>
 ) => {
   return users.reduce((acc, item) => {
-    if(item.roles.includes(ROLES.ROLE_MEMBER)) acc.push(item)
+    if(item.role == ROLES.ROLE_MEMBER) acc.push(item)
     return acc
   }, [])
 }
