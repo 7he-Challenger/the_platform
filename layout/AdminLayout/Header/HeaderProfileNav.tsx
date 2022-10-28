@@ -50,13 +50,13 @@ export default function HeaderProfileNav() {
               width={128}
               height={128}
               className="rounded-circle"
-              src="/assets/img/avatars/8.jpg"
+              src="/assets/img/avatars/default.png"
               alt="user@email.com"
             />
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="pt-0">
-          <Dropdown.Header className="bg-light fw-bold rounded-top">Account</Dropdown.Header>
+          {/* <Dropdown.Header className="bg-light fw-bold rounded-top">Account</Dropdown.Header>
           <Link href="/" passHref>
             <Dropdown.Item>
               <ProfileDropdownItem icon={faBell}>
@@ -110,15 +110,15 @@ export default function HeaderProfileNav() {
             <Dropdown.Item>
               <ProfileDropdownItem icon={faFile}>Projects</ProfileDropdownItem>
             </Dropdown.Item>
-          </Link>
+          </Link> */}
 
           <Dropdown.Divider />
 
-          <Link href="/" passHref>
+          {/* <Link href="/" passHref>
             <Dropdown.Item>
               <ProfileDropdownItem icon={faLock}>Lock Account</ProfileDropdownItem>
             </Dropdown.Item>
-          </Link>
+          </Link> */}
           <div onClick={handleLogout}>
             <Link href="#" >
               <Dropdown.Item>
