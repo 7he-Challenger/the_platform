@@ -59,7 +59,7 @@ const Home: NextPage = () => {
               <div className="d-flex justify-content-between">
                 <div>
                   <h4 className="mb-0">
-                    Statistique membres par année
+                    Statistique membres inscrits par année
                   </h4>
                 </div>
               </div>
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
               <div className="d-flex justify-content-between">
                 <div>
                   <h4 className="mb-0">
-                    Statistique membres par mois
+                    Statistique membres inscrits par mois cette année
                   </h4>
                 </div>
               </div>
@@ -118,7 +118,7 @@ const Home: NextPage = () => {
               <div className="d-flex justify-content-between">
                 <div>
                   <h4 className="mb-0">
-                    Statistique membres étudiants et travaillants
+                    Statistique activités membres (étudiants, employés, etc ...)
                   </h4>
                 </div>
               </div>
@@ -186,7 +186,7 @@ const Home: NextPage = () => {
               <div className="d-flex justify-content-between">
                 <div>
                   <h4 className="mb-0">
-                    Statistique présence moyenne membres cette année
+                    Statistique présence moyenne des membres par mois cette année
                   </h4>
                 </div>
               </div>
