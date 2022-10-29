@@ -21,7 +21,7 @@ export const getUsers = async (
 
   try{
     const result = await axios.get(
-      ENDPOINT.MEMBER,
+      ENDPOINT.USER,
       {
         params: query ? { ...query } : null
       }
@@ -46,7 +46,7 @@ export const findUser = async(
 
   try{
     const result = await axios.get(
-      `${ENDPOINT.MEMBER}/${id}`,
+      `${ENDPOINT.USER}/${id}`,
     )
 
     return result.data
@@ -73,11 +73,11 @@ export const saveUsers = async (
   try{
     const result = id 
       ? await axios.put(
-          `${ENDPOINT.MEMBER}/${id}`,
+          `${ENDPOINT.USER}/${id}`,
           body
         )
       : await axios.post(
-        ENDPOINT.MEMBER,
+        ENDPOINT.USER,
         body
       )  
 
@@ -101,7 +101,7 @@ export const deleteUser = async (
   
   try{
     const result = await axios.delete(
-      `${ENDPOINT.MEMBER}/${id}`
+      `${ENDPOINT.USER}/${id}`
     )
 
     return result.data

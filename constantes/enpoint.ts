@@ -1,7 +1,8 @@
 const ENDPOINT = {
   LOGIN: 'login_check',
   ACTIVITY: 'activities',
-  MEMBER:'users'
+  USER: 'users',
+  PRESENCES: 'presences'
 }
 
 export default ENDPOINT
