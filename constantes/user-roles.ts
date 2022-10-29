@@ -1,10 +1,10 @@
 export const ROLE_TYPES = [
   {
     name: 'Administrateur',
-    value: ['ROLE_ADMIN']
+    value: 32
   },
   {
     name: 'Membre',
-    value: ['ROLE_USER']
+    value: 1
   }
 ]

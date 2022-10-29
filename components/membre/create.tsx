@@ -1,18 +1,22 @@
-import { Button, Col, Row, Form } from "react-bootstrap";
-import { ROLE_TYPES } from "~constantes/roles-user";
+import { Button, Col, Row, Form, InputGroup } from "react-bootstrap";
+import { ROLE_TYPES } from "~constantes/user-roles";
+import { USER_TYPES } from "~constantes/user-types";
 import { useFormUser } from "~hooks/useMember";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Style from '~assets/styles/Activity.module.css';
 import { formatUserDataForm } from "~lib/format-user";
+import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons"
 
 type CreateMemberType = {
   toUpdate?: any,
+  isVisible?: boolean,
   submitUser: Function
 }
 
 const CreateMember = ({
   toUpdate = null,
+  isVisible = false,
   submitUser = () => {}
 }: CreateMemberType) => {
   const {
@@ -25,10 +29,14 @@ const CreateMember = ({
     submitUser(formatUserDataForm(body), body.id)
   }
 
+  const toggle = () => {
+    isVisible = !isVisible
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formTheme">
-        <Form.Label>Nom d&rsquo;utilisateur</Form.Label>
+        <Form.Label>Nom d&rsquo;utilisateur *</Form.Label>
         <Form.Control 
           type="text" 
           value={body.username}
@@ -37,26 +45,26 @@ const CreateMember = ({
         />
       </Form.Group>
 
-      {/* <Form.Group className="mb-3" controlId="formDescription">
-        <Form.Label>Description</Form.Label>
-        <Form.Control 
-          as="textarea"
-          value={body.description} 
-          onChange={(e) => handleChangeValueForm('description', e.target.value)}
-        />
-      </Form.Group> */}
+      {!toUpdate && 
+        (<fieldset>
+        <Form.Group className="mb-3" controlId="formPassword">
+          <Form.Label>Mot de passe *</Form.Label>
+          <Form.Control 
+            type="password"
+            value={body.password}
+            onChange={(e) => handleChangeValueForm('password', e.target.value)}
+            required
+          />
+        </Form.Group>
 
-      {/* <Form.Group className="mb-3" controlId="formTheme">
-        <Form.Label>Mot de passe</Form.Label>
-        <Form.Control 
-          type="password" 
-          value={body.password}
-          onChange={(e) => handleChangeValueForm('password', e.target.value)}
-          required
-        />
-      </Form.Group> */}
-
-      
+        <Form.Group className="mb-3" controlId="formConfirmPassword">
+          <Form.Label>Confirmer le Mot de passe *</Form.Label>
+          <Form.Control 
+            type="password"
+          />
+        </Form.Group>
+        </fieldset>)
+      }
 
       <Form.Group className="mb-3" controlId="formLieu">
         <Form.Label>Nom</Form.Label>
@@ -76,12 +84,12 @@ const CreateMember = ({
         />
       </Form.Group>
 
-      {/* <Form.Group className="mb-3" controlId="formType">
+      <Form.Group className="mb-3" controlId="formType">
         <Form.Label>Rôle</Form.Label>
         <Form.Select 
           aria-label="Selectionnez un rôle"
-          value={body.roles}
-          onChange={(e) => handleChangeValueForm('roles', e.target.value)}
+          value={body.role}
+          onChange={(e) => handleChangeValueForm('role', e.target.value)}
         >
           {
             ROLE_TYPES.map((roleType, index) => (
@@ -91,47 +99,42 @@ const CreateMember = ({
             ))
           }
         </Form.Select>
-      </Form.Group> */}
+      </Form.Group>
 
-      {/* <Form.Group className="mb-3" controlId="formDate">
-        <Form.Label>Date de début</Form.Label>
-        <Row>
-          <Col>
-            <Form.Control 
-              type="date"
-              value={body.startDate.split(' ')[0] || ''}
-              onChange={(e) => handleDateChange('startDate', e.target.value, 'date')}
-            />
-          </Col>
-          <Col>
-            <Form.Control 
-              type="time"
-              value={body.startDate.split(' ')[1] || ''}
-              onChange={(e) => handleDateChange('startDate', e.target.value, 'time')}
-            />
-          </Col>
-        </Row>
-      </Form.Group> */}
+      <Form.Group className="mb-3" controlId="formType">
+        <Form.Label>Type</Form.Label>
+        <Form.Select 
+          aria-label="Selectionnez son type"
+          value={body.userType}
+          onChange={(e) => handleChangeValueForm('userType', e.target.value)}
+        >
+          {
+            USER_TYPES.map((userTypes, index) => (
+              <option key={`user-type-${index}`} value={userTypes.value}>
+                {userTypes.name}
+              </option>
+            ))
+          }
+        </Form.Select>
+      </Form.Group>
 
-      {/* <Form.Group className="mb-3" controlId="formDate">
-        <Form.Label>Date de fin</Form.Label>
-        <Row>
-          <Col>
-            <Form.Control 
-              type="date"
-              value={body.endDate.split(' ')[0] || ''}
-              onChange={(e) => handleDateChange('endDate', e.target.value, 'date')}
-            />
-          </Col>
-          <Col>
-            <Form.Control 
-              type="time"
-              value={body.endDate.split(' ')[1] || ''}
-              onChange={(e) => handleDateChange('endDate', e.target.value, 'time')}
-            />
-          </Col>
-        </Row>
-      </Form.Group> */}
+      <Form.Group className="mb-3" controlId="formAddress">
+        <Form.Label>Adresse</Form.Label>
+        <Form.Control 
+          type="text" 
+          value={body.userInfo?.address}
+          onChange={(e) => handleChangeValueForm('address', e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formPhone">
+        <Form.Label>Phone</Form.Label>
+        <Form.Control 
+          type="text" 
+          value={body.userInfo?.phone}
+          onChange={(e) => handleChangeValueForm('userInfo?.phone', e.target.value)}
+        />
+      </Form.Group>
 
       <div className="d-flex justify-content-end">
         <Button variant="primary" type="submit">

@@ -1,5 +1,6 @@
 import { SyntheticEvent } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
+import { USER_TYPES } from "~constantes/user-types"
 
 type MemberFilterType = {
   filter: any,
@@ -48,7 +49,7 @@ const MemberFilter = ({
           </Col> */}
 
           <Col lg={3}>
-            <Form.Group className="mb-3" controlId="filterTitle">
+            <Form.Group className="mb-3" controlId="filterLastname">
               <Form.Label>Nom</Form.Label>
               <Form.Control 
                 type="text"
@@ -56,6 +57,25 @@ const MemberFilter = ({
                 value={filter['lastname'] || ''}
                 onChange={(e) => handleFilterChange('lastname', e.target.value)}
               />
+            </Form.Group>
+          </Col>
+
+          <Col lg={3}>
+            <Form.Group className="mb-3" controlId="filterUserType">
+              <Form.Label>Type</Form.Label>
+              <Form.Select 
+                aria-label="Selectionnez un type"
+                value={filter['userType'] || ''}
+                onChange={(e) => handleFilterChange('userType', e.target.value)}
+              >
+                {
+                  USER_TYPES.map((userTypes, index) => (
+                    <option key={`user-type-${index}`} value={userTypes.value}>
+                      {userTypes.name}
+                    </option>
+                  ))
+                }
+              </Form.Select>
             </Form.Group>
           </Col>
         </Row>

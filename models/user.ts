@@ -5,7 +5,8 @@ export interface User {
   password?: string
   firstname?: string
   lastname?: string
-  roles?: Array<string>
+  role?: number
+  userType?: number
 }
   
 export type UserType = {
@@ -14,6 +15,10 @@ export type UserType = {
   password?: string
   firstname?: string
   lastname?: string
-  roles?: Array<string>
+  role?: number
+  userType?: number | null
+  address?: string
+  phone?: string
+  photo?: string
   createdAt?: string
 }

@@ -4,7 +4,8 @@ import axiosInstance from "~lib/axios"
 export type GetUsersQueryType = {
   page?: number,
   firstname?: string | null,
-  lastname?: string | null
+  lastname?: string | null,
+  userType?: number | null
 }
 
 /**

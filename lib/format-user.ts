@@ -1,7 +1,8 @@
 import { BrundCrumbType } from "~hooks/useBrudcrumb"
 import { GetUsersQueryType } from "~repositories/users"
 import moment from 'moment';
-import { ROLE_TYPES } from "~constantes/roles-user";
+import { ROLE_TYPES } from "~constantes/user-roles";
+import { USER_TYPES } from "~constantes/user-types";
 
 /**
  * format the route path into name title
@@ -48,8 +49,9 @@ export const formatUserDataForm = (
 ) => {
   const { id, ...data } = form
   let tmp = { ...data }
-  // tmp.type = parseInt(tmp.type)
-  // tmp.roles = tmp.roles.filter((item: any) => item)
+
+  tmp.role = parseInt(tmp.role)
+  tmp.userType = parseInt(tmp.userType)
 
   return tmp
 }
@@ -66,6 +68,7 @@ export const formatQueryUserParams = (
   if(query['page']) queryParams['page'] = query['page'];
   if(query['firstname']) queryParams['firstname'] = query['firstname'];
   if(query['lastname']) queryParams['lastname'] = query['lastname'];
+  if(query['userType']) queryParams['userType'] = query['userType'];
 
   return queryParams
 }
@@ -76,8 +79,14 @@ export const formatDate = (date: string) => {
     : ''
 }
 
-export const formateUserType = (type: any) => {
-  let userType: any = ROLE_TYPES.find(element => element.value == type.toString())
+export const formatRoleType = (type: number) => {
+  let roleType: any = ROLE_TYPES.find(element => element.value == type)
+
+  return roleType.name
+}
+
+export const formatUserType = (type: number) => {
+  let userType: any = USER_TYPES.find(item => item.value == type)
 
   return userType.name
 }

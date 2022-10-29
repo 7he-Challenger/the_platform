@@ -1,6 +1,7 @@
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { isAnyArrayBuffer } from "util/types";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
@@ -18,7 +19,7 @@ const initialeQuery = {
 }
 
 /**
- * logics hooks for emploi du temps page
+ * logics hooks for member page
  */
 const useMember = (
   listUsers: Array<any>,
@@ -333,7 +334,10 @@ export const useFormUser = (
     password: '',
     firstname: '',
     lastname: '',
-    roles: ['ROLE_USER'],
+    role: 1,
+    userType: 1,
+    address: '',
+    phone: '',
     createdAt: moment().format('YYYY-MM-DD hh:mm')
   }
 
