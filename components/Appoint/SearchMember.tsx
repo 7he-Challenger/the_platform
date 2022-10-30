@@ -9,7 +9,7 @@ function SearchMember(): JSX.Element {
           Rechercher
         </label>
         <div className="col-sm-9">
-          <input type="text" className="form-control" id="search" />
+          <input type="text" className="form-control" id="search"/>
         </div>
         <button className="col-sm-1 btn btn-primary text-center">
           <FontAwesomeIcon icon={faSearch} />

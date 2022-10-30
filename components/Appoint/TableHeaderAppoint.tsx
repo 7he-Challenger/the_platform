@@ -14,7 +14,7 @@ function TableHeaderAppoint(): JSX.Element {
             </th>
             <th>Nom du membre</th>
             <th className="text-center">État de présence actuel</th>
-            <th aria-label="Action" />
+            <th className="text-center">Action</th>
         </tr>
     </thead>;
 }
