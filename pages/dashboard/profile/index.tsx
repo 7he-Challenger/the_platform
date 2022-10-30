@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import type { NextPage } from 'next'
-
+import type { NextPage } from 'next';
 import { AdminLayout } from "~layout";
 import Image from "react-bootstrap/Image";
 import { Button } from "react-bootstrap";
@@ -14,7 +13,7 @@ import { User } from "~models/user";
 import { useFormData } from "~logics/useFormData";
 import _ from "lodash";
 
-const Profile : NextPage = (props : any) => {
+const Profile: NextPage = (props : any) => {
   const { user } = props
   
   const {formData,getTextFieldProps, changedField} = useFormData<User>({
@@ -26,7 +25,6 @@ const Profile : NextPage = (props : any) => {
     let data = _.pick(formData, changedField || [])
     updateOneUser(session.accessToken,session?.user?.id,data)
   }
-
   return (
     <AdminLayout>
       <div className="flex-column" style={{ rowGap: "50px" }}>
@@ -134,7 +132,7 @@ export const getServerSideProps = async (context: any) => {
     };
   }
   
-};
+}
 
 
 export default Profile;
