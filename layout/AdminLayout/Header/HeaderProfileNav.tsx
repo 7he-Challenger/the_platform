@@ -119,6 +119,11 @@ export default function HeaderProfileNav() {
               <ProfileDropdownItem icon={faLock}>Lock Account</ProfileDropdownItem>
             </Dropdown.Item>
           </Link> */}
+          <Link href="/dashboard/profile" >
+              <Dropdown.Item>
+                <ProfileDropdownItem icon={faUser}>My Profile</ProfileDropdownItem>
+              </Dropdown.Item>
+          </Link>
           <div onClick={handleLogout}>
             <Link href="#" >
               <Dropdown.Item>
