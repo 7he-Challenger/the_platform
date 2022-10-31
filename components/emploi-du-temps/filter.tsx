@@ -58,6 +58,25 @@ const ActivityFilter = ({
               />
             </Form.Group>
           </Col>
+
+          <Col lg={3}>
+            <Form.Group className="mb-3" controlId="filterPublic">
+              <Form.Label>Activité privée</Form.Label>
+              <Form.Check 
+                type="checkbox" 
+                label="Privée" 
+                checked={
+                  filter['isPublic'] != null
+                }
+                onChange={
+                  (e) => handleFilterChange(
+                    'isPublic', 
+                    filter['isPublic'] == false ? null : false
+                  )
+                }
+              />
+            </Form.Group>
+          </Col>
         </Row>
         <div>
           <Button variant="primary" type="submit">

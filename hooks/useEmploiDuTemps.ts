@@ -15,7 +15,8 @@ const initialeQuery = {
   page: 1,
   'startDate[before]': null,
   'startDate[after]': null,
-  title: null
+  title: null,
+  isPublic: null
 }
 
 /**
