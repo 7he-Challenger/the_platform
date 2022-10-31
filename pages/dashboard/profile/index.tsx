@@ -49,8 +49,8 @@ const Profile = () => {
             </Button>
           </div>
         </div>
-        <Accordion defaultActiveKey={["0", "1"]}>
-          <Accordion.Item eventKey="0">
+        <Accordion defaultActiveKey={["0", "1"]} alwaysOpen>
+          <Accordion.Item eventKey="0" >
             <Accordion.Header>Informations de connexion</Accordion.Header>
             <Accordion.Body>
               <Form style={{display:"flex", columnGap:"50px"}}>
