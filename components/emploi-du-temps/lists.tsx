@@ -29,6 +29,7 @@ const ListActivities = ({
             <th>Lieu</th>
             <th>Début</th>
             <th>Fin</th>
+            <th>Public</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -43,6 +44,26 @@ const ListActivities = ({
                 <td>{item.locale}</td>
                 <td>{formatDate(item.startDate)}</td>
                 <td>{formatDate(item.endDate)}</td>
+                <td>
+                  <FontAwesomeIcon 
+                    title={
+                      item.isPublic == false
+                        ? "Privé"
+                        : "Public"
+                    }
+                    icon={
+                      item.isPublic == false
+                        ? faClose
+                        : faCheck
+                    } 
+                    size="lg" 
+                    color={
+                      item.isPublic == false
+                        ? 'red'
+                        : 'green'
+                    }
+                  />
+                </td>
                 <td>
                   <FontAwesomeIcon 
                     title={
