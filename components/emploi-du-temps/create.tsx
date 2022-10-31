@@ -169,6 +169,15 @@ const CreateEmploiDuTemps = ({
         </Row>
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="formIsPublic">
+        <Form.Check 
+          type="checkbox" 
+          label="Privée" 
+          checked={!body.isPublic}
+          onChange={(e) => handleChangeValueForm('isPublic', !body.isPublic)}
+        />
+      </Form.Group>
+
       <div className="d-flex justify-content-end">
         <Button variant="primary" type="submit">
           Submit

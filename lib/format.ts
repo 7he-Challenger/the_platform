@@ -72,6 +72,7 @@ export const formatQueryActivityParams = (
   if(query['startDate[strictly_after]']) queryParams['startDate[strictly_after]'] = query['startDate[strictly_after]'];
   if(query['title']) queryParams['title'] = query['title'];
   if(query['description']) queryParams['description'] = query['description'];
+  if(query['isPublic'] != null && query['isPublic'] != undefined) queryParams['isPublic'] = query['isPublic'];
 
   return queryParams
 }
