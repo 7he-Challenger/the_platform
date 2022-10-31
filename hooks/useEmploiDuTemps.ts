@@ -337,7 +337,8 @@ export const useFormActivity = (
     sponsors: [],
     type: 1,
     startDate: '',
-    endDate: ''
+    endDate: '',
+    isPublic: true,
   }
 
   /**
