@@ -8,7 +8,8 @@ export type GetActivitiesQueryType = {
   'startDate[after]'?: string | null,
   'startDate[strictly_before]'?: string | null,
   title?: string | null,
-  description?: string | null
+  description?: string | null,
+  isPublic?: 0 | 1 | null
 }
 
 /**
