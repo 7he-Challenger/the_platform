@@ -119,7 +119,7 @@ export default function HeaderProfileNav() {
               <ProfileDropdownItem icon={faLock}>Lock Account</ProfileDropdownItem>
             </Dropdown.Item>
           </Link> */}
-          <Link href="/dashboard/profile" >
+          <Link href="/dashboard/profile" passHref>
               <Dropdown.Item>
                 <ProfileDropdownItem icon={faUser}>My Profile</ProfileDropdownItem>
               </Dropdown.Item>
