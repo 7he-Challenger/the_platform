@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap'
 import useLogin from '~hooks/useLogin'
 import Style from '~assets/styles/Login.module.css'
+import Image from 'next/image'
 
 const Login: NextPage = (props) => {
   const {
@@ -27,17 +28,17 @@ const Login: NextPage = (props) => {
         <Row className="justify-content-center align-items-center px-3">
           <Col className="col-md-7 col-lg-5">
             <Row>
-              <Col className={Style.loginContainer+'  p-4 p-md-5'}>
+              <Col className={Style.loginContainer+"  p-4 p-md-5"}>
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-center">
-                    <img width={"250px"} src="assets/images/logo.jpg"/>
+                    <Image alt="Logo Techzara" width={"250px"} src="assets/images/logo.jpg"/>
                   </div>
                   <p className="p-3">Bienvenue sur l'administration de la plateforme Techzara, identifiez-vous.</p>
                   {
                     errorCredential && ( <span className="text-danger">{errorCredential}</span>)
                   }
                   <form onSubmit={submitLogin}>
-                    <InputGroup className={Style.inputGroup + ' form-group'}>
+                    <InputGroup className={Style.inputGroup + " form-group"}>
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faUser}
@@ -59,7 +60,7 @@ const Login: NextPage = (props) => {
                       }
                     </InputGroup>
 
-                    <InputGroup className={Style.inputGroup + ' form-group'}>
+                    <InputGroup className={Style.inputGroup + " form-group"}>
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faLock}
