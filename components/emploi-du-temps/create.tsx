@@ -4,7 +4,6 @@ import { useFormActivity } from "~hooks/useEmploiDuTemps";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Style from '~assets/styles/Activity.module.css';
-import { formatActivityDataForm } from "~lib/format";
 import Image from "next/image";
 import ENDPOINT from "~constantes/enpoint";
 
