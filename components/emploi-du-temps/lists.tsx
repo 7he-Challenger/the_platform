@@ -46,11 +46,6 @@ const ListActivities = ({
                 <td>{formatDate(item.endDate)}</td>
                 <td>
                   <FontAwesomeIcon 
-                    title={
-                      item.isPublic == false
-                        ? "Privé"
-                        : "Public"
-                    }
                     icon={
                       item.isPublic == false
                         ? faClose
@@ -66,11 +61,6 @@ const ListActivities = ({
                 </td>
                 <td>
                   <FontAwesomeIcon 
-                    title={
-                      item.isEnable == false
-                        ? "Annulé"
-                        : "Validé"
-                    }
                     icon={
                       item.isEnable == false
                         ? faBan
