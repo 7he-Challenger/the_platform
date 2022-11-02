@@ -31,7 +31,7 @@ const Login: NextPage = (props) => {
               <Col className={Style.loginContainer+" p-4 p-md-5"}>
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-center">
-                    <Image alt="Logo Techzara" width={"220px"} height={"100%"} src="assets/images/logo.jpg"/>
+                    <Image alt="Logo Techzara" width={"210px"} height={"100%"} src="assets/images/logo.jpg"/>
                   </div>
                   <p className="p-3 text-center">Bienvenue sur l&apos;administration de la plateforme Techzara, identifiez-vous.</p>
                   {
