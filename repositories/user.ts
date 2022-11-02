@@ -1,5 +1,6 @@
 import ENDPOINT from "~constantes/enpoint"
 import axiosInstance from "~lib/axios"
+import { TUserPayload } from "~models/user"
 
 export type GetUserQueryType = {
   page?: number,
@@ -80,6 +81,31 @@ export const getOneUser = async (
     return result.data
   }catch(e: any){
     console.log('error get one user')
+    throw e
+  }
+}
+
+/**
+ * 
+ * @param token 
+ * @param id the id to update
+ * @param data the payload to update
+ */
+export const updateOneUser = async (
+  token: string,
+  id: string,
+  data: TUserPayload
+) => {
+  const axios = axiosInstance(token, true)
+
+  try{
+    const result = await axios.patch(
+      `${ENDPOINT.USER}/${id}`,
+      data
+    )
+    return result.data
+  }catch(e: any){
+    console.log('error update one user')
     throw e
   }
 }
