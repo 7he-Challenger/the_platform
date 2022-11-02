@@ -1,12 +1,13 @@
 import { NextPage } from 'next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { faLock, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import {
   Button,
   Col, Container, Form, InputGroup, Row,
 } from 'react-bootstrap'
 import useLogin from '~hooks/useLogin'
+import Style from '~assets/styles/Login.module.css'
 
 const Login: NextPage = (props) => {
   const {
@@ -21,21 +22,22 @@ const Login: NextPage = (props) => {
   } = useLogin()
 
   return (
-    <div className="bg-primary min-vh-100 d-flex flex-row align-items-center dark:bg-transparent">
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center dark:bg-transparent">
       <Container>
         <Row className="justify-content-center align-items-center px-3">
-          <Col lg={4} className="h-50">
+          <Col className="col-md-7 col-lg-5">
             <Row>
-              <Col md={12} className="bg-white card border p-3">
-                <div className="card-header">
-                  <h1 className='text-center'>CONNEXION</h1>
-                </div>
+              <Col className={Style.loginContainer+'  p-4 p-md-5'}>
                 <div className="card-body">
+                  <div className="d-flex align-items-center justify-content-center">
+                    <img width={"250px"} src="assets/images/logo.jpg"/>
+                  </div>
+                  <p className='p-3'>Bienvenue sur l'administration de la plateforme Techzara, identifiez-vous.</p>
                   {
                     errorCredential && ( <span className="text-danger">{errorCredential}</span>)
                   }
                   <form onSubmit={submitLogin}>
-                    <InputGroup className="mb-3">
+                    <InputGroup className={Style.inputGroup + ' form-group'}>
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faUser}
@@ -57,7 +59,7 @@ const Login: NextPage = (props) => {
                       }
                     </InputGroup>
 
-                    <InputGroup className="mb-3">
+                    <InputGroup className={Style.inputGroup + ' form-group'}>
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faLock}
@@ -82,7 +84,7 @@ const Login: NextPage = (props) => {
 
                     <Row>
                       <Col xs={12}>
-                        <Button className="px-4 w-100" variant="primary" type="submit">Se connecter</Button>
+                        <Button className="px-4 w-100 btn-lg" variant="primary" type="submit">Se connecter</Button>
                       </Col>
                     </Row>
                   </form>
