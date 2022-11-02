@@ -32,7 +32,7 @@ const Login: NextPage = (props) => {
                   <div className="d-flex align-items-center justify-content-center">
                     <img width={"250px"} src="assets/images/logo.jpg"/>
                   </div>
-                  <p className='p-3'>Bienvenue sur l'administration de la plateforme Techzara, identifiez-vous.</p>
+                  <p className="p-3">Bienvenue sur l'administration de la plateforme Techzara, identifiez-vous.</p>
                   {
                     errorCredential && ( <span className="text-danger">{errorCredential}</span>)
                   }
