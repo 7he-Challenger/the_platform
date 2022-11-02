@@ -28,12 +28,12 @@ const Login: NextPage = (props) => {
         <Row className="justify-content-center align-items-center px-3">
           <Col className="col-md-7 col-lg-5">
             <Row>
-              <Col className={Style.loginContainer+"  p-4 p-md-5"}>
+              <Col className={Style.loginContainer+" p-4 p-md-5"}>
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-center">
-                    <Image alt="Logo Techzara" width={"250px"} src="assets/images/logo.jpg"/>
+                    <Image alt="Logo Techzara" width={"220px"} height={"100%"} src="assets/images/logo.jpg"/>
                   </div>
-                  <p className="p-3">Bienvenue sur l'administration de la plateforme Techzara, identifiez-vous.</p>
+                  <p className="p-3 text-center">Bienvenue sur l&apos;administration de la plateforme Techzara, identifiez-vous.</p>
                   {
                     errorCredential && ( <span className="text-danger">{errorCredential}</span>)
                   }
