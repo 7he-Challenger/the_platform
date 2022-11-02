@@ -1,12 +1,14 @@
 import { NextPage } from 'next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
+import { faLock, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import {
   Button,
   Col, Container, Form, InputGroup, Row,
 } from 'react-bootstrap'
 import useLogin from '~hooks/useLogin'
+import Style from '~assets/styles/Login.module.css'
+import Image from 'next/image'
 
 const Login: NextPage = (props) => {
   const {
@@ -24,19 +26,19 @@ const Login: NextPage = (props) => {
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center dark:bg-transparent">
       <Container>
         <Row className="justify-content-center align-items-center px-3">
-          <Col lg={8}>
+          <Col className="col-md-7 col-lg-5">
             <Row>
-              <Col md={12} className="bg-white border p-5">
-                <div className="">
-                  <h1>Login</h1>
-                  <p className="text-black-50">Sign In to your account</p>
+              <Col className={Style.loginContainer+" p-4 p-md-5"}>
+                <div className="card-body">
+                  <div className="d-flex align-items-center justify-content-center">
+                    <Image alt="Logo Techzara" width={"210px"} height={"100%"} src="assets/images/logo.jpg"/>
+                  </div>
+                  <p className="p-3 text-center">Bienvenue sur l&apos;administration de la plateforme Techzara, identifiez-vous.</p>
                   {
-                    errorCredential && (
-                      <span className="text-danger">{errorCredential}</span>
-                    )
+                    errorCredential && ( <span className="text-danger">{errorCredential}</span>)
                   }
                   <form onSubmit={submitLogin}>
-                    <InputGroup className="mb-3">
+                    <InputGroup className={Style.inputGroup + " form-group"}>
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faUser}
@@ -46,8 +48,8 @@ const Login: NextPage = (props) => {
                       <Form.Control
                         name="username"
                         required
-                        placeholder="Username"
-                        aria-label="Username"
+                        placeholder="Nom d'utilisateur"
+                        aria-label="Nom d'utilisateur"
                         value={emailValue || ''}
                         onChange={(e) => handleInputEmail(e.target.value)}
                       />
@@ -58,7 +60,7 @@ const Login: NextPage = (props) => {
                       }
                     </InputGroup>
 
-                    <InputGroup className="mb-3">
+                    <InputGroup className={Style.inputGroup + " form-group"}>
                       <InputGroup.Text>
                         <FontAwesomeIcon
                           icon={faLock}
@@ -69,8 +71,8 @@ const Login: NextPage = (props) => {
                         type="password"
                         name="password"
                         required
-                        placeholder="Password"
-                        aria-label="Password"
+                        placeholder="Mots de passe"
+                        aria-label="Mots de passe"
                         value={passwordValue || ''}
                         onChange={(e) => handleInputPassword(e.target.value)}
                       />
@@ -82,14 +84,8 @@ const Login: NextPage = (props) => {
                     </InputGroup>
 
                     <Row>
-                      <Col xs={6}>
-                        <Button className="px-4" variant="primary" type="submit">Login</Button>
-                      </Col>
-                      <Col xs={6} className="text-end">
-                        <Button className="px-0" variant="link" type="submit">
-                          Forgot
-                          password?
-                        </Button>
+                      <Col xs={12}>
+                        <Button className="px-4 w-100 btn-lg" variant="primary" type="submit">Se connecter</Button>
                       </Col>
                     </Row>
                   </form>
