@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import type { NextPage } from 'next'
+
 import { AdminLayout } from "~layout";
 import Image from "react-bootstrap/Image";
 import { Button } from "react-bootstrap";
@@ -6,8 +8,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "react-bootstrap/Accordion";
 import Form from "react-bootstrap/Form";
+import { getOneUser } from "~repositories/user";
+import { getSession, GetSessionParams } from "next-auth/react";
 
-const Profile = () => {
+const Profile : NextPage = (props : any) => {
+  
+  const getUsers = async () => {
+    const session:any = await getSession();    
+    const user = await getOneUser(session.accessToken,session?.user?.id);
+    console.log(user);
+  }
+  useEffect(()=>{
+    getUsers();
+  },[])
+
   return (
     <AdminLayout>
       <div className="flex-column" style={{ rowGap: "50px" }}>
@@ -27,8 +41,8 @@ const Profile = () => {
               fluid
             />
             <div
-              className="flex-space-between"
-              style={{ flexDirection: "column", height: "100%" }}
+              className="flex-center"
+              style={{ flexDirection: "column", height: "100%", alignItems:"flex-start", gap:"30px" }}
             >
               <div>
                 <h3>Jean Christophe</h3>
@@ -94,5 +108,26 @@ const Profile = () => {
     </AdminLayout>
   );
 };
+export const getServerSideProps = async (context: any) => {
+  const session:any = await getSession(context);
+  try {
+  const {data}  = await getOneUser(session.accessToken, "1");
+
+    return {
+      props: {
+        user: JSON.parse(JSON.stringify(data))
+      }
+    }
+  }catch(e){
+    console.log(e)
+    return {
+      props: {
+        user: {},
+      },
+    };
+  }
+  
+};
+
 
 export default Profile;

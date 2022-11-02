@@ -66,3 +66,20 @@ export const getAllPresence = async (
     throw e
   }
 }
+
+export const getOneUser = async (
+  token: string,
+  id: string
+) => {
+  const axios = axiosInstance(token, true)
+
+  try{
+    const result = await axios.get(
+      `${ENDPOINT.USER}/${id}`
+    )
+    return result.data
+  }catch(e: any){
+    console.log('error get one user')
+    throw e
+  }
+}
