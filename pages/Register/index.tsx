@@ -2,24 +2,26 @@ import React from 'react';
 import {useState } from 'react';
 
 export default function Register() {
-    const [inputs, setInputs] = useState({});
+    const   [inputs, setInputs  ] = useState({});
+
+    const   [first_name, last_name] = useState<string>('');
     
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-      }
+    const   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const name = e.target.name;
+            const value = e.target.value;
+            setInputs(values => ({...values, [name]: value}))
+            }
     
-      const handleRegister = (event) => {
-        event.preventDefault();
-        alert(inputs);
-      }
-     
+    const   handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            alert(inputs);
+            }
+
     return (
         <div className="Register">
 			<h1>Register</h1>
 			<p className="text-black-50"><strong> Create an account </strong></p>
-                <form onSubmit={handleRegister}>
+                <form onSubmit={e => console.log(e)}>
 
                     <label htmlFor="first name">First Name:
                         <input 
@@ -77,4 +79,4 @@ export default function Register() {
             
         </div>
     )
-  }
+}
