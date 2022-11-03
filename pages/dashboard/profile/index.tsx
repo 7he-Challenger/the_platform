@@ -35,7 +35,7 @@ const Profile : NextPage = (props : any) => {
             style={{
               display: "flex",
               justifyContent: "flex-start",
-              columnGap: "15px",
+              columnGap: "16px",
               flex:1
             }}
           >
@@ -100,7 +100,6 @@ const Profile : NextPage = (props : any) => {
                       <Form.Label>Pseudo</Form.Label>
                       <Form.Control type="text" placeholder="Prénom" {...getTextFieldProps("username")}/>
                     </Form.Group>
-                    <br />
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Adresse</Form.Label>
                       <Form.Control type="text" placeholder="Adresse" {...getTextFieldProps("userInfo.address")}/> 
