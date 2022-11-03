@@ -2,7 +2,6 @@ import {
   Badge, Dropdown, Nav, NavItem,
 } from 'react-bootstrap'
 import Image from 'next/image'
-import Avatar from '~public/assets/img/avatars/default.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBell,
@@ -47,12 +46,13 @@ export default function HeaderProfileNav() {
       <Dropdown as={NavItem}>
         <Dropdown.Toggle variant="link" bsPrefix="shadow-none" className="py-0 px-2 rounded-0" id="dropdown-profile">
           <div className="avatar">
-            <img
-              width={"100%"}
-              height={"100%"}
+            <Image
+              width={128}
+              height={128}
               className="rounded-circle"
+              src="/assets/img/avatars/default.png"
               alt="user@email.com"
-              src='/assets/img/avatars/default.png'/>
+            />
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="pt-0">
