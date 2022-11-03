@@ -193,7 +193,7 @@ export const usePresenceStatistics = () => {
         // max: 250,
         ticks: {
           maxTicksLimit: 5,
-          stepSize: 25,
+          stepSize: 20,
         },
       },
     },
