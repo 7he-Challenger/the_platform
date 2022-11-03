@@ -201,13 +201,14 @@ export const formatStatisticsRegisteredMember = (
   }, [...valueYear])
 
   const registeredMonth = getMemberYear(users).reduce((acc: any, item: any) => {
-    const date = parseInt(moment(item.createdAt).format('MMM'))
+    const date = moment(item.createdAt).format('MMM')
     const index = months.findIndex(el => el == date)
     acc[index] = acc[index] + 1;
     return acc
   }, [...valueMonth])
 
   const registeredType = users.reduce((acc, item) => {
+    console.log(item)
     const index = types.findIndex(el => el == item.userType)
     if(index > -1) acc[index] = acc[index] + 1;
     return acc
