@@ -39,7 +39,10 @@ const Home: NextPage = () => {
             </div>
             <ul className="menu">
                 <li>
-                    <Link href="/login">Connexion</Link>
+                    <Link href="/login">Log in</Link>
+                </li>
+                <li>
+                    <Link href="">Sign up</Link>
                 </li>
                 <li>
                     <Link href="#contact">Contact</Link>
