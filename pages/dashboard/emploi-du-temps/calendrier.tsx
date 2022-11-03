@@ -9,6 +9,9 @@ import dynamic from "next/dynamic";
 import { useState } from 'react';
 import { ListGroup, Modal } from 'react-bootstrap';
 import { formatDate, formateActivityType } from '~lib/format';
+import Image from 'next/image';
+import ENDPOINT from '~constantes/enpoint';
+import Style from '~assets/styles/Activity.module.css';
 const Calendar = dynamic(() => import("../../../components/calendar"), {
   ssr: false
 });
@@ -31,6 +34,7 @@ const EmploiDuTemps: NextPage = (props: any) => {
     }
   }
 
+  console.log(event)
   return (
     <AdminLayout>
       <Calendar 
@@ -100,6 +104,35 @@ const EmploiDuTemps: NextPage = (props: any) => {
                         )
                     }
                   </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    {
+                      event.posters.length > 0 
+                        ? (
+                          <div className="row">
+                            {
+                              event.posters.map((image: any, index: number) => (
+                                <div className={Style.imagePickerContainer} key={`image-item-${index}`}>
+                                  <div className={Style.imagePicker}>
+                                    <Image
+                                      src={`${ENDPOINT.MEDIA_PATH}${image.contentUrl}`}
+                                      layout='fill'
+                                      objectFit='contain'
+                                    />
+                                  </div>
+                                </div>
+                              ))
+                            }
+                          </div>
+                        )
+                        : (
+                          <div className='d-flex justify-content-center align-items-center'>
+                            <span>Aucune image</span>
+                          </div>
+                        )
+                    }
+                  </ListGroup.Item>
+                  
                 </ListGroup>
               </Modal.Body>
             </>

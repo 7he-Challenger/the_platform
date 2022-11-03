@@ -21,4 +21,5 @@ export type ActivityType = {
   startDate?: string
   endDate?: string
   isPublic?: boolean
+  posters?: Array<string>
 }
