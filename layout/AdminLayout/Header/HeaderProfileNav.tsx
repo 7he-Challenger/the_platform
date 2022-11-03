@@ -48,8 +48,8 @@ export default function HeaderProfileNav() {
         <Dropdown.Toggle variant="link" bsPrefix="shadow-none" className="py-0 px-2 rounded-0" id="dropdown-profile">
           <div className="avatar">
             <img
-              width={"50px"}
-              height={"50px"}
+              width={"100%"}
+              height={"100%"}
               className="rounded-circle"
               alt="user@email.com"
               src='/assets/img/avatars/default.png'/>
