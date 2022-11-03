@@ -135,7 +135,7 @@ const Home: NextPage = () => {
                   }}
                >
                 <Pie 
-                  options={options} 
+                  options={{ responsive: true }} 
                   data={dataTypes} 
                 />
                </div>
