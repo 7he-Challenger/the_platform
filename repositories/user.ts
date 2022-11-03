@@ -99,7 +99,7 @@ export const updateOneUser = async (
   const axios = axiosInstance(token, true)
 
   try{
-    const result = await axios.patch(
+    const result = await axios.put(
       `${ENDPOINT.USER}/${id}`,
       data
     )

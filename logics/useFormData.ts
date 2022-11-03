@@ -7,8 +7,10 @@ export const useFormData = <TData = any>(props: Props<TData>): UseFormData<TData
 
     const [formData, setFormData] = useState<TData>(props.formData);
     const [errors, setErrors] = useState<any>()
+    const [changedField, setChangedField] = useState<string[]>([])
 
     const handleInputChange = (key: string, value: any) => {
+        setChangedField(_.uniq([...changedField!, key]))
         let obj = updateValue(formData, key, value)
         setFormData(obj)
     }
@@ -64,7 +66,8 @@ export const useFormData = <TData = any>(props: Props<TData>): UseFormData<TData
         setFormData,
         handleInputChange,
         getTextFieldProps,
-        isValid
+        isValid,
+        changedField
     }
 }
 
@@ -97,6 +100,11 @@ export type UseFormData<TData> = {
     setFormData: Dispatch<SetStateAction<TData>>
     /** Callback that will set form hooks global value */
     handleInputChange: (key: string, value: any) => void
+
+    /** 
+     * Array of string containing all changed fields
+    */
+    changedField?: string[]
 
     getTextFieldProps: (name: string) => FieldProps
     /**
