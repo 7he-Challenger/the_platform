@@ -38,7 +38,14 @@ export const useStatistics = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const options: any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 10
+        }
+      }
+    }
   }
 
   const loadUserList = async () => {
