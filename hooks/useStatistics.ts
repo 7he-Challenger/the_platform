@@ -8,11 +8,10 @@ import moment from "~lib/moment";
 import { getAllPresence, getAllUser } from "~repositories/user";
 import { RESPONSE_ATTR } from '~constantes/response-attr';
 import { generateListYear } from "~lib/generator";
-import ROLES from "~constantes/roles";
+import ROLES, { USER_TYPES } from "~constantes/roles";
 
 const years = generateListYear(2017, parseInt(moment().format('YYYY')));
 const months = moment.monthsShort()
-const types = ['Etudiants', 'Employés', 'Autodidactes', 'Chômeurs']
 const initialLabel = {
  labels: [],
  datasets: []   
@@ -30,7 +29,7 @@ export const useStatistics = () => {
    */
   const [labelsYear, setLabelYear] = useState<Array<any>>(years);
   const [labelsMonth, setLabelMonth] = useState<Array<any>>(months);
-  const [labesType, setLabelTypes] = useState<Array<any>>(types);
+  const [labesType, setLabelTypes] = useState<Array<any>>(USER_TYPES.map((item: any) => (item.name)));
   const [dataYear, setDataYear] = useState<any>(initialLabel)
   const [dataMonth, setDataMonth] = useState<any>(initialLabel)
   const [dataTypes, setDataTypes] = useState<any>(initialLabel)
@@ -80,7 +79,7 @@ export const useStatistics = () => {
       lists,
       years,
       months,
-      types
+      USER_TYPES.map((item: any) => (item.value))
     )
     filterUserByYear(registeredYear)
     filterUserByMonth(registeredMonth)
