@@ -15,6 +15,7 @@ const initialeQuery = {
   page: 1,
   'startDate[before]': null,
   'startDate[after]': null,
+  'order[id]': 'desc',
   title: null,
   isPublic: null
 }
@@ -90,6 +91,10 @@ const useEmploiDuTemps = (
         // treatment after save activity
         await loadActivity(token)
         hideCreate()
+        dispatch(setToast({
+          show: true,
+          message: 'Activité enregistré'
+        }))
       }catch(e: any){
         console.log('error method save activity', e)
         if(e.response && e.response.status == 401){
@@ -100,10 +105,6 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
-        dispatch(setToast({
-          show: true,
-          message: 'Activité enregistré'
-        }))
       }
     }
   }
@@ -129,6 +130,10 @@ const useEmploiDuTemps = (
         // treatment after save activity
         await loadActivity(token)
         hideCreate()
+        dispatch(setToast({
+          show: true,
+          message: 'Activité annulé'
+        }))
       }catch(e: any){
         console.log('error method cancel activity', e)
         if(e.response && e.response.status == 401){
@@ -139,10 +144,7 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
-        dispatch(setToast({
-          show: true,
-          message: 'Activité annulé'
-        }))
+        
       }
     }
   }
@@ -161,6 +163,10 @@ const useEmploiDuTemps = (
         const result = await deleteActivity(token, id)
 
         await loadActivity(token)
+        dispatch(setToast({
+          show: true,
+          message: 'Activité supprimé'
+        }))
       }catch(e: any){
         console.log('error method delete activity', e)
         if(e.response && e.response.status == 401){
@@ -171,10 +177,6 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
-        dispatch(setToast({
-          show: true,
-          message: 'Activité supprimé'
-        }))
       }
     }
   }
