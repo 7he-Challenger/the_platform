@@ -26,23 +26,23 @@ const ActivityFilter = ({
       <form onSubmit={submitForm}>
         <Row>
           <Col lg={3}>
-            <Form.Group className="mb-3" controlId="filterDateBefore">
-              <Form.Label>Avant le</Form.Label>
-              <Form.Control 
-                type="date"
-                value={filter['startDate[before]'] || ''}
-                onChange={(e) => handleFilterChange('startDate[before]', e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-
-          <Col lg={3}>
             <Form.Group className="mb-3" controlId="filterDateAfter">
               <Form.Label>Après le</Form.Label>
               <Form.Control 
                 type="date"
                 value={filter['startDate[after]'] || ''}
                 onChange={(e) => handleFilterChange('startDate[after]', e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+
+          <Col lg={3}>
+            <Form.Group className="mb-3" controlId="filterDateBefore">
+              <Form.Label>Avant le</Form.Label>
+              <Form.Control 
+                type="date"
+                value={filter['startDate[before]'] || ''}
+                onChange={(e) => handleFilterChange('startDate[before]', e.target.value)}
               />
             </Form.Group>
           </Col>
@@ -84,7 +84,7 @@ const ActivityFilter = ({
           </Button>
 
           <Button variant="dark" type="button" className="mx-2" onClick={() => {resetFilter()}}>
-            Reset
+            Reinitialiser
           </Button>
         </div>
       </form>

@@ -4,7 +4,7 @@ export const USER_TYPES = [
     value: 1
   },
   {
-    name: 'Travailleur',
+    name: 'Employé',
     value: 2
   },
   {

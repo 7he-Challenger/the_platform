@@ -17,8 +17,10 @@ export type UserType = {
   lastname?: string
   role?: number
   userType?: number | null
-  address?: string
-  phone?: string
-  photo?: string
   createdAt?: string
+  userInfo? : {
+    address?: string
+    phone?: string
+    photo?: string
+  }
 }

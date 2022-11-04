@@ -46,7 +46,7 @@ const SidebarNavItem = (props: SidebarNavItemProps) => {
   return (
     <Nav.Item>
       <Link href={href} passHref>
-        <Nav.Link className="px-3 py-2 d-flex align-items-center">
+        <Nav.Link className="px-3 py-3 d-flex align-items-center">
           {icon ? <FontAwesomeIcon className="nav-icon ms-n3" icon={icon} />
             : <span className="nav-icon ms-n3" />}
           {children}
@@ -131,15 +131,11 @@ const SidebarNavGroup = (props: SidebarNavGroupProps) => {
 
 export default function SidebarNav() {
   return (
-    <ul className="list-unstyled">
-      <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>
-        Dashboard
-        {/* <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small> */}
-      </SidebarNavItem>
-      <SidebarNavGroup toggleIcon={faCalendar} toggleText="Emploi du temps">
-        <SidebarNavItem href={ROUTES.emploi_du_temps.path}>Gestion d&rsquo;activité</SidebarNavItem>
-        <SidebarNavItem href={ROUTES.calendrier_activity.path}>Calendrier</SidebarNavItem>
-      </SidebarNavGroup>
+    <ul className="list-unstyled p-1">
+      <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>Tableau de bord </SidebarNavItem>
+      <SidebarNavTitle>Activités</SidebarNavTitle>
+      <SidebarNavItem icon={faPuzzlePiece} href={ROUTES.emploi_du_temps.path}>Gestion d&rsquo;activités</SidebarNavItem>
+      <SidebarNavItem icon={faCalendar} href={ROUTES.calendrier_activity.path}>Calendrier activités</SidebarNavItem>
 
       <SidebarNavTitle>Membre</SidebarNavTitle>
       <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>Liste des membres</SidebarNavItem>

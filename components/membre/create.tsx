@@ -21,7 +21,8 @@ const CreateMember = ({
 }: CreateMemberType) => {
   const {
     body,
-    handleChangeValueForm
+    handleChangeValueForm,
+    handleChangeOtherValueForm
   } = useFormUser(toUpdate)
 
   const handleSubmit = (e: any) => {
@@ -123,7 +124,7 @@ const CreateMember = ({
         <Form.Control 
           type="text" 
           value={body.userInfo?.address}
-          onChange={(e) => handleChangeValueForm('address', e.target.value)}
+          onChange={(e) => handleChangeOtherValueForm('userInfo', 'address', e.target.value)}
         />
       </Form.Group>
 
@@ -132,7 +133,7 @@ const CreateMember = ({
         <Form.Control 
           type="text" 
           value={body.userInfo?.phone}
-          onChange={(e) => handleChangeValueForm('userInfo?.phone', e.target.value)}
+          onChange={(e) => handleChangeOtherValueForm('userInfo', 'phone', e.target.value)}
         />
       </Form.Group>
 

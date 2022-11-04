@@ -336,8 +336,10 @@ export const useFormUser = (
     lastname: '',
     role: 1,
     userType: 1,
-    address: '',
-    phone: '',
+    userInfo: {
+      address: '',
+      phone: ''
+    },
     createdAt: moment().format('YYYY-MM-DD hh:mm')
   }
 
@@ -367,11 +369,39 @@ export const useFormUser = (
   ) => {
     setBody((prev: any) => {
       let tmpPrev = { ...prev }
+
       if(index != null){
         tmpPrev[input][index] = value
       }else{
         tmpPrev[input] = value
       }
+
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }
+
+  /**
+   * method handle value change of each form
+   * input for the attribut to change
+   * value for the value of change
+   * index for the attribut with array 
+   * @param input 
+   * @param value 
+   * @param index 
+   */
+   const handleChangeOtherValueForm = (
+    object: string,
+    input: string,
+    value: any,
+    index?: number
+  ) => {
+    setBody((prev: any) => {
+      let tmpPrev = { ...prev }
+      
+      tmpPrev[object][input] = value
 
       return {
         ...prev,
@@ -439,7 +469,8 @@ export const useFormUser = (
 
   return {
     body,
-    handleChangeValueForm
+    handleChangeValueForm,
+    handleChangeOtherValueForm
   }
 }
 
