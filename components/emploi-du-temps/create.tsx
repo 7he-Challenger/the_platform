@@ -4,8 +4,7 @@ import { useFormActivity } from "~hooks/useEmploiDuTemps";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Style from '~assets/styles/Activity.module.css';
-import Image from "next/image";
-import ENDPOINT from "~constantes/enpoint";
+import { formatActivityDataForm } from "~lib/format";
 
 type CreateEmploiDuTempsType = {
   toUpdate?: any,
@@ -21,26 +20,12 @@ const CreateEmploiDuTemps = ({
     handleAddSponsor,
     handleRemoveSponsor,
     handleChangeValueForm,
-    handleDateChange,
-    pickerRef,
-    handleFilePicker,
-    posters,
-    deleteImage
+    handleDateChange
   } = useFormActivity(toUpdate)
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    submitActivity(
-      {
-        body,
-        posters
-      }, 
-      body.id
-    )
-  }
-
-  const uploadFile = () => {
-    if(pickerRef) pickerRef.current.click()
+    submitActivity(formatActivityDataForm(body), body.id)
   }
 
   return (
@@ -185,54 +170,12 @@ const CreateEmploiDuTemps = ({
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formIsPublic">
-        <Form.Label>Posters</Form.Label>
-        <Form.Control 
-          type="file" 
-          onChange={handleFilePicker}
-          className="d-none"
-          ref={pickerRef}
+        <Form.Check 
+          type="checkbox" 
+          label="Privée" 
+          checked={!body.isPublic}
+          onChange={(e) => handleChangeValueForm('isPublic', !body.isPublic)}
         />
-
-        <div className="row">
-          {
-            posters.map((image: any, index: number) => (
-              <div className={Style.imagePickerContainer} key={`image-picked-${index}`}>
-                <div className={Style.imagePicker}>
-                  <Image
-                    src={image.src || `${ENDPOINT.MEDIA_PATH}${image.contentUrl}`}
-                    layout='fill'
-                    objectFit='contain'
-                  />
-
-                  <FontAwesomeIcon 
-                    title="Supprimer image"
-                    icon={faTrash} 
-                    color="black"
-                    className={Style.imagePickerDeleteItem}
-                    size="lg"
-                    onClick={() => deleteImage(index)}
-                  />
-                </div>
-              </div>
-            ))
-          }
-          
-          <div 
-            className={Style.imagePickerContainer} 
-            title="Ajouter image"
-            onClick={uploadFile}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className={Style.imagePicker}>
-              <FontAwesomeIcon 
-                title="Upload image"
-                icon={faPlus} 
-                color="black"
-                className={Style.imagePickerIcon}
-              />
-            </div>
-          </div>
-        </div>
       </Form.Group>
 
       <div className="d-flex justify-content-end">

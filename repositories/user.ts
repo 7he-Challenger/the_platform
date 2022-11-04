@@ -68,7 +68,6 @@ export const getAllPresence = async (
   }
 }
 
-
 export const getOneUser = async (
   token: string,
   id: string

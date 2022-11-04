@@ -37,14 +37,7 @@ export const useStatistics = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const options: any = {
-    responsive: true,
-    scales: {
-      y: {
-        ticks: {
-          stepSize: 10
-        }
-      }
-    }
+    responsive: true
   }
 
   const loadUserList = async () => {
@@ -192,7 +185,7 @@ export const usePresenceStatistics = () => {
         // max: 250,
         ticks: {
           maxTicksLimit: 5,
-          stepSize: 20,
+          stepSize: 25,
         },
       },
     },
