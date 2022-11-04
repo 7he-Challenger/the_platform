@@ -17,6 +17,7 @@ const initialeQuery = {
   page: 1,
   'startDate[before]': null,
   'startDate[after]': null,
+  'order[id]': 'desc',
   title: null,
   isPublic: null
 }
