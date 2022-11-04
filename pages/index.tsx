@@ -122,19 +122,19 @@ const Home: NextPage = () => {
                     </svg>            
                 </div>
                 <div className="left item">
-                    <h2>Who we are?</h2>
+                    <h2>Qui nous sommes?</h2>
                     <p>
-                        We are a community for students, self-taught, geek and computer enthusiasts to let them share their expertise in the field of new technology, we believe that young Malagasy has many talents in the field of computing.<br/>
+                        Nous sommes une communauté d&apos;étudiants, d&apos;autodidactes, de geeks et de passionnés d&apos;informatique pour leur faire partager leur expertise dans le domaine des nouvelles technologies, nous pensons que les jeunes malgache ont de nombreux talents dans le domaine de l&apos;informatique.<br/>
                         <br/>
-                        There are four communities in Techzara, Geeka Girls, Electronics and Robotics, Developers, Network and System. We organize workshops every Saturday to share news or create cool things in the tech field.
+                        Il y a quatre communautés à Techzara, Geeka Girls, Electronique et Robotique, Développeurs, Réseau et Système. Nous organisons des ateliers tous les samedis pour partager des nouveautés ou créer des trucs sympas dans le domaine de la tech.
                     </p>
                 </div>
                 <div className="right item">
-                    <h2>What we do?</h2>
+                    <h2>Que faisons-nous?</h2>
                     <p>
-                        We organize many events to create relationship between all people who are interested in new Technologies.<br/>
+                        Nous organisons de nombreux événements pour créer des liens entre toutes les personnes intéressées par les nouvelles technologies.<br/>
                         <br/>
-                        You may already hear about the Hackathon Inter-Universitaire, IT-Connect, Hackathon Frontend Awards... 
+                        Vous avez peut-être déjà entendu parler des Hackathon Inter-Universitaire, IT-Connect, Hackathon Frontend Awards...
                     </p>
                 </div>
             </div>
@@ -174,7 +174,7 @@ const Home: NextPage = () => {
             </div>
             <div className="memories-content">
                 <h2>
-                    Wonderful moments
+                    Des instants merveilleux
                 </h2>
                 <div className="y-slide-container">
                     <div className="y-slide-item slide1">
@@ -189,7 +189,7 @@ const Home: NextPage = () => {
                         <Image src="assets/images/versera.jpg" layout='fill' objectFit='cover' alt="#birthday"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
-                                #birthday
+                                #5th_anniversaire
                             </span>
                         </div>
                     </div>                    
@@ -197,7 +197,7 @@ const Home: NextPage = () => {
                         <Image src="assets/images/membres.jpg" layout='fill' objectFit='cover' alt="#members_2022"/>
                         <div className="y-slide-caption-container">
                             <span className="y-slide-caption-text">
-                                #members_2022
+                                #membres_2022
                             </span>
                         </div>
                     </div>                         
@@ -233,17 +233,18 @@ const Home: NextPage = () => {
                         </svg>                        
                     </div>
                     <div className="left item">
-                        <h2>Join our team</h2>
+                        <h2>Rejoignez notre équipe</h2>
                         <p>
-                            Be apart of our community to enjoy the amazing IT people feelings together. Start the adventure by <a href="#">signing up here</a>.
+                            Faites partie de notre communauté pour profiter ensemble des incroyables sensations entre informaticiens. Commencez l'aventure en <a href="#">vous inscrivant ici</a>.
                         </p>
                     </div>
                     <div className="right item" id="contact">
                         <h2>Contact</h2>
+                        <p>Pour plus d&apos;information ou questions, nous sommes à votre disposition</p>
                         <form>
-                            <input type="email" placeholder="mail address"/>
+                            <input type="email" placeholder="adresse mail"/>
                             <textarea placeholder="messages"></textarea>
-                            <button>submit</button>
+                            <button>envoyer</button>
                         </form>
                     </div>
                 </div>
