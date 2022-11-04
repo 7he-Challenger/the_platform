@@ -1,4 +1,3 @@
-
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
@@ -37,7 +36,14 @@ export const useStatistics = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const options: any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 10
+        }
+      }
+    }
   }
 
   const loadUserList = async () => {
@@ -185,7 +191,7 @@ export const usePresenceStatistics = () => {
         // max: 250,
         ticks: {
           maxTicksLimit: 5,
-          stepSize: 25,
+          stepSize: 20,
         },
       },
     },

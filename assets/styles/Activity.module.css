@@ -11,3 +11,32 @@
   max-width: 170px !important;
   width: 200px;
 }
+
+
+.imagePickerContainer {
+  width: 25%;
+  flex: 0 0 auto;
+  margin-top: 10px;
+}
+
+.imagePicker {
+  width: 100%;
+  height: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+  position: relative;
+}
+
+.imagePickerIcon {
+  font-size: 35px;
+}
+
+.imagePickerDeleteItem {
+  position: absolute;
+  top: -5%;
+  right: -5%;
+  z-index: 100;
+  cursor: pointer;
+}
