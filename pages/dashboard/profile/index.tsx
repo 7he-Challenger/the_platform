@@ -11,19 +11,17 @@ import { getOneUser, updateOneUser } from "~repositories/user";
 import { getSession, GetSessionParams } from "next-auth/react";
 import { User } from "~models/user";
 import { useFormData } from "~logics/useFormData";
-import _ from "lodash";
 
 const Profile: NextPage = (props : any) => {
   const { user } = props
   
-  const {formData,getTextFieldProps, changedField} = useFormData<User>({
+  const {formData,getTextFieldProps} = useFormData<User>({
     formData: user
   })
   
   const handleUpdate = async () => {
     const session:any = await getSession();
-    let data = _.pick(formData, changedField || [])
-    updateOneUser(session.accessToken,session?.user?.id,data)
+    updateOneUser(session.accessToken,session?.user?.id,formData)
   }
   return (
     <AdminLayout>
