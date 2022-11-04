@@ -132,7 +132,7 @@ const CreateEmploiDuTemps = ({
         <Form.Select 
           aria-label="Select type"
           value={body.type}
-          onChange={(e) => handleChangeValueForm('type', e.target.value)}
+          onChange={(e) => handleChangeValueForm('type', parseInt(e.target.value))}
         >
           {
             ACTIVITY_TYPES.map((activityType, index) => (
