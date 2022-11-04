@@ -235,7 +235,7 @@ const Home: NextPage = () => {
                     <div className="left item">
                         <h2>Rejoignez notre équipe</h2>
                         <p>
-                            Faites partie de notre communauté pour profiter ensemble des incroyables sensations entre informaticiens. Commencez l'aventure en <a href="#">vous inscrivant ici</a>.
+                            Faites partie de notre communauté pour profiter ensemble des incroyables sensations entre informaticiens. Commencez l&apos;aventure en <a href="#">vous inscrivant ici</a>.
                         </p>
                     </div>
                     <div className="right item" id="contact">
