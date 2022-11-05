@@ -26,27 +26,6 @@ const MemberFilter = ({
     <div className="my-2">
       <form onSubmit={submitForm}>
         <Row>
-          {/* <Col lg={3}>
-            <Form.Group className="mb-3" controlId="filterDateBefore">
-              <Form.Label>Entre le</Form.Label>
-              <Form.Control 
-                type="date"
-                value={filter['createdAt'] || ''}
-                onChange={(e) => handleFilterChange('createdAt', e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-
-          <Col lg={3}>
-            <Form.Group className="mb-3" controlId="filterDateAfter">
-              <Form.Label>et le</Form.Label>
-              <Form.Control 
-                type="date"
-                value={filter['createdAt'] || ''}
-                onChange={(e) => handleFilterChange('createdAt', e.target.value)}
-              />
-            </Form.Group>
-          </Col> */}
 
           <Col lg={3}>
             <Form.Group className="mb-3" controlId="filterLastname">
@@ -63,11 +42,11 @@ const MemberFilter = ({
           <Col lg={3}>
             <Form.Group className="mb-3" controlId="filterUserType">
               <Form.Label>Type</Form.Label>
-              <Form.Select 
-                aria-label="Selectionnez un type"
+              <Form.Select
                 value={filter['userType'] || ''}
                 onChange={(e) => handleFilterChange('userType', e.target.value)}
               >
+                <option value="" selected>Selectionnez un type</option>
                 {
                   USER_TYPES.map((userTypes, index) => (
                     <option key={`user-type-${index}`} value={userTypes.value}>

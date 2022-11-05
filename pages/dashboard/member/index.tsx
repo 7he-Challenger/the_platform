@@ -106,7 +106,8 @@ export const getServerSideProps = async (context: any) => {
   // the token to send in axios instance
   try {
     let users: { [key: string]: any[] } = await getUsers(session.accessToken, {
-      page: 1
+      page: 1,
+      'order[id]': 'desc'
     })
 
     return {
