@@ -1,3 +1,4 @@
+import _ from "lodash"
 import ENDPOINT from "~constantes/enpoint"
 import axiosInstance from "~lib/axios"
 import { UserType } from "~models/user"
@@ -94,19 +95,48 @@ export const getOneUser = async (
  */
 export const updateOneUser = async (
   token: string,
-  id: string,
+  userId: string,
   data: UserType
 ) => {
   const axios = axiosInstance(token, true)
 
   try{
+    let id = null
+    if(data?.picture){
+        id = await uploadPhoto(token, data.picture)
+    }
+    const payload = {...(_.omit(data, "picture")), ...(id ? {cover: id} : {})}
+
     const result = await axios.put(
-      `${ENDPOINT.USER}/${id}`,
-      data
+      `${ENDPOINT.USER}/${userId}`,
+      payload
     )
+    
     return result
   }catch(e: any){
     console.log('error update one user')
+    throw e
+  }
+}
+
+export const uploadPhoto = async (
+  token: string,
+  file: File
+) => {
+  const axios = axiosInstance(token, true, true)
+
+  try{
+    var formData = new FormData();
+    formData.append("file", file); 
+
+    const result = await axios.post(
+      ENDPOINT.MEDIA,
+      formData
+    )
+
+    return result.data?.['@id']
+  }catch(e: any){
+    console.log('error save media')
     throw e
   }
 }

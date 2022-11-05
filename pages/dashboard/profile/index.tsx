@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import type { NextPage } from 'next';
 import { AdminLayout } from "~layout";
-import Image from "react-bootstrap/Image";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faFloppyDisk, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "react-bootstrap/Accordion";
 import Form from "react-bootstrap/Form";
 import { getOneUser, updateOneUser } from "~repositories/user";
-import { getSession, GetSessionParams } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { User, UserType } from "~models/user";
 import { useFormData } from "~logics/useFormData";
 import _ from "lodash";
@@ -16,15 +15,25 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
 import { setToast } from "~store/toast";
+import { ROLE_TYPES } from "~constantes/user-roles";
+import { USER_TYPES } from "~constantes/user-types";
+import { ProfilePictureSection } from "~components/profile/ProfilePictureSection";
+import ENDPOINT from "~constantes/enpoint";
+import { EditPasswordForm } from "~components/profile/EditPasswordForm";
 
 const Profile: NextPage = (props : any) => {
   const { user } = props
   const [editMode, setEditMode] = useState(false)
+  const [showPasswordModal , setShowPasswordModal] = useState(false)
+  const [temporaryPicture, setTemporaryPicture] = useState<string | null>(null)
 
-  const {formData,getTextFieldProps, changedField} = useFormData<User>({
+  const {formData,getTextFieldProps, changedField, handleInputChange, setFormData} = useFormData<User>({
     formData: user
   })
-  
+
+  const userRoles = useMemo(()=>ROLE_TYPES.find(item => item.value === user?.role),[user])
+  const userTypes = useMemo(()=>USER_TYPES.find(item => item.value === user?.userType),[user])
+
   const dispatch = useAppDispatch();
   const handleUpdate = async () => {
       dispatch(setLoadingTreatment(true));
@@ -44,6 +53,7 @@ const Profile: NextPage = (props : any) => {
                       message: "Vos modifications ont été prise en compte",
                   })
               );
+              setFormData(v => (_.omit(v, "picture")))
           }
       } catch (error) {
           console.log("Error Occured :", error);
@@ -53,10 +63,16 @@ const Profile: NextPage = (props : any) => {
       }
   };
 
+  const handlePictureChanges = (b64picture: string, file: File) => {
+      setTemporaryPicture(b64picture)
+      setEditMode(true)
+      handleInputChange("picture", file)
+  }
+
   return (
     <AdminLayout>
       <div className="flex-column" style={{ rowGap: "50px" }}>
-        <div className="full-height flex-space-between" >
+        <div className="full-height flex-space-between profile-header-infos" >
           <div
             style={{
               display: "flex",
@@ -65,25 +81,24 @@ const Profile: NextPage = (props : any) => {
               flex:1
             }}
           >
-            <Image
-              src="http://xsgames.co/randomusers/avatar.php?g=male"
-              className="picture-profile"
-              roundedCircle
-              fluid
-            />
+            <ProfilePictureSection src={temporaryPicture || (formData?.cover?.contentUrl ? ENDPOINT.MEDIA_PATH+(formData?.cover?.contentUrl||"") : undefined)} onPictureChanges={handlePictureChanges}/>
+            
             <div
               className="flex-center"
               style={{ flexDirection: "column", height: "100%", alignItems:"flex-start", gap:"30px" }}
             >
-              <div>
-                <h3>{user?.firstname || "Jean"} {user?.lastname || "Christophe"}</h3>
+              <div className="user-role-type-pr">
+                <h3>{user?.firstname || ""} {user?.lastname || ""}</h3>
                 <span>
-                  <FontAwesomeIcon icon={faUserGroup} /> Membre
+                  <FontAwesomeIcon icon={userRoles?.icon || faUserGroup} /> {userRoles?.name || ""}
+                </span>
+                <span style={{marginInline:"8px"}} className="dash-role-type">-</span>
+                <span>
+                  <FontAwesomeIcon icon={userTypes?.icon || faEllipsis} /> {userTypes?.name || ""}
                 </span>
               </div>
               <p>
-                Est irure enim enim incididunt dolor non laboris do ea eu enim
-                et laboris nostrud.
+               "Le succès n’est pas final, l’échec n’est pas fatal."
               </p>
             </div>
           </div>
@@ -107,14 +122,14 @@ const Profile: NextPage = (props : any) => {
           <Accordion.Item eventKey="0" >
             <Accordion.Header>Informations de connexion</Accordion.Header>
             <Accordion.Body>
-              <Form style={{display:"flex", columnGap:"50px"}}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form style={{display:"flex", columnGap:"50px", flexWrap:"wrap"}}>
+                <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail">
                   <Form.Label>Nom d'utilisateur ou email</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" {...getTextFieldProps("username")} disabled={!editMode}/> 
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail" onClick={()=>setShowPasswordModal(true)}>
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Enter password" value={"**********"} disabled={!editMode}/>
+                  <Form.Control type="password" placeholder="Enter password" value={"**********"} disabled={true} style={{cursor:"pointer"}}/>
                 </Form.Group>
               </Form>
             </Accordion.Body>
@@ -123,11 +138,11 @@ const Profile: NextPage = (props : any) => {
             <Accordion.Header>Informations personnelles</Accordion.Header>
             <Accordion.Body>
                 <Form style={{display:"flex", columnGap:"50px", flexWrap:"wrap"}}>
-                    <Form.Group className="mb-3 profile-field" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail">
                       <Form.Label>Nom</Form.Label>
                       <Form.Control type="text" placeholder="Nom" {...getTextFieldProps("lastname")} disabled={!editMode}/> 
                     </Form.Group>
-                    <Form.Group className="mb-3 profile-field" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail">
                       <Form.Label>Prénom</Form.Label>
                       <Form.Control type="text" placeholder="Prénom" {...getTextFieldProps("firstname")} disabled={!editMode}/>
                     </Form.Group>
@@ -135,11 +150,11 @@ const Profile: NextPage = (props : any) => {
             </Accordion.Body>
             <Accordion.Body>
                 <Form style={{display:"flex", columnGap:"50px", flexWrap:"wrap"}}>
-                    <Form.Group className="mb-3 profile-field" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail">
                       <Form.Label>Adresse</Form.Label>
                       <Form.Control type="text" placeholder="Adresse" {...getTextFieldProps("userInfo.address")} disabled={!editMode}/> 
                     </Form.Group>
-                    <Form.Group className="mb-3 profile-field" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail">
                       <Form.Label>Phone</Form.Label>
                       <Form.Control type="text" placeholder="Phone" {...getTextFieldProps("userInfo.phone")} disabled={!editMode}/>
                     </Form.Group>
@@ -147,6 +162,23 @@ const Profile: NextPage = (props : any) => {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+
+        <Modal 
+          show={showPasswordModal} 
+          onHide={()=>setShowPasswordModal(false)}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+                Modifier Votre Mot de Passe 
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+             <EditPasswordForm onClose={()=>setShowPasswordModal(false)}/>
+          </Modal.Body>
+        </Modal>
       </div>
     </AdminLayout>
   );

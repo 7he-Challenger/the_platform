@@ -8,18 +8,17 @@ export const useFormData = <TData = any>(props: Props<TData>): UseFormData<TData
     const [formData, setFormData] = useState<TData>(props.formData);
     const [errors, setErrors] = useState<any>()
     const [changedField, setChangedField] = useState<string[]>([])
-
+    
     const handleInputChange = (key: string, value: any) => {
         setChangedField(_.uniq([...changedField!, key]))
         let obj = updateValue(formData, key, value)
         setFormData(obj)
     }
 
-    const getTextFieldProps = useCallback((name: string): FieldProps => {
+    const getTextFieldProps = useCallback((name: string): FieldProps => {       
         return {
             name,
-            error: errors?.[name] !== undefined,
-            helperText: errors?.[name],
+            errorMessage: errors?.[name],
             value: read(formData, name) || undefined,
             required: props.required?.includes(name),
             onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, checked?: boolean) => {
@@ -30,10 +29,11 @@ export const useFormData = <TData = any>(props: Props<TData>): UseFormData<TData
             }
         }
 
-    }, [formData])
+    }, [formData, errors, props?.required])
 
-    const isValid = (render: boolean = true): boolean => {
-        const _errors = evalErrors()
+    const isValid = async (render: boolean = true): Promise<boolean> => {
+        const _errors = await evalErrors()
+        
         if (render) {
             setErrors(_errors)
             // scroll to invalid element
@@ -61,13 +61,16 @@ export const useFormData = <TData = any>(props: Props<TData>): UseFormData<TData
         return _errors
     }, [formData])
 
+    const getError = (name: string) => errors?.[name]
+    
     return {
         formData,
         setFormData,
         handleInputChange,
         getTextFieldProps,
         isValid,
-        changedField
+        changedField,
+        getError
     }
 }
 
@@ -113,15 +116,21 @@ export type UseFormData<TData> = {
      * Then will execute "validate" function
      * @param render false will prevent rendering of components
      */
-     isValid: (render?: boolean) => boolean
+     isValid: (render?: boolean) => Promise<boolean>
+
+     /**
+      * 
+      * @param name field to check
+      * @returns error of the specified field
+      */
+     getError: (name: string) => string | null | undefined
 }
 
 type FieldProps = {
     name: string
     value: any
-    error?: boolean
+    errorMessage?: string
     required?: boolean
-    helperText?: string | React.ReactNode,
     onChange?: ((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, checked?: boolean) => void)
         | ((e: React.ChangeEvent<HTMLInputElement>, value?: string) => void)
         | ((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void)

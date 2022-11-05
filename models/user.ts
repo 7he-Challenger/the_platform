@@ -7,10 +7,14 @@ export interface User {
   lastname?: string
   role?: number
   userType?: number
+  cover?: {
+    contentUrl?: string
+  }
+  picture?: File
 }
   
 export type UserType = {
-  id: any | null
+  id?: any | null
   username?: string
   password?: string
   firstname?: string
@@ -23,4 +27,6 @@ export type UserType = {
     phone?: string
     photo?: string
   }
+  cover?: string
+  picture?: File
 }

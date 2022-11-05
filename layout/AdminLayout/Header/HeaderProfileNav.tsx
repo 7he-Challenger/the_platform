@@ -121,7 +121,7 @@ export default function HeaderProfileNav() {
           </Link> */}
           <Link href="/dashboard/profile" passHref>
               <Dropdown.Item>
-                <ProfileDropdownItem icon={faUser}>My Profile</ProfileDropdownItem>
+                <ProfileDropdownItem icon={faUser}>Mon Profil</ProfileDropdownItem>
               </Dropdown.Item>
           </Link>
           <div onClick={handleLogout}>
