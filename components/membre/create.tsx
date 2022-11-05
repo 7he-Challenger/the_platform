@@ -53,7 +53,7 @@ const CreateMember = ({
       </Form.Group>
 
       {!toUpdate && 
-        (<fieldset>
+        (<>
           
           <Form.Label>Mot de passe *</Form.Label>
           <InputGroup className={Style.inputGroups + " form-group"}>
@@ -85,14 +85,21 @@ const CreateMember = ({
           />
         </InputGroup.Text>
         </InputGroup>
-        {errors.pwd && <span className={Style.textRed}>{errors.pwd.message} <br /><br /></span>}
+        {( 
+          errors.pwd &&
+          (<span className={Style.textRed}>
+            <>
+            {errors.pwd.message} <br /><br />
+            </>
+          </span>)
+        )}
         
 
 
         <Form.Label>Confirmer le mot de passe *</Form.Label>
           <InputGroup className={Style.inputGroups + " form-group"}>
           <Form.Control
-            {...register("cfpwd", { 
+            {...register("confirmPwd", { 
               required: 'Confirmer le mot de passe est requis',
               validate: (value) => value === pwd || "Le mot de passe ne correspond pas",
             })}
@@ -111,9 +118,16 @@ const CreateMember = ({
           />
         </InputGroup.Text>
         </InputGroup>
-        {errors.cfpwd && <span className={Style.textRed}>{errors.cfpwd.message} <br /><br /></span>}
+        {( 
+          errors.confirmPwd &&
+          (<span className={Style.textRed}>
+            <>
+            {errors.confirmPwd.message} <br /><br />
+            </>
+          </span>)
+        )}
 
-        </fieldset>)
+        </>)
       }
 
       <Form.Group className="mb-3" controlId="formLieu">
