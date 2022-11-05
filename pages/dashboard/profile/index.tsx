@@ -98,7 +98,7 @@ const Profile: NextPage = (props : any) => {
                 </span>
               </div>
               <p>
-               "Le succès n’est pas final, l’échec n’est pas fatal."
+                &quot; Le succès n’est pas final, l’échec n’est pas fatal. &quot;
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ const Profile: NextPage = (props : any) => {
             <Accordion.Body>
               <Form style={{display:"flex", columnGap:"50px", flexWrap:"wrap"}}>
                 <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail">
-                  <Form.Label>Nom d'utilisateur ou email</Form.Label>
+                  <Form.Label>Nom d&apos;utilisateur ou email</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" {...getTextFieldProps("username")} disabled={!editMode}/> 
                 </Form.Group>
                 <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail" onClick={()=>setShowPasswordModal(true)}>

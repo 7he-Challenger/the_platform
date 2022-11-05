@@ -18,6 +18,7 @@ export const ProfilePictureSection = (props: Props) => {
       <Image
         src={props?.src || '/assets/img/avatars/default.png'}
         className="picture-profile"
+        alt="profile picture"
         roundedCircle
         fluid
       />

@@ -202,6 +202,7 @@ const CreateEmploiDuTemps = ({
                     src={image.src || `${ENDPOINT.MEDIA_PATH}${image.contentUrl}`}
                     layout='fill'
                     objectFit='contain'
+                    alt="Poster"
                   />
 
                   <FontAwesomeIcon 
