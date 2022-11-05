@@ -3,8 +3,6 @@ import { ROLE_TYPES } from "~constantes/user-roles";
 import { USER_TYPES } from "~constantes/user-types";
 import { useFormUser } from "~hooks/useMember";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
-// import Style from '~assets/styles/Activity.module.css';
 import { formatUserDataForm } from "~lib/format-user";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react";
