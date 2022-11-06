@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { Button } from 'react-bootstrap'
 import SidebarNav from '~layout/AdminLayout/Sidebar/SidebarNav'
+import Style from '~assets/styles/Sidebar.module.css';
 
 export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
   const { isShow, isShowMd } = props
@@ -31,23 +32,8 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
       })}
       id="sidebar"
     >
-      <div className="sidebar-brand d-none d-md-flex align-items-center justify-content-center">
-        <svg
-          className="sidebar-brand-full"
-          width="118"
-          height="46"
-        >
-          <title>CoreUI Logo</title>
-          <use xlinkHref="/assets/brand/coreui.svg#full" />
-        </svg>
-        <svg
-          className="sidebar-brand-narrow d-none"
-          width="46"
-          height="46"
-        >
-          <title>CoreUI Logo</title>
-          <use xlinkHref="/assets/brand/coreui.svg#signet" />
-        </svg>
+      <div className={Style.leftLogoContainer + " sidebar-brand d-none d-md-flex align-items-center justify-content-center"}>
+        <img src="/assets/images/logo.jpg" width={"129px"} height={"61px"} alt="Logo Techzara" />
       </div>
 
       <div className="sidebar-nav flex-fill">

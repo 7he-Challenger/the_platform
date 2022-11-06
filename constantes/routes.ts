@@ -11,6 +11,16 @@ const ROUTES = {
     name: 'Dashboard'
   },
 
+  member: {
+    path: `${dashboard}/member`,
+    name: 'Membre'
+  },
+
+  profile: {
+    path: `${dashboard}/profile`,
+    name: 'Profile'
+  },
+
   emploi_du_temps: {
     path: `${dashboard}/emploi-du-temps`,
     name: 'Emploi du temps'

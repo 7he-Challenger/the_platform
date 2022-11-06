@@ -14,15 +14,16 @@ import Axios from 'axios';
 
 const axiosInstance = (
   token: string | null = null,
-  accept: boolean = false
+  accept: boolean = false,
+  media: boolean = false
 ) => {
   const option = token ? {
     Accept: accept ? 'application/ld+json' : 'application/json',
-    'Content-Type': 'application/json',
+    'Content-Type': media ? 'multipart/form-data' : 'application/json',
     Authorization: `Bearer ${token}`
   } : {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
+    'Content-Type': media ? 'multipart/form-data' : 'application/json',
   }
 
   const axios = Axios.create({

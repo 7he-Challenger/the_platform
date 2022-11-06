@@ -29,6 +29,7 @@ const ListActivities = ({
             <th>Lieu</th>
             <th>Début</th>
             <th>Fin</th>
+            <th>Public</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -45,11 +46,21 @@ const ListActivities = ({
                 <td>{formatDate(item.endDate)}</td>
                 <td>
                   <FontAwesomeIcon 
-                    title={
-                      item.isEnable == false
-                        ? "Annulé"
-                        : "Validé"
+                    icon={
+                      item.isPublic == false
+                        ? faClose
+                        : faCheck
+                    } 
+                    size="lg" 
+                    color={
+                      item.isPublic == false
+                        ? 'red'
+                        : 'green'
                     }
+                  />
+                </td>
+                <td>
+                  <FontAwesomeIcon 
                     icon={
                       item.isEnable == false
                         ? faBan
@@ -66,42 +77,44 @@ const ListActivities = ({
                 <td className={Style.actionContainer}>
                   <div className="d-flex justify-content-around">
                     <Button
-                      title="Supprimer activité"
-                      variant="danger"
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} size="lg" />
-                    </Button>
-
-                    <Button
+                      className="rounded-circle"
                       title="Modifier activité"
-                      variant="primary"
+                      variant="success"
                       onClick={() => handleEdit(item)}
                     >
-                      <FontAwesomeIcon icon={faPencil} size="lg" />
+                      <FontAwesomeIcon icon={faPencil} size="sm" />
                     </Button>
 
                     <Button
+                      className="rounded-circle"
                       title={
                         item.isEnable == false 
                           ? "Confirmer l'activité"
                           : "Annuler activité"
                       }
-                      variant="dark"
+                      variant={item.isEnable == false ? "info" : "warning"}
                       onClick={() => {
                         item.isEnable == false 
                           ? handleCancel(item.id, true)
                           : handleCancel(item.id)
                       }}
                     >
-                      <FontAwesomeIcon 
+                      <FontAwesomeIcon
                         icon={
                           item.isEnable == false
                             ? faCheck
-                            : faClose
+                            : faBan
                         } 
-                        size="lg" 
+                        size="sm" 
                       />
+                    </Button>
+                    <Button
+                      className="rounded-circle"
+                      title="Supprimer activité"
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} size="sm" />
                     </Button>
                   </div>
                 </td>

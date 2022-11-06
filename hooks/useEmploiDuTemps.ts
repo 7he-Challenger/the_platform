@@ -1,12 +1,14 @@
+import { faTemperature4 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
 import { formatQueryActivityParams } from "~lib/format";
 import { ActivityType } from "~models/activity";
 import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities } from "~repositories/activities";
+import { uploadFiles } from "~repositories/media";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
 import { setToast } from "~store/toast";
@@ -15,7 +17,9 @@ const initialeQuery = {
   page: 1,
   'startDate[before]': null,
   'startDate[after]': null,
-  title: null
+  'order[id]': 'desc',
+  title: null,
+  isPublic: null
 }
 
 /**
@@ -84,11 +88,19 @@ const useEmploiDuTemps = (
       dispatch(setLoadingTreatment(true))
       try{
         const token = data ? data.accessToken : null
-        const activity = await saveActivities(token, body, id)
+        const medias = await uploadFiles(token, body.posters)
+        const tmpBody = { ... body.body}
+        tmpBody.posters = tmpBody.posters.map((item: any) => item['@id'])
+        medias.forEach((item: any) => tmpBody.posters.push(item))
+        const activity = await saveActivities(token, tmpBody, id)
         
         // treatment after save activity
         await loadActivity(token)
         hideCreate()
+        dispatch(setToast({
+          show: true,
+          message: 'Activité enregistré'
+        }))
       }catch(e: any){
         console.log('error method save activity', e)
         if(e.response && e.response.status == 401){
@@ -99,10 +111,6 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
-        dispatch(setToast({
-          show: true,
-          message: 'Activité enregistré'
-        }))
       }
     }
   }
@@ -128,6 +136,10 @@ const useEmploiDuTemps = (
         // treatment after save activity
         await loadActivity(token)
         hideCreate()
+        dispatch(setToast({
+          show: true,
+          message: 'Activité annulé'
+        }))
       }catch(e: any){
         console.log('error method cancel activity', e)
         if(e.response && e.response.status == 401){
@@ -138,10 +150,7 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
-        dispatch(setToast({
-          show: true,
-          message: 'Activité annulé'
-        }))
+        
       }
     }
   }
@@ -160,6 +169,10 @@ const useEmploiDuTemps = (
         const result = await deleteActivity(token, id)
 
         await loadActivity(token)
+        dispatch(setToast({
+          show: true,
+          message: 'Activité supprimé'
+        }))
       }catch(e: any){
         console.log('error method delete activity', e)
         if(e.response && e.response.status == 401){
@@ -170,10 +183,6 @@ const useEmploiDuTemps = (
         }
       }finally{
         dispatch(setLoadingTreatment(false))
-        dispatch(setToast({
-          show: true,
-          message: 'Activité supprimé'
-        }))
       }
     }
   }
@@ -325,6 +334,7 @@ const useEmploiDuTemps = (
 export const useFormActivity = (
   toUpdate?: any
 ) => {
+  const pickerRef = useRef<any>(null)
   /**
    * initial data for the activity form
    */
@@ -337,7 +347,9 @@ export const useFormActivity = (
     sponsors: [],
     type: 1,
     startDate: '',
-    endDate: ''
+    endDate: '',
+    isPublic: true,
+    posters: []
   }
 
   /**
@@ -349,6 +361,8 @@ export const useFormActivity = (
       ? { ...initialeData,...toUpdate }
       : { ...initialeData } 
   )
+
+  const [posters, setPosters] = useState<Array<any>>([])
 
   /**
    * method to add new sponsor item
@@ -388,25 +402,24 @@ export const useFormActivity = (
    * @param value 
    * @param index 
    */
-  const handleChangeValueForm = (
+  const handleChangeValueForm = useCallback((
     input: string,
     value: any,
     index?: number
   ) => {
     setBody((prev: any) => {
-      let tmpPrev = { ...prev }
+      let tmpPrev = JSON.parse(JSON.stringify(prev))
       if(index != null){
         tmpPrev[input][index] = value
       }else{
         tmpPrev[input] = value
       }
-
       return {
         ...prev,
         ...tmpPrev
       }
     })
-  }
+  }, [body])
 
   /**
    * method handle value change of date input
@@ -415,7 +428,7 @@ export const useFormActivity = (
    * @param value 
    * @param type 
    */
-  const handleDateChange = (
+  const handleDateChange = useCallback((
     input: string,
     value: string,
     type: string
@@ -432,6 +445,46 @@ export const useFormActivity = (
         ...tmpPrev
       }
     })
+  }, [body])
+
+  /**
+   * handle input type file change
+   * @param input 
+   * @param value 
+   */
+  const handleFilePicker = (
+    e: any
+  ) => {
+    const file = e.target.files[0]
+    const reader = new FileReader();
+    reader.onload = (event: any) => {
+      setPosters((prev: any) => {
+        const tmp = [...prev]
+        tmp.push({
+          src: event.target.result,
+          file
+        })
+        return tmp
+      })
+    }
+    
+    reader.readAsDataURL(file)
+  }
+
+  const deleteImage = (i: number) => {
+    setPosters((prev: any) => {
+      const tmp = [...prev]
+      tmp.splice(i, 1)
+      return tmp
+    })
+
+    if(body.posters[i]){
+      setBody((prevBody: any) => {
+        const tmpBody = {...prevBody}
+        tmpBody.posters.splice(i, 1)
+        return tmpBody
+      })
+    }
   }
 
   /**
@@ -464,6 +517,7 @@ export const useFormActivity = (
     tmpBody.endDate = !tmpBody.endDate ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.endDate).format('YYYY-MM-DD hh:mm')
 
     setBody(tmpBody)
+    setPosters(tmpBody.posters)
   }, [])
 
   return {
@@ -471,7 +525,11 @@ export const useFormActivity = (
     handleAddSponsor,
     handleRemoveSponsor,
     handleChangeValueForm,
-    handleDateChange
+    handleDateChange,
+    pickerRef,
+    posters,
+    handleFilePicker,
+    deleteImage
   }
 }
 

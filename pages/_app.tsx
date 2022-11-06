@@ -13,8 +13,34 @@ import { wrapper } from '~store'
 import LoadingOverlay from '~components/loading-overlay'
 import { SessionProvider } from 'next-auth/react'
 import ToastComponent from '~components/toast'
+import { Router } from 'next/router';
+import ReactDOM from "react-dom";
+import PageChange from '~components/transition-layout';
 
+/**
+ * -------------------- TRANSITION PAGE START -------------------------
+ */
+Router.events.on("routeChangeStart", (url) => {
+  document.body.classList.add("body-page-transition");
+  ReactDOM.render(
+    <PageChange/>,
+    document.getElementById("page-transition")
+  );
+});
 
+Router.events.on("routeChangeComplete", () => {
+  ReactDOM.unmountComponentAtNode(document.getElementById("page-transition") as any);
+  document.body.classList.remove("body-page-transition");
+});
+
+Router.events.on("routeChangeError", () => {
+  ReactDOM.unmountComponentAtNode(document.getElementById("page-transition") as any);
+  document.body.classList.remove("body-page-transition");
+});
+
+/**
+ * -------------------- TRANSITION PAGE END -------------------------
+ */
 
 
 // You change this configuration value to false so that the Font Awesome core SVG library
@@ -33,6 +59,7 @@ function MyApp({ Component, pageProps }: any) {
       <SessionProvider session={pageProps.session}>
         <ToastComponent />
         <LoadingOverlay />
+        
         <Component {...pageProps} />
       </SessionProvider>
     </SSRProvider>
