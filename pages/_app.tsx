@@ -1,5 +1,6 @@
 import '~assets/styles/globals.scss'
 import '~assets/styles/loader.scss'
+import '~assets/styles/login/login.style.scss'
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
