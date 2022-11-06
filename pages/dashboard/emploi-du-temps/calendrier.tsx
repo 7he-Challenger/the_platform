@@ -118,6 +118,7 @@ const EmploiDuTemps: NextPage = (props: any) => {
                                       src={`${ENDPOINT.MEDIA_PATH}${image.contentUrl}`}
                                       layout='fill'
                                       objectFit='contain'
+                                      alt="event poster"
                                     />
                                   </div>
                                 </div>

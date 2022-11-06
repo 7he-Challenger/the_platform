@@ -150,14 +150,14 @@ const CreateEmploiDuTemps = ({
           <Col>
             <Form.Control 
               type="date"
-              value={body.startDate.split(' ')[0] || ''}
+              value={body.startDate.split(' ')[0] || ''}
               onChange={(e) => handleDateChange('startDate', e.target.value, 'date')}
             />
           </Col>
           <Col>
             <Form.Control 
               type="time"
-              value={body.startDate.split(' ')[1] || ''}
+              value={body.startDate.split(' ')[1] || ''}
               onChange={(e) => handleDateChange('startDate', e.target.value, 'time')}
             />
           </Col>
@@ -202,6 +202,7 @@ const CreateEmploiDuTemps = ({
                     src={image.src || `${ENDPOINT.MEDIA_PATH}${image.contentUrl}`}
                     layout='fill'
                     objectFit='contain'
+                    alt="Poster"
                   />
 
                   <FontAwesomeIcon 
