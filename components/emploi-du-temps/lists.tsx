@@ -78,15 +78,6 @@ const ListActivities = ({
                   <div className="d-flex justify-content-around">
                     <Button
                       className="rounded-circle"
-                      title="Supprimer activité"
-                      variant="danger"
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} size="sm" />
-                    </Button>
-
-                    <Button
-                      className="rounded-circle"
                       title="Modifier activité"
                       variant="success"
                       onClick={() => handleEdit(item)}
@@ -116,6 +107,14 @@ const ListActivities = ({
                         } 
                         size="sm" 
                       />
+                    </Button>
+                    <Button
+                      className="rounded-circle"
+                      title="Supprimer activité"
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} size="sm" />
                     </Button>
                   </div>
                 </td>

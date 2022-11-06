@@ -51,13 +51,12 @@ const ListUsers = ({
                   <div className="d-flex justify-content-around">
                     <Button
                       className="rounded-circle"
-                      title="Supprimer membre"
-                      variant="danger"
-                      onClick={() => handleDelete(item.id)}
+                      title="Détails membre"
+                      variant="info"
+                      onClick={() => showEvent(item)}
                     >
-                      <FontAwesomeIcon icon={faTrash} size="sm" />
+                      <FontAwesomeIcon color="white"  icon={faEye} size="sm" />
                     </Button>
-
                     <Button
                       className="rounded-circle"
                       title="Modifier membre"
@@ -66,16 +65,14 @@ const ListUsers = ({
                     >
                       <FontAwesomeIcon icon={faPencil} color="white" size="sm" />
                     </Button>
-
                     <Button
                       className="rounded-circle"
-                      title="Détails membre"
-                      variant="info"
-                      onClick={() => showEvent(item)}
+                      title="Supprimer membre"
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
                     >
-                      <FontAwesomeIcon color="white"  icon={faEye} size="sm" />
+                      <FontAwesomeIcon icon={faTrash} size="sm" />
                     </Button>
-                
                   </div>
                 </td>
               </tr>
