@@ -76,13 +76,13 @@ const Login: NextPage = () => {
             </div>
             <div className="d-grid gap-2" style={{marginBottom: '40px'}}>
               <Button className="px-4" variant="primary" type="submit">Login</Button>
-              <Button className="px-4" variant="outline-dark" type="submit">
+              {/*<Button className="px-4" variant="outline-dark" type="submit">
                 <span style={{position: 'relative', top: '3px'}}>
                   <Image src="/assets/images/google.png" alt="google" width="18" height="18" />
                 </span>
                 &nbsp;  
                 Sign In With Google
-              </Button>
+              </Button>*/}
             </div>
             <div className="login-footer">
                 <p>
