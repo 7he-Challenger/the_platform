@@ -15,7 +15,8 @@ import { setToast } from "~store/toast";
 const initialeQuery = {
   page: 1,
   firstname: null,
-  lastname: null
+  lastname: null,
+  'order[id]': 'desc'
 }
 
 /**

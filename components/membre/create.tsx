@@ -1,24 +1,34 @@
-import { Button, Col, Row, Form, InputGroup } from "react-bootstrap";
+import { Button, Col, Row, Form, InputGroup, Alert } from "react-bootstrap";
 import { ROLE_TYPES } from "~constantes/user-roles";
 import { USER_TYPES } from "~constantes/user-types";
 import { useFormUser } from "~hooks/useMember";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
-import Style from '~assets/styles/Activity.module.css';
 import { formatUserDataForm } from "~lib/format-user";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons"
+import { useState } from "react";
+import { useForm } from "react-hook-form"
+import Style from '~assets/styles/Login.module.css'
 
 type CreateMemberType = {
   toUpdate?: any,
-  isVisible?: boolean,
   submitUser: Function
 }
 
 const CreateMember = ({
   toUpdate = null,
-  isVisible = false,
   submitUser = () => {}
 }: CreateMemberType) => {
+
+  const [isVisible, setIsVisible] = useState(true);
+
+  const toggle = () => setIsVisible(!isVisible)
+
+  const { register, watch, formState: { errors } } = useForm({
+    mode:'onTouched'
+  });
+
+  const pwd = watch('pwd')
+
   const {
     body,
     handleChangeValueForm,
@@ -28,10 +38,6 @@ const CreateMember = ({
   const handleSubmit = (e: any) => {
     e.preventDefault()
     submitUser(formatUserDataForm(body), body.id)
-  }
-
-  const toggle = () => {
-    isVisible = !isVisible
   }
 
   return (
@@ -47,24 +53,81 @@ const CreateMember = ({
       </Form.Group>
 
       {!toUpdate && 
-        (<fieldset>
-        <Form.Group className="mb-3" controlId="formPassword">
+        (<>
+          
           <Form.Label>Mot de passe *</Form.Label>
+          <InputGroup className={Style.inputGroups + " form-group"}>
           <Form.Control 
-            type="password"
+            {...register("pwd", { required: 'Mot de passe requis',
+            pattern: {
+              value: /^(\S)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]/,
+              message:'Le mot de passe doit inclure au moins une majuscule, une valeur numérique et un caractère spécial'
+            },
+            minLength: {
+              value: 8,
+              message: 'La longueur minimale requise est de 8'
+            },
+            maxLength: {
+              value: 20,
+              message: 'La longueur maximale requise est de 20'
+            }
+            })}
+            type={ isVisible ? "password" : "text"}
             value={body.password}
             onChange={(e) => handleChangeValueForm('password', e.target.value)}
             required
           />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formConfirmPassword">
-          <Form.Label>Confirmer le Mot de passe *</Form.Label>
-          <Form.Control 
-            type="password"
+        <InputGroup.Text>
+          <FontAwesomeIcon
+            icon={ isVisible ? faEyeSlash : faEye}
+            fixedWidth
+            onClick={toggle}
           />
-        </Form.Group>
-        </fieldset>)
+        </InputGroup.Text>
+        </InputGroup>
+        {( 
+          errors.pwd &&
+          (<span className={Style.textRed}>
+            <>
+            {errors.pwd.message} <br /><br />
+            </>
+          </span>)
+        )}
+        
+
+
+        <Form.Label>Confirmer le mot de passe *</Form.Label>
+          <InputGroup className={Style.inputGroups + " form-group"}>
+          <Form.Control
+            {...register("confirmPwd", { 
+              required: 'Confirmer le mot de passe est requis',
+              validate: (value) => value === pwd || "Le mot de passe ne correspond pas",
+            })}
+            onPaste={(e)=>{
+              e.preventDefault()
+              return false;
+            }}
+            type={ isVisible ? "password" : "text"}
+            required
+          />
+        <InputGroup.Text>
+          <FontAwesomeIcon
+            icon={ isVisible ? faEyeSlash : faEye}
+            fixedWidth
+            onClick={toggle}
+          />
+        </InputGroup.Text>
+        </InputGroup>
+        {( 
+          errors.confirmPwd &&
+          (<span className={Style.textRed}>
+            <>
+            {errors.confirmPwd.message} <br /><br />
+            </>
+          </span>)
+        )}
+
+        </>)
       }
 
       <Form.Group className="mb-3" controlId="formLieu">
@@ -138,7 +201,7 @@ const CreateMember = ({
       </Form.Group>
 
       <div className="d-flex justify-content-end">
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={(errors.cfpwd || errors.pwd) ? true : false}>
           Soumettre
         </Button>
       </div>

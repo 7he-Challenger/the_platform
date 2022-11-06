@@ -34,7 +34,6 @@ const ListUsers = ({
             <th>Prénom(s)</th>
             <th>Type</th>
             <th>Date de création</th>
-            <th></th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -48,15 +47,6 @@ const ListUsers = ({
                 <td>{item.firstname}</td>
                 <td>{formatUserType(item.userType ? item.userType : 1)}</td>
                 <td>{formatDate(item.createdAt)}</td>
-                <td>
-                    <Button
-                      title="Détails membre"
-                      variant="dark"
-                      onClick={() => showEvent(item)}
-                    >
-                      ...
-                    </Button>
-                </td>
                 <td className={Style.actionContainer}>
                   <div className="d-flex justify-content-around">
                     <Button
@@ -76,11 +66,11 @@ const ListUsers = ({
                     </Button>
 
                     <Button
-                      title="Modifier le mot de passe"
+                      title="Détails membre"
                       variant="dark"
-                      // onClick={() => handleEditPassword(item)}
+                      onClick={() => showEvent(item)}
                     >
-                      <FontAwesomeIcon icon={faLock} size="lg" />
+                      <FontAwesomeIcon icon={faEye} size="lg" />
                     </Button>
                 
                   </div>
