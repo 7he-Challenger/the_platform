@@ -85,7 +85,7 @@ const Login: NextPage = (props) => {
 
                     <Row>
                       <Col xs={12}>
-                        <Button className="px-4 w-100 btn-lg" variant="primary" type="submit">Se connecter</Button>
+                        <Button className="px-4 w-100 btn-lg" variant="primary" type="submit">Se&nbsp;connecter</Button>
                       </Col>
                     </Row>
                   </form>
