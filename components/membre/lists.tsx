@@ -50,27 +50,30 @@ const ListUsers = ({
                 <td className={Style.actionContainer}>
                   <div className="d-flex justify-content-around">
                     <Button
+                      className="rounded-circle"
                       title="Supprimer membre"
                       variant="danger"
                       onClick={() => handleDelete(item.id)}
                     >
-                      <FontAwesomeIcon icon={faTrash} size="lg" />
+                      <FontAwesomeIcon icon={faTrash} size="sm" />
                     </Button>
 
                     <Button
+                      className="rounded-circle"
                       title="Modifier membre"
-                      variant="primary"
+                      variant="success"
                       onClick={() => handleEdit(item)}
                     >
-                      <FontAwesomeIcon icon={faPencil} size="lg" />
+                      <FontAwesomeIcon icon={faPencil} color="white" size="sm" />
                     </Button>
 
                     <Button
+                      className="rounded-circle"
                       title="Détails membre"
-                      variant="dark"
+                      variant="info"
                       onClick={() => showEvent(item)}
                     >
-                      <FontAwesomeIcon icon={faEye} size="lg" />
+                      <FontAwesomeIcon color="white"  icon={faEye} size="sm" />
                     </Button>
                 
                   </div>

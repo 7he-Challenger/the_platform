@@ -1,6 +1,8 @@
 import { SyntheticEvent } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { USER_TYPES } from "~constantes/user-types"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faBan, faCheck, faClose, faRefresh, faFilter, faEye, faLock } from "@fortawesome/free-solid-svg-icons"
 
 type MemberFilterType = {
   filter: any,
@@ -60,10 +62,14 @@ const MemberFilter = ({
         </Row>
         <div>
           <Button variant="primary" type="submit">
+            <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
+            &nbsp;
             Filtrer
           </Button>
 
-          <Button variant="dark" type="button" className="mx-2" onClick={() => {resetFilter()}}>
+          <Button variant="warning" type="button" className="mx-2" onClick={() => {resetFilter()}}>
+            <FontAwesomeIcon icon={faRefresh}></FontAwesomeIcon>
+            &nbsp;
             Réinitialiser
           </Button>
         </div>

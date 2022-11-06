@@ -212,12 +212,12 @@ const Home: NextPage = () => {
                 </div>                 
                 <a className="y-slider y-slide-prev">
                     <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M27.5 37.7634L4.272 21L27.5 4.23664L27.5 37.7634Z" stroke="#146DB6" stroke-width="5"/>
+                        <path d="M27.5 37.7634L4.272 21L27.5 4.23664L27.5 37.7634Z" stroke="#146DB6" strokeWidth="5"/>
                     </svg>                            
                 </a>
                 <a className="y-slider y-slide-next">
                     <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.5 37.7634L25.728 21L2.5 4.23664L2.5 37.7634Z" stroke="#146DB6" stroke-width="5"/>
+                        <path d="M2.5 37.7634L25.728 21L2.5 4.23664L2.5 37.7634Z" stroke="#146DB6" strokeWidth="5"/>
                     </svg>                            
                 </a>
             </div>

@@ -11,6 +11,8 @@ import { RESPONSE_ATTR } from '~constantes/response-attr';
 import { logOut } from '~lib/auth';
 import PaginationMember from '~components/membre/pagination';
 import MemberFilter from '~components/membre/filter';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBan, faCheck, faClose, faPencil, faTrash, faEye, faLock } from "@fortawesome/free-solid-svg-icons"
 
 const Member: NextPage = (props) => {
   const {
@@ -50,6 +52,8 @@ const Member: NextPage = (props) => {
               variant="primary"
               onClick={showCreate}
             >
+              <FontAwesomeIcon icon={faPencil} size="sm"></FontAwesomeIcon>
+              &nbsp;
               Nouveau membre
             </Button>
           </div>

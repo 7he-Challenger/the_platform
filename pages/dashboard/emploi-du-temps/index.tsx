@@ -11,6 +11,8 @@ import { RESPONSE_ATTR } from '~constantes/response-attr';
 import { logOut } from '~lib/auth';
 import PaginationActivity from '~components/emploi-du-temps/pagination';
 import ActivityFilter from '~components/emploi-du-temps/filter';
+import { faBan, faCheck, faClose, faPencil, faRefresh, faFilter, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const EmploiDuTemps: NextPage = (props) => {
   const {
@@ -50,6 +52,8 @@ const EmploiDuTemps: NextPage = (props) => {
               variant="primary"
               onClick={showCreate}
             >
+              <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon>
+              &nbsp;
               Nouvelle activité
             </Button>
           </div>
