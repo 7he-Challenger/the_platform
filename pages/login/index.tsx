@@ -23,12 +23,12 @@ const Login: NextPage = () => {
         <LoginLeftCard />
         <div className="description">
           <h5>
-            New Better Way<br />
-            To Cummunicate
+            Un Nouvel Espace<br />
+            Communautaire
           </h5>
           <p>
-            Some Long Description Of The Community <br />
-            And What We Are Doing
+            Une Communauté de Passioné de Nouvelle Technologie <br />
+            Et de Partage Pour s&apos;entraidé.
           </p>
         </div>
 
@@ -40,8 +40,8 @@ const Login: NextPage = () => {
             <Image src="/assets/icons/logo.png" alt="logo" width="100" height="100" />
             <h1>Techzara <span style={{color: '#275bc3'}}>Community</span></h1>
             <p className="text-black-50 opacity-75">
-              Welcome back, <br />
-              Sign In to your account
+              Bon Retour Parmis Nous, <br />
+              Connectez Vous à Votre Compte
             </p>
           </div>
           {errorCredential && (<span className="text-danger">{errorCredential}</span>)}
@@ -70,12 +70,12 @@ const Login: NextPage = () => {
               />
               {invalidePassword && (<span className="text-danger">{invalidePassword}</span>)}
             </InputGroup>
-            <div className="mb-3" style={{display:'flex', justifyContent: 'space-between'}}>
+            {/*<div className="mb-3" style={{display:'flex', justifyContent: 'space-between'}}>
               <Form.Check type="checkbox" style={{fontSize: '14px', color: '#00000066'}} label="Remember Me?" />
               <a href="" className="login-link">Recovery Password</a>
-            </div>
+            </div>*/}
             <div className="d-grid gap-2" style={{marginBottom: '40px'}}>
-              <Button className="px-4" variant="primary" type="submit">Login</Button>
+              <Button className="px-4" variant="primary" type="submit">Se Connecter</Button>
               {/*<Button className="px-4" variant="outline-dark" type="submit">
                 <span style={{position: 'relative', top: '3px'}}>
                   <Image src="/assets/images/google.png" alt="google" width="18" height="18" />
@@ -86,7 +86,7 @@ const Login: NextPage = () => {
             </div>
             <div className="login-footer">
                 <p>
-                  Don&apos;t have an account ? <a href="" className="login-link">Sign Up</a>
+                  Vous n&apos;avez pas encore de compte ? <a href="" className="login-link">S&apos;Inscrire</a>
                 </p>
             </div>
           </form>
