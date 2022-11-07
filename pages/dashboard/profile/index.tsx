@@ -97,9 +97,6 @@ const Profile: NextPage = (props : any) => {
                   <FontAwesomeIcon icon={userTypes?.icon || faEllipsis} /> {userTypes?.name || ""}
                 </span>
               </div>
-              <p>
-                &quot; Le succès n’est pas final, l’échec n’est pas fatal. &quot;
-              </p>
             </div>
           </div>
 
