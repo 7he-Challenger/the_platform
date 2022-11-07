@@ -105,7 +105,7 @@ const ListActivities = ({
                             ? faCheck
                             : faBan
                         } 
-                        size="sm" 
+                        size="sm"
                       />
                     </Button>
                     <Button

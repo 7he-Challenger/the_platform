@@ -57,7 +57,6 @@ const Login: NextPage = () => {
               />
               {invalideUser && (<span className="text-danger">{invalideUser}</span>)}
             </InputGroup>
-
             <InputGroup className="mb-2">
               <Form.Control
                 type="password"
