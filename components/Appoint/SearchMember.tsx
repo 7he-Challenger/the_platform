@@ -1,6 +1,13 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+/**
+ * Search bar for finding members
+ * 
+ * - NOT-FUNCTIONAL
+ * 
+ * @returns {JSX.Element}
+ */
 function SearchMember(): JSX.Element {
   return (
     <>

@@ -6,7 +6,6 @@ import TableHeaderAppoint from "~components/Appoint/TableHeaderAppoint";
 import TableRowAttendance from "~components/Appoint/TableRowAttendance";
 import { AdminLayout } from "~layout";
 
-
 /**
  * Attend page
  * @returns {NextPage}
@@ -25,7 +24,11 @@ const Page: NextPage = () => (
             <table className="table border mb-0">
               <TableHeaderAppoint />
               <tbody>
-                <TableRowAttendance name="Roger Gerard" photoUrl="favicon.ico"/>
+                <TableRowAttendance
+                  name="Roger Gerard"
+                  photoUrl="favicon.ico"
+                  key={"azer"}
+                />
               </tbody>
             </table>
           </div>
