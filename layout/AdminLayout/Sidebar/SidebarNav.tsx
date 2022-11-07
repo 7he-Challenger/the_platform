@@ -30,6 +30,8 @@ import {
 import classNames from 'classnames'
 import Link from 'next/link'
 import ROUTES from '~constantes/routes'
+import { useRouter } from "next/router";
+import Style from '~assets/styles/Home.module.css'
 
 type SidebarNavItemProps = {
   href: string;
@@ -130,15 +132,34 @@ const SidebarNavGroup = (props: SidebarNavGroupProps) => {
 }
 
 export default function SidebarNav() {
+
+  const router = useRouter();
+
   return (
-    <ul className="list-unstyled p-1">
-      <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>Tableau de bord </SidebarNavItem>
+    <ul className="list-unstyled">
+      <div className={router.pathname == ROUTES.dashboard.path ? Style.menuActive : ""}>
+        <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>
+          Tableau de bord
+        </SidebarNavItem>
+      </div>
       <SidebarNavTitle>Activités</SidebarNavTitle>
-      <SidebarNavItem icon={faPuzzlePiece} href={ROUTES.emploi_du_temps.path}>Gestion d&rsquo;activités</SidebarNavItem>
-      <SidebarNavItem icon={faCalendar} href={ROUTES.calendrier_activity.path}>Calendrier activités</SidebarNavItem>
+      <div className={router.pathname == ROUTES.emploi_du_temps.path ? Style.menuActive : ""}>
+        <SidebarNavItem icon={faPuzzlePiece} href={ROUTES.emploi_du_temps.path}>
+          Gestion d&rsquo;activités
+        </SidebarNavItem>
+      </div>
+      <div className={router.pathname == ROUTES.calendrier_activity.path ? Style.menuActive : ""}>
+        <SidebarNavItem icon={faCalendar} href={ROUTES.calendrier_activity.path}>
+          Calendrier activités
+        </SidebarNavItem>
+      </div>
 
       <SidebarNavTitle>Membre</SidebarNavTitle>
-      <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>Liste des membres</SidebarNavItem>
+      <div className={router.pathname == ROUTES.member.path ? Style.menuActive : ""}>
+        <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>
+          Liste des membres
+        </SidebarNavItem>
+      </div>
     </ul>
   )
 }

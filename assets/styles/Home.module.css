@@ -108,6 +108,11 @@
   margin-left: 0.5rem;
 }
 
+.menuActive {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #5e72e4;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
