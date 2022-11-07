@@ -2,6 +2,7 @@ import {
   Badge, Dropdown, Nav, NavItem,
 } from 'react-bootstrap'
 import Image from 'next/image'
+import Avatar from '~public/assets/img/avatars/default.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBell,
@@ -11,12 +12,13 @@ import {
   faMessage,
   faUser,
 } from '@fortawesome/free-regular-svg-icons'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useRef } from 'react'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import {
   faGear, faListCheck, faLock, faPowerOff,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import { logOut } from '~lib/auth'
 
 type NavItemProps = {
   icon: IconDefinition;
@@ -34,22 +36,27 @@ const ProfileDropdownItem = (props: NavItemProps) => {
 }
 
 export default function HeaderProfileNav() {
+  const handleLogout = () => {
+    if(confirm('Se deconnecter ?')) {
+      logOut()
+    }
+  }
+
   return (
     <Nav>
       <Dropdown as={NavItem}>
         <Dropdown.Toggle variant="link" bsPrefix="shadow-none" className="py-0 px-2 rounded-0" id="dropdown-profile">
           <div className="avatar">
-            <Image
-              width={128}
-              height={128}
+            <img
+              width={"100%"}
+              height={"100%"}
               className="rounded-circle"
-              src="/assets/img/avatars/8.jpg"
               alt="user@email.com"
-            />
+              src='/assets/img/avatars/default.png'/>
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="pt-0">
-          <Dropdown.Header className="bg-light fw-bold rounded-top">Account</Dropdown.Header>
+          {/* <Dropdown.Header className="bg-light fw-bold rounded-top">Account</Dropdown.Header>
           <Link href="/" passHref>
             <Dropdown.Item>
               <ProfileDropdownItem icon={faBell}>
@@ -103,20 +110,27 @@ export default function HeaderProfileNav() {
             <Dropdown.Item>
               <ProfileDropdownItem icon={faFile}>Projects</ProfileDropdownItem>
             </Dropdown.Item>
-          </Link>
+          </Link> */}
 
           <Dropdown.Divider />
 
-          <Link href="/" passHref>
+          {/* <Link href="/" passHref>
             <Dropdown.Item>
               <ProfileDropdownItem icon={faLock}>Lock Account</ProfileDropdownItem>
             </Dropdown.Item>
+          </Link> */}
+          <Link href="/dashboard/profile" passHref>
+              <Dropdown.Item>
+                <ProfileDropdownItem icon={faUser}>Mon Profil</ProfileDropdownItem>
+              </Dropdown.Item>
           </Link>
-          <Link href="/login" passHref>
-            <Dropdown.Item>
-              <ProfileDropdownItem icon={faPowerOff}>Logout</ProfileDropdownItem>
-            </Dropdown.Item>
-          </Link>
+          <div onClick={handleLogout}>
+            <Link href="#" >
+              <Dropdown.Item>
+                <ProfileDropdownItem icon={faPowerOff}>Logout</ProfileDropdownItem>
+              </Dropdown.Item>
+            </Link>
+          </div>
         </Dropdown.Menu>
       </Dropdown>
     </Nav>

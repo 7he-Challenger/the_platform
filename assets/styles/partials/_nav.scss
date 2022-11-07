@@ -1,0 +1,117 @@
+.container.flex{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 60px;
+
+    nav{
+        max-width: 1400px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px $padding;
+        background: var(--background-2);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+
+        .logo{
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            &-container{
+                width: 40px;
+                height: 40px;
+                padding: 3px;
+                border-top: 3px solid var(--background);
+                border-bottom: 3px solid var(--background);
+                border-left: 3px solid $blue;
+                border-right: 3px solid $blue;
+                border-radius: 50%;
+                overflow: hidden;
+                transform: rotate(30deg);
+                img{
+                    width: 100%;
+                    border-radius: 50%;
+                    transform: rotate(-30deg);
+                }
+            }
+            .text{
+                font-weight: 700;
+                margin: 0 5px;
+            }
+        }
+
+        .menu-icon{
+            display: none;
+        }
+        ul{
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            li{
+                margin-right: 60px;
+                font-size: 1em;
+                a{
+                    text-decoration: none;
+                    color: var(--text-color);
+                }
+            }
+        }    
+    }
+}
+
+@media(max-width: $mobile){
+    .container.flex{
+        margin-top: 0;
+        nav{
+            .menu-icon,.close-icon  {
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            .bar1, .bar2, .bar3 {
+                width: 35px;
+                height: 5px;
+                background-color: var(--text-color);
+                margin: 6px 0;
+                transition: 0.4s;
+            }
+                
+            .close-icon .bar1 {
+                -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+                transform: rotate(-45deg) translate(-9px, 6px) ;
+            }
+            
+            .close-icon .bar2 {
+                opacity: 0;
+            }
+            
+            .close-icon .bar3 {
+                -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+                transform: rotate(45deg) translate(-8px, -8px) ;
+            }
+            ul{
+                position: fixed;
+                top: -120%;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                flex-direction: column;
+                justify-content: space-evenly;
+                margin-top: 60px;
+                background: var(--background);
+                transition: top 1s;
+                li{
+                    margin: 0;
+                    font-size: 2em;
+                }
+            }
+        }
+    }
+}

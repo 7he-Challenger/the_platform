@@ -1,0 +1,118 @@
+footer{
+    width: 100%;
+    padding: 0 $padding;
+    overflow: hidden;
+    .footer-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .join-contact{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            .item{
+                width: 40%;
+                background: var(--background);
+                padding: 10px;
+                h2{
+                    font-size: 30px;
+                    color: $blue;
+                    padding: 10px 0;
+                }
+                p{
+                    text-align: justify;
+                }
+                form{
+                    display: flex;
+                    flex-direction: column;
+                    input, textarea, button{
+                        margin: 5px 0;
+                        padding: 5px;
+                        background: var(--background);
+                        color: var(--text-color);
+                        font-size: 1em;
+                    }
+                    textarea{
+                        height: 140px;
+                    }
+                }
+            }
+        }
+        hr{
+            width: 100%;
+            height: 3px;
+        }
+        .copyright{
+            width: 100%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .logo{
+                display: inline-flex;
+                align-items: center;
+                text-decoration: none;
+                color: var(--text-color);
+                &-container{
+                    width: 40px;
+                    height: 40px;
+                    padding: 3px;
+                    border-top: 3px solid var(--background);
+                    border-bottom: 3px solid var(--background);
+                    border-left: 3px solid $blue;
+                    border-right: 3px solid $blue;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    transform: rotate(30deg);
+                    img{
+                        width: 100%;
+                        border-radius: 50%;
+                        transform: rotate(-30deg);
+                    }
+                }
+                .text{
+                    font-weight: 700;
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        .haingo{
+            position: absolute;
+            z-index: -1;
+        }
+        .top{
+            top: 0;
+        }
+        .bottom{
+            bottom: 0;
+        }
+        .middle{
+            left: 40%;
+            top: 40%;
+        }
+        .middle-left{
+            left: 20%;
+        }
+        .middle-bottom{
+            bottom: 20%;
+        }
+    }
+}
+
+@media(max-width: $mobile){
+    footer{
+        // padding: 0px $padding;
+        .footer-content{
+            .join-contact{
+                display: block;
+                .item{
+                    margin: 80px 0;
+                    width: 100%;
+                    // background: rgba($color: $gleick, $alpha: 0.9);
+                }
+            }
+        }
+    }
+}

@@ -1,10 +1,46 @@
-import '~styles/globals.scss'
-import type { AppProps } from 'next/app'
+import '~assets/styles/globals.scss'
+import '~assets/styles/loader.scss'
+import "@fullcalendar/common/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
 // Next.js allows you to import CSS directly in .js files.
 // It handles optimization and all the necessary Webpack configuration to make this work.
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SSRProvider } from 'react-bootstrap'
+import { wrapper } from '~store'
+import LoadingOverlay from '~components/loading-overlay'
+import { SessionProvider } from 'next-auth/react'
+import ToastComponent from '~components/toast'
+import { Router } from 'next/router';
+import ReactDOM from "react-dom";
+import PageChange from '~components/transition-layout';
+
+/**
+ * -------------------- TRANSITION PAGE START -------------------------
+ */
+Router.events.on("routeChangeStart", (url) => {
+  document.body.classList.add("body-page-transition");
+  ReactDOM.render(
+    <PageChange/>,
+    document.getElementById("page-transition")
+  );
+});
+
+Router.events.on("routeChangeComplete", () => {
+  ReactDOM.unmountComponentAtNode(document.getElementById("page-transition") as any);
+  document.body.classList.remove("body-page-transition");
+});
+
+Router.events.on("routeChangeError", () => {
+  ReactDOM.unmountComponentAtNode(document.getElementById("page-transition") as any);
+  document.body.classList.remove("body-page-transition");
+});
+
+/**
+ * -------------------- TRANSITION PAGE END -------------------------
+ */
+
 
 // You change this configuration value to false so that the Font Awesome core SVG library
 // will not try and insert <style> elements into the <head> of the page.
@@ -12,12 +48,20 @@ import { SSRProvider } from 'react-bootstrap'
 // See https://fontawesome.com/v6/docs/web/use-with/react/use-with#next-js
 config.autoAddCss = false
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: any) {
   // In server-side rendered applications, a SSRProvider must wrap the application in order
   // to ensure that the auto-generated ids are consistent between the server and client.
   // https://react-bootstrap.github.io/getting-started/server-side-rendering/
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <SSRProvider><Component {...pageProps} /></SSRProvider>
+  return (
+    <SSRProvider>
+      <SessionProvider session={pageProps.session}>
+        <ToastComponent />
+        <LoadingOverlay />
+        
+        <Component {...pageProps} />
+      </SessionProvider>
+    </SSRProvider>
+  )
 }
-
-export default MyApp
+export default wrapper.withRedux(MyApp);
