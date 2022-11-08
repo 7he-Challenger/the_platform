@@ -37,6 +37,7 @@ const CreateMember = ({
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+    delete body.cover;
     submitUser(formatUserDataForm(body), body.id)
   }
 

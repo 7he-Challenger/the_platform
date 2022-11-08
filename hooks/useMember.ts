@@ -462,7 +462,7 @@ export const useFormUser = (
     let tmpBody = toUpdate 
       ? { ...initialeData,...toUpdate }
       : { ...initialeData }
-
+    
     tmpBody.createdAt = !tmpBody.createdAt ? moment().format('YYYY-MM-DD hh:mm') : moment(tmpBody.createdAt).format('YYYY-MM-DD hh:mm')
 
     setBody(tmpBody)
