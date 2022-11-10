@@ -27,8 +27,8 @@ const Login: NextPage = () => {
             Communautaire
           </h5>
           <p>
-            Une Communauté de Passioné de Nouvelle Technologie <br />
-            Et de Partage Pour s&apos;entraidé.
+            Une communauté des passionés de la nouvelle technologie <br />
+            et de partage pour s&apos;entraidé.
           </p>
         </div>
 
@@ -38,10 +38,10 @@ const Login: NextPage = () => {
         <div>
           <div className="header">
             <Image src="/assets/icons/logo.png" alt="logo" width="100" height="100" />
-            <h1>Techzara <span style={{color: '#275bc3'}}>Community</span></h1>
+            <h1>Techzara <span style={{color: "rgb(82 171 227)"}}>Madagascar</span></h1>
             <p className="text-black-50 opacity-75">
-              Bon Retour Parmis Nous, <br />
-              Connectez Vous à Votre Compte
+              Bon retour parmis nous, <br />
+              Connectez vous à votre compte
             </p>
           </div>
           {errorCredential && (<span className="text-danger">{errorCredential}</span>)}
@@ -50,8 +50,8 @@ const Login: NextPage = () => {
               <Form.Control
                 name="username"
                 required
-                placeholder="Username"
-                aria-label="Username"
+                placeholder="Nom d'utilisateur"
+                aria-label="username"
                 value={emailValue || ''}
                 onChange={(e) => handleInputEmail(e.target.value)}
               />
@@ -62,7 +62,7 @@ const Login: NextPage = () => {
                 type="password"
                 name="password"
                 required
-                placeholder="Password"
+                placeholder="Mot de passe"
                 aria-label="Password"
                 value={passwordValue || ''}
                 onChange={(e) => handleInputPassword(e.target.value)}
