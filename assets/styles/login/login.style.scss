@@ -1,0 +1,77 @@
+
+@keyframes floating {
+    0%{ transform: translate3d(0px, 0px, 0px); }
+    50%{ transform: translate3d(0px, 20px, 10px); }
+    100%{ transform: translate3d(0px, 0px, 0px); }
+}
+
+div.login-container{
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    .login-form{
+        padding: 0px 10vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div.header{
+            h1#logo{
+                font-size: 60px;
+                color: #275bc3;
+            }
+            margin-bottom: 50px;
+            color: #353440;
+            text-align: center;
+        }
+        div.login-footer{ text-align: center; }
+    }
+
+    div.left{
+        height: 100vh;
+        background-color: #275bc3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        div.description{
+            text-align: center;
+            color: white;
+            p{opacity: 0.4;}
+        }
+    }
+}
+
+.l-14{
+    font-size: 14px;
+}
+
+.login-link{
+    color: #275bc3;
+    text-decoration: none !important;
+    font-weight: 500;
+}
+
+#svg{
+    width: 100%;
+    height: 100vh;
+    #card-1{ animation: floating 5000ms infinite linear; }
+    #card-2{ 
+        animation: floating 5000ms infinite linear;
+        animation-delay: 700ms; 
+    }
+    #card-3{ 
+        animation: floating 5000ms infinite linear; 
+        animation-delay: 900ms; 
+    }
+    #card-4{ 
+        animation: floating 5000ms infinite linear; 
+        animation-delay: 1300ms; 
+    }
+
+    #confetis{
+        path{ 
+            animation: floating 6000ms infinite linear; 
+            animation-delay: 800ms; 
+        }
+    }
+}
