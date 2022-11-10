@@ -29,6 +29,7 @@
 .picture-profile{
     height: 190px;
     width: 190px;
+    object-fit: cover;
 }
 .profile-picture-edit-icon{
     position: absolute;
@@ -56,7 +57,7 @@
         row-gap: 30px;
     }
     .picture-profile{
-        height: 70px;
+        height: 90px;
         width: 90px;
     }
     .profile-picture-edit-icon{
@@ -80,6 +81,10 @@
     }
     .dash-role-type{
         display:none
+    }
+    .edit-pwd-btn{
+        width: 100%;
+        flex: 1;
     }
 }
     

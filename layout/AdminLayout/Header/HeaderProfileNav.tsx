@@ -12,13 +12,15 @@ import {
   faMessage,
   faUser,
 } from '@fortawesome/free-regular-svg-icons'
-import { PropsWithChildren, useEffect, useRef } from 'react'
+import { PropsWithChildren, useEffect, useRef, useState } from 'react'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import {
   faGear, faListCheck, faLock, faPowerOff,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { logOut } from '~lib/auth'
+import { getSession, useSession } from 'next-auth/react';
+import ENDPOINT from '~constantes/enpoint';
 
 type NavItemProps = {
   icon: IconDefinition;
@@ -42,6 +44,8 @@ export default function HeaderProfileNav() {
     }
   }
 
+  const {data: session} = useSession()
+  
   return (
     <Nav>
       <Dropdown as={NavItem}>
@@ -51,8 +55,9 @@ export default function HeaderProfileNav() {
               width={"100%"}
               height={"100%"}
               className="rounded-circle"
+              style={{objectFit: "cover"}}
               alt="user@email.com"
-              src='/assets/img/avatars/default.png'/>
+              src={ENDPOINT.MEDIA_PATH+(session as any)?.user?.img || '/assets/img/avatars/default.png'}/>
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="pt-0">

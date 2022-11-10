@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import { AdminLayout } from "~layout";
 import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faFloppyDisk, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faFloppyDisk, faKey, faLock, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "react-bootstrap/Accordion";
 import Form from "react-bootstrap/Form";
 import { getOneUser, updateOneUser } from "~repositories/user";
@@ -20,9 +20,11 @@ import { USER_TYPES } from "~constantes/user-types";
 import { ProfilePictureSection } from "~components/profile/ProfilePictureSection";
 import ENDPOINT from "~constantes/enpoint";
 import { EditPasswordForm } from "~components/profile/EditPasswordForm";
+import { useRouter } from "next/router";
 
 const Profile: NextPage = (props : any) => {
   const { user } = props
+  const router = useRouter()
   const [editMode, setEditMode] = useState(false)
   const [showPasswordModal , setShowPasswordModal] = useState(false)
   const [temporaryPicture, setTemporaryPicture] = useState<string | null>(null)
@@ -54,6 +56,7 @@ const Profile: NextPage = (props : any) => {
                   })
               );
               setFormData(v => (_.omit(v, "picture")))
+              router.replace(router.asPath)
           }
       } catch (error) {
           console.log("Error Occured :", error);
@@ -97,9 +100,6 @@ const Profile: NextPage = (props : any) => {
                   <FontAwesomeIcon icon={userTypes?.icon || faEllipsis} /> {userTypes?.name || ""}
                 </span>
               </div>
-              <p>
-                &quot; Le succès n’est pas final, l’échec n’est pas fatal. &quot;
-              </p>
             </div>
           </div>
 
@@ -111,7 +111,7 @@ const Profile: NextPage = (props : any) => {
               : 
               (
                 <Button variant="success" style={{height:"40px"}} onClick={()=>setEditMode(true)}>
-                  <FontAwesomeIcon icon={faPenToSquare} className="mr-1"/> Modifier vos informations
+                  <FontAwesomeIcon icon={faPenToSquare} className="mr-1"/> Modifier mes informations
                 </Button>
               )
             }
@@ -127,9 +127,12 @@ const Profile: NextPage = (props : any) => {
                   <Form.Label>Nom d&apos;utilisateur ou email</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" {...getTextFieldProps("username")} disabled={!editMode}/> 
                 </Form.Group>
-                <Form.Group className="mb-3 edit-profile-field" controlId="formBasicEmail" onClick={()=>setShowPasswordModal(true)}>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Enter password" value={"**********"} disabled={true} style={{cursor:"pointer"}}/>
+                <Form.Group className="mb-3 edit-profile-field" style={{flexDirection:"column", display:"flex"}} controlId="formBasicEmail">
+                  <Form.Label>Mot de Passe</Form.Label>
+                  <Button variant="secondary" className="edit-pwd-btn" style={{height:"37.94px", alignSelf:"center"}} onClick={()=>setShowPasswordModal(true)} >
+                    <FontAwesomeIcon icon={faLock} className="mr-1"/> Modifiez mon mot de passe 
+                  </Button>
+                  {/* <Form.Control type="password" placeholder="Enter password" value={"**********"} disabled={true} style={{cursor:"pointer"}}/> */}
                 </Form.Group>
               </Form>
             </Accordion.Body>
