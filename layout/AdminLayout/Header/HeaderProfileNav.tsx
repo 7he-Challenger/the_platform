@@ -127,7 +127,7 @@ export default function HeaderProfileNav() {
           <div onClick={handleLogout}>
             <Link href="#" >
               <Dropdown.Item>
-                <ProfileDropdownItem icon={faPowerOff}>Logout</ProfileDropdownItem>
+                <ProfileDropdownItem icon={faPowerOff}>Se deconnecter</ProfileDropdownItem>
               </Dropdown.Item>
             </Link>
           </div>
