@@ -23,8 +23,8 @@ const MemberPresentation = (props: TMemberProps) => {
           <div className="full-width flex-center main-pres-bg " >
             <h1 className="pres-header-title">Les membres de <span>Techzara communauté</span></h1>
             <div className="all-users-pres-wrap flex-wrap flex-center">
-                {users?.map((user) => (
-                    <div className="user-card-informations flex-center flex-column">
+                {users?.map((user, i) => (
+                    <div key={i} className="user-card-informations flex-center flex-column">
                         <div className="user-pres-picture-wrapper flex-center">
                             <div className="gap"></div>
                             <img
