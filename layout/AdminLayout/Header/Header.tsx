@@ -10,13 +10,14 @@ import { Button, Container } from 'react-bootstrap'
 type HeaderProps = {
   toggleSidebar: () => void;
   toggleSidebarMd: () => void;
+  noMargin?: boolean;
 }
 
 export default function Header(props: HeaderProps) {
-  const { toggleSidebar, toggleSidebarMd } = props
+  const { toggleSidebar, toggleSidebarMd, noMargin } = props
 
   return (
-    <header className="header sticky-top mb-4 p-2 border-bottom">
+    <header className={`header sticky-top ${!noMargin && "mb-4"} p-2 border-bottom`}>
       <Container fluid className="header-navbar d-flex align-items-center">
         <Button
           variant="link"

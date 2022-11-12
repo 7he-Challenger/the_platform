@@ -8,7 +8,7 @@ import Header from '~layout/AdminLayout/Header/Header'
 import Footer from '~layout/AdminLayout/Footer/Footer'
 import { Container } from 'react-bootstrap'
 
-export default function AdminLayout({ children }: PropsWithChildren) {
+export default function AdminLayout({ children, noMargin }: PropsWithChildren & { noMargin?: boolean }) {
   // Show status for xs screen
   const [isShowSidebar, setIsShowSidebar] = useState(false)
 
@@ -56,8 +56,8 @@ export default function AdminLayout({ children }: PropsWithChildren) {
       <Sidebar isShow={isShowSidebar} isShowMd={isShowSidebarMd} />
 
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <Header toggleSidebar={toggleIsShowSidebar} toggleSidebarMd={toggleIsShowSidebarMd} />
-        <div className="body flex-grow-1 px-3 py-3">
+        <Header toggleSidebar={toggleIsShowSidebar} noMargin={noMargin} toggleSidebarMd={toggleIsShowSidebarMd} />
+        <div className={`body flex-grow-1 ${!noMargin && "px-3 py-3"}`}>
           {children}
         </div>
         <Footer />

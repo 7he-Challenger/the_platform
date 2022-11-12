@@ -16,6 +16,11 @@ const ROUTES = {
     name: 'Membre'
   },
 
+  memberPresentation: {
+    path: `${dashboard}/member-presentation`,
+    name: 'Présentation des membres'
+  },
+
   profile: {
     path: `${dashboard}/profile`,
     name: 'Profile'

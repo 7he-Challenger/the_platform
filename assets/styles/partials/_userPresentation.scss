@@ -1,0 +1,89 @@
+$picture-w: 200px;
+$picture-h: 200px;
+$circle-radius: 50%;
+$white : #F8F9FA;
+$techzara-blue : #29AAE3;
+
+.user-card-informations{
+  max-width: $picture-w + 50px;
+  row-gap: 15px;
+  .user-pres-picture-wrapper{
+    width: $picture-w;
+    height: $picture-h;
+    border: 4px solid $techzara-blue;
+    border-radius: $circle-radius;
+    position: relative;
+    cursor: pointer;
+    .user-pres-picture{
+        width: $picture-w - 15px;
+        height: $picture-h - 15px;
+        border-radius: $circle-radius;
+        z-index: 9;
+        object-fit: cover;
+    };
+    .gap{
+        width: $picture-w + 6px;
+        height: 55px;
+        position: absolute;
+        background: $white;
+        transform: rotate(25deg);
+      };
+      &:hover{
+        .gap{
+          animation: rotateCircle 6s linear infinite;
+        };
+      };
+    };
+    .user-pres-name{
+      max-width: $picture-w;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+}
+
+.all-users-pres-wrap{
+  column-gap: 70px;
+  row-gap: 70px;
+  max-width: 55vw;
+}
+
+.pres-header-title{
+  padding-block: 30px;
+  text-align: center;
+  margin-top: 100px;
+  font-weight: 700;
+  span{
+    color: $techzara-blue;
+  }
+}
+
+.user-pres-type{
+  column-gap: 3px;
+}
+
+.main-pres-bg{
+  flex-direction:column;
+  background-image: url('/assets/images/wave.svg');
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 768px){
+  .pres-header-title{
+    margin-top: 30px;
+  }
+}
+/*
+  animation here
+*/
+    @keyframes rotateCircle {
+    0% {
+      transform: rotate(25deg);
+    }
+    50% {
+      transform: rotate(205deg);
+    }
+    100% {
+      transform: rotate(25deg);
+    }
+  }
