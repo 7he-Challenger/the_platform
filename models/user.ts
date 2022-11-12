@@ -23,9 +23,9 @@ export type UserType = {
   userType?: number | null
   createdAt?: string
   userInfo? : {
-    address?: string
-    phone?: string
-    photo?: string
+    address?: string|null
+    phone?: string|null
+    photo?: string|null
   }
   cover?: string
   picture?: File

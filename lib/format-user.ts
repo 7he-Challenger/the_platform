@@ -69,6 +69,9 @@ export const formatQueryUserParams = (
   if(query['firstname']) queryParams['firstname'] = query['firstname'];
   if(query['lastname']) queryParams['lastname'] = query['lastname'];
   if(query['userType']) queryParams['userType'] = query['userType'];
+  if(query['userInfo.phone']) queryParams['userInfo.phone'] = query['userInfo.phone'];
+  if(query['userInfo.address']) queryParams['userInfo.address'] = query['userInfo.address'];
+  if(query['username']) queryParams['username'] = query['username'];
 
   return queryParams
 }

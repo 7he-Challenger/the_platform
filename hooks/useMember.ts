@@ -1,3 +1,4 @@
+import { isNull } from "lodash";
 import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -16,7 +17,10 @@ const initialeQuery = {
   page: 1,
   firstname: null,
   lastname: null,
-  'order[id]': 'desc'
+  'order[id]': 'desc',
+  username:null,
+  'userInfo.phone': null,
+  'userInfo.address': null,
 }
 
 /**
@@ -221,6 +225,12 @@ const useMember = (
     setQuery((prev: any) => {
       let tmpPrev = { ...prev }
       tmpPrev[input] = value
+      tmpPrev['firstname'] = value;
+      tmpPrev['lastname'] = value;
+      tmpPrev['userInfo.phone'] = value;
+      tmpPrev['userInfo.address'] = value;
+      tmpPrev['username'] = value;
+
       return {
         ...prev,
         ...tmpPrev
@@ -401,7 +411,7 @@ export const useFormUser = (
   ) => {
     setBody((prev: any) => {
       let tmpPrev = { ...prev }
-      
+      if (isNull(tmpPrev[object])) tmpPrev[object] = {}
       tmpPrev[object][input] = value
 
       return {

@@ -5,6 +5,9 @@ export type GetUsersQueryType = {
   page?: number,
   firstname?: string | null,
   lastname?: string | null,
+  username?: string | null,
+  'userInfo.phone'?: string | null,
+  'userInfo.address'?: string | null,
   userType?: number | null,
   'order[id]'?: string | null
 }

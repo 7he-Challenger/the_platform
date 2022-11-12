@@ -34,7 +34,7 @@ const MemberFilter = ({
               <Form.Label>Nom</Form.Label>
               <Form.Control 
                 type="text"
-                placeholder="Chercher le nom"
+                placeholder="Chercher un utilisateur"
                 value={filter['lastname'] || ''}
                 onChange={(e) => handleFilterChange('lastname', e.target.value)}
               />
