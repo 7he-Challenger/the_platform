@@ -19,7 +19,8 @@ import {
   faPuzzlePiece,
   faRightToBracket,
   faCalendar,
-  faUserFriends
+  faUserFriends,
+  faUsersViewfinder
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   PropsWithChildren, useContext, useEffect, useState,
@@ -139,6 +140,7 @@ export default function SidebarNav() {
 
       <SidebarNavTitle>Membre</SidebarNavTitle>
       <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>Gestion membres</SidebarNavItem>
+      <SidebarNavItem icon={faUsersViewfinder} href={ROUTES.memberPresentation.path}>Presentation des membres</SidebarNavItem>
     </ul>
   )
 }

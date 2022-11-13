@@ -1,5 +1,5 @@
 import { faLeanpub } from "@fortawesome/free-brands-svg-icons"
-import { faBriefcase, faEllipsis, faUserGraduate, IconDefinition } from "@fortawesome/free-solid-svg-icons"
+import { faBriefcase, faEllipsis, faMagnifyingGlass, faUserGraduate, IconDefinition } from "@fortawesome/free-solid-svg-icons"
 
 export const USER_TYPES: TUserTypes[] = [
   {
@@ -19,9 +19,9 @@ export const USER_TYPES: TUserTypes[] = [
 
   },
   {
-    name: 'Autre',
+    name: 'Chômeur',
     value: 4,
-    icon: faEllipsis
+    icon: faMagnifyingGlass
   }
 ]
 
