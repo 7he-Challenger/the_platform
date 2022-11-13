@@ -8,7 +8,7 @@ import { USER_TYPES } from "~constantes/user-types";
 import { AdminLayout } from "~layout";
 import {  User } from "~models/user";
 import { getAllUser } from "~repositories/user";
-
+import Image from "react-bootstrap/Image";
 
 type TMemberProps = {
     users: User[];
@@ -16,7 +16,7 @@ type TMemberProps = {
 const MemberPresentation = (props: TMemberProps) => {
     const { users } = props;
 
-    const userTypes = useCallback((userTypeId: number)=>USER_TYPES.find(item => item.value === userTypeId),[users])
+    const userTypes = (userTypeId: number) => USER_TYPES.find(item => item.value === userTypeId)
 
     return (
         <AdminLayout noMargin>
@@ -27,9 +27,10 @@ const MemberPresentation = (props: TMemberProps) => {
                     <div key={i} className="user-card-informations flex-center flex-column">
                         <div className="user-pres-picture-wrapper flex-center">
                             <div className="gap"></div>
-                            <img
+                            <Image
                                 className="user-pres-picture"
                                 src={user?.cover?.contentUrl ? ENDPOINT.MEDIA_PATH+(user?.cover?.contentUrl ||"") : "/assets/img/avatars/default.png"}
+                                alt="user picture"
                             />
                         </div>
                         <div className="user-pres-name flex-center">
