@@ -7,9 +7,13 @@ $techzara-blue : #29AAE3;
 .user-card-informations{
   max-width: $picture-w + 50px;
   row-gap: 15px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .user-pres-picture-wrapper{
     width: $picture-w;
-    height: $picture-h;
+    min-height: $picture-h;
     border: 4px solid $techzara-blue;
     border-radius: $circle-radius;
     position: relative;
