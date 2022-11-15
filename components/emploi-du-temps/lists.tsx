@@ -45,7 +45,7 @@ const ListActivities = ({
                 <td>{item.locale}</td>
                 <td>{formatDate(item.startDate)}</td>
                 <td>{formatDate(item.endDate)}</td>
-                <td>{item.seats || 0}</td>
+                <td>{item.seats}</td>
                 <td>
                   <FontAwesomeIcon 
                     icon={

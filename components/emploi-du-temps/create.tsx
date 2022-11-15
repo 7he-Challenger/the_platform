@@ -188,8 +188,11 @@ const CreateEmploiDuTemps = ({
         <Form.Label>Nombre de chaises disponible</Form.Label>
         <Form.Control 
           type="number" 
-          value={body.seats || 0}
-          onChange={(e) => handleChangeValueForm('seats', parseInt(e.target.value))}
+          value={body.seats}
+          onChange={(e) => handleChangeValueForm(
+            'seats', 
+            e.target.value ? parseInt(e.target.value) : null
+          )}
         />
       </Form.Group>
 
