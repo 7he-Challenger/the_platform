@@ -1,0 +1,127 @@
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import { logOut } from '~lib/auth'
+import homeStyles from '~assets/styles/Home.module.css'
+import styles from '~assets/styles/Event.module.css'
+import Image from 'next/image'
+import Link from 'next/link'
+import { getActivities, getPublicActivity } from '~repositories/activities'
+import { Button, Card } from 'react-bootstrap'
+import ENDPOINT from '~constantes/enpoint'
+
+const EventList: NextPage = (props) => {
+  const {
+    activities
+  } = props as any
+
+  console.log(activities)
+
+  return (
+    <div className={homeStyles.container}>
+      <Head>
+        <title>TechZara Platform</title>
+        <meta name="description" content="TechZara Platform app" />
+        <link rel="icon" href="/assets/icons/logo.png" />
+      </Head>
+
+      <div className="container flex">
+        <nav>
+            <a className="logo" href="#">
+                <div className="logo-container">
+                    <Image src="assets/icons/logo.jpg" alt="logo TechZara" width="30" height="30"/>
+                </div>
+                <span className="text">TechZara</span>
+            </a>
+            <div className="menu-icon" id="menu-button">
+                <div className="bar1"></div>
+                <div className="bar2"></div>
+                <div className="bar3"></div>
+            </div>
+            <ul className="menu">
+                <li>
+                    <Link href="/login">Connexion</Link>
+                </li>
+                <li>
+                    <Link href="#contact">Contact</Link>
+                </li>
+            </ul>
+        </nav>
+        <div className="switch-mode-btn">
+            <input type="checkbox" className="dark-mode-checkbox-activated"/>
+            <div className="moon">
+                <div className="shadow"></div>
+            </div>
+            <div className="sun">
+                <div className="light"></div>
+            </div>
+        </div>
+
+        <section className="w-100 py-5 px-5">
+          <div className="row">
+            {
+              activities.map((
+                activity: any, 
+                index: number
+              ) => (
+                <div
+                  key={`activity-item-${index}`}
+                  className="col-lg-4"
+                >
+                  <Card className={styles.itemActivity}>
+                    {
+                      activity.posters.length > 0 && (
+                        <Card.Img 
+                          variant="top"
+                          src={`${ENDPOINT.MEDIA_PATH}${activity.posters[0].contentUrl}`}
+                          className={styles.imgActivity}
+                        />
+                      )
+                    }
+                    <Card.Body>
+                      <div className="flex flex-column justify-content-between h-100">
+                        <div className="mb-3">
+                          <Card.Title>{ activity.title }</Card.Title>
+                          <Card.Text>
+                            { activity.description }
+                          </Card.Text>
+                        </div>
+                        <Link 
+                          href={`/events/registration/${activity.id}`}
+                          legacyBehavior
+                          className={`${styles.itemActivityInscription}`}
+                        >
+                          S'inscrire
+                        </Link>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  )
+}
+
+export const getServerSideProps = async (context: any) => {
+  try {
+    let activities: any = await getPublicActivity()
+
+    return {
+      props: {
+        activities
+      }
+    }
+  }catch(e: any){
+    console.log(e)
+    return {
+      props: {
+        activities: []
+      }
+    }
+  }
+}
+
+export default EventList;
