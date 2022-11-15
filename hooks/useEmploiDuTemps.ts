@@ -349,7 +349,8 @@ export const useFormActivity = (
     startDate: '',
     endDate: '',
     isPublic: true,
-    posters: []
+    posters: [],
+    seats: 0
   }
 
   /**
