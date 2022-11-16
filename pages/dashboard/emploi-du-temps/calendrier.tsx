@@ -33,8 +33,7 @@ const EmploiDuTemps: NextPage = (props: any) => {
       end: e.endDate,
     }
   }
-
-  console.log(event)
+  
   return (
     <AdminLayout>
       <Calendar 

@@ -209,7 +209,6 @@ export const formatStatisticsRegisteredMember = (
   }, [...valueMonth])
 
   const registeredType = users.reduce((acc, item) => {
-    console.log(item)
     const index = types.findIndex(el => el == item.userType)
     if(index > -1) acc[index] = acc[index] + 1;
     return acc

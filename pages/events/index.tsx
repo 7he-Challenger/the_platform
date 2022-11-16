@@ -1,11 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { logOut } from '~lib/auth'
 import homeStyles from '~assets/styles/Home.module.css'
 import styles from '~assets/styles/Event.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getActivities, getPublicActivity } from '~repositories/activities'
+import { getPublicActivity } from '~repositories/activities'
 import { Button, Card } from 'react-bootstrap'
 import ENDPOINT from '~constantes/enpoint'
 
@@ -13,8 +12,6 @@ const EventList: NextPage = (props) => {
   const {
     activities
   } = props as any
-
-  console.log(activities)
 
   return (
     <div className={homeStyles.container}>
@@ -82,16 +79,25 @@ const EventList: NextPage = (props) => {
                         <div className="mb-3">
                           <Card.Title>{ activity.title }</Card.Title>
                           <Card.Text>
-                            { activity.description }
+                            {activity.description}
                           </Card.Text>
                         </div>
-                        <Link 
-                          href={`/events/registration/${activity.id}`}
-                          legacyBehavior
-                          className={`${styles.itemActivityInscription}`}
-                        >
-                          S'inscrire
-                        </Link>
+                        {
+                          typeof activity.seats == 'number' && (
+                            <Link 
+                              href={`/events/registration/${activity.id}`}
+                            >
+                              <Button 
+                                className={`${styles.itemActivityInscription}`}
+                                disabled={activity.seats == 0}
+                              >
+                                S'inscrire
+
+                                <span className="mx-2">({activity.seats})</span>
+                              </Button>
+                            </Link>
+                          )
+                        }
                       </div>
                     </Card.Body>
                   </Card>
