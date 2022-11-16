@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { getPublicActivity } from '~repositories/activities'
 import { Button, Card } from 'react-bootstrap'
 import ENDPOINT from '~constantes/enpoint'
+import { formatDate } from '~lib/format'
 
 const EventList: NextPage = (props) => {
   const {
@@ -62,7 +63,7 @@ const EventList: NextPage = (props) => {
               ) => (
                 <div
                   key={`activity-item-${index}`}
-                  className="col-lg-4"
+                  className="col-lg-4 my-2"
                 >
                   <Card className={styles.itemActivity}>
                     {
@@ -79,25 +80,26 @@ const EventList: NextPage = (props) => {
                         <div className="mb-3">
                           <Card.Title>{ activity.title }</Card.Title>
                           <Card.Text>
-                            {activity.description}
+                            <div>
+                              {activity.locale}, {formatDate(activity.startDate)}
+                            </div>
+                            <div>
+                              {activity.description}
+                            </div>
                           </Card.Text>
                         </div>
-                        {
-                          typeof activity.seats == 'number' && (
-                            <Link 
-                              href={`/events/registration/${activity.id}`}
-                            >
-                              <Button 
-                                className={`${styles.itemActivityInscription}`}
-                                disabled={activity.seats == 0}
-                              >
-                                S'inscrire
+                        <Link 
+                          href={`/events/registration/${activity.id}`}
+                        >
+                          <Button 
+                            className={`${styles.itemActivityInscription}`}
+                            // disabled={activity.seats == 0}
+                          >
+                            S'inscrire
 
-                                <span className="mx-2">({activity.seats})</span>
-                              </Button>
-                            </Link>
-                          )
-                        }
+                            {/* <span className="mx-2">({activity.seats})</span> */}
+                          </Button>
+                        </Link>
                       </div>
                     </Card.Body>
                   </Card>

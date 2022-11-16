@@ -7,7 +7,7 @@ import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
 import { formatQueryActivityParams } from "~lib/format";
 import { ActivityType } from "~models/activity";
-import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities } from "~repositories/activities";
+import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities, saveInscriptionEvent } from "~repositories/activities";
 import { uploadFiles } from "~repositories/media";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
@@ -531,6 +531,81 @@ export const useFormActivity = (
     posters,
     handleFilePicker,
     deleteImage
+  }
+}
+
+/**
+ * hooks logics form inscription event
+ * @param activity 
+ */
+export const useFormInscriptionEvent = (
+  activity: any
+) => {
+  const dispatch = useAppDispatch()
+  /**
+   * initial data body inscription event
+   */
+  const initialeData = {
+    email: '',
+    seatNumber: 1,
+    event: activity['@id']
+  }
+
+  /**
+   * state of form body
+   */
+  const [body, setBody] = useState<any>(initialeData)
+  const [alertInscription, setAlert] = useState<string | null>(null)
+
+  const resetForm = () => setBody(initialeData)
+
+  /**
+   * methods handle input change
+   * @param input 
+   * @param value 
+   */
+  const handleChangeValueForm = useCallback((
+    input: string,
+    value: any
+  ) => {
+    setBody((prev: any) => {
+      let tmpPrev = JSON.parse(JSON.stringify(prev))
+      tmpPrev[input] = value
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }, [body])
+
+  /**
+   * method handle submit form
+   */
+  const submitInscription = async (e: any) => {
+    e.preventDefault()
+
+    if(confirm(`Valider l'inscription à l'event ${activity.title} ?`)){
+      dispatch(setLoadingTreatment(true))
+    }
+
+    try{
+      setAlert(null)
+      const registration = await saveInscriptionEvent(body)
+      resetForm()
+      setAlert('Inscription fait avec succès')
+    }catch(e: any){
+      console.log('error method save activity', e)
+      alertErrorOccured()
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  }
+
+  return {
+    handleChangeValueForm,
+    body,
+    submitInscription,
+    alertInscription
   }
 }
 

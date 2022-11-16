@@ -123,7 +123,7 @@ export const deleteActivity = async (
 export const getActivityById = async (
   id: string
 ) => {
-  const axios = axiosInstance()
+  const axios = axiosInstance(null, true)
 
   try{
     const result = await axios.get(
@@ -145,7 +145,7 @@ export const getPublicActivity = async () => {
       `${ENDPOINT.ACTIVITY}`,
       {
         params: {
-          isPublic: true
+          isPublic: 1
         }
       }
     )
@@ -153,6 +153,23 @@ export const getPublicActivity = async () => {
     return result.data
   }catch(e: any){
     console.log('error get activity by id', e)
+    throw e
+  }
+}
+
+export const saveInscriptionEvent = async (
+  body: any
+) => {
+  const axios = axiosInstance()
+  try{
+    const result = await axios.post(
+      ENDPOINT.REGISTRATION,
+      body
+    )  
+
+    return result.data
+  }catch(e: any){
+    console.log('error save activities')
     throw e
   }
 }
