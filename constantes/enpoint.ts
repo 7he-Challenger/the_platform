@@ -1,6 +1,7 @@
 const ENDPOINT = {
   LOGIN: 'login_check',
   ACTIVITY: 'activities',
+  REGISTRATION: 'registrations',
   USER: 'users',
   PRESENCES: 'presences',
   MEDIA: 'media_objects',

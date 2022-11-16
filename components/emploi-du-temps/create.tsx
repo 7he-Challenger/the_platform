@@ -184,6 +184,18 @@ const CreateEmploiDuTemps = ({
         </Row>
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="formSeats">
+        <Form.Label>Nombre de chaises disponible</Form.Label>
+        <Form.Control 
+          type="number" 
+          value={body.seats}
+          onChange={(e) => handleChangeValueForm(
+            'seats', 
+            e.target.value ? parseInt(e.target.value) : null
+          )}
+        />
+      </Form.Group>
+
       <Form.Group className="mb-3" controlId="formIsPublic">
         <Form.Label>Posters</Form.Label>
         <Form.Control 

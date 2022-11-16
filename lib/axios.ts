@@ -22,7 +22,7 @@ const axiosInstance = (
     'Content-Type': media ? 'multipart/form-data' : 'application/json',
     Authorization: `Bearer ${token}`
   } : {
-    Accept: 'application/json',
+    Accept: accept ? 'application/ld+json' : 'application/json',
     'Content-Type': media ? 'multipart/form-data' : 'application/json',
   }
 

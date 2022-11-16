@@ -5,10 +5,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
 import { alertErrorOccured, alertErrorToken } from "~lib/alert";
 import { logOut } from "~lib/auth";
-import { formatQueryActivityParams } from "~lib/format";
+import { formatQueryActivityParams, formatQueryRegistrationsParams } from "~lib/format";
 import { ActivityType } from "~models/activity";
-import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities } from "~repositories/activities";
+import { deleteActivity, getActivities, GetActivitiesQueryType, saveActivities, saveInscriptionEvent } from "~repositories/activities";
 import { uploadFiles } from "~repositories/media";
+import { deleteRegistrations, GetRegistrationQueryType, getRegistrations, updateInscriptionEvent } from "~repositories/registration";
 import { useAppDispatch } from "~store/hooks";
 import { setLoadingTreatment } from "~store/loading-overlay";
 import { setToast } from "~store/toast";
@@ -349,7 +350,8 @@ export const useFormActivity = (
     startDate: '',
     endDate: '',
     isPublic: true,
-    posters: []
+    posters: [],
+    seats: 0
   }
 
   /**
@@ -530,6 +532,403 @@ export const useFormActivity = (
     posters,
     handleFilePicker,
     deleteImage
+  }
+}
+
+/**
+ * hooks logics form inscription event
+ * @param activity 
+ */
+export const useFormInscriptionEvent = (
+  activity: any
+) => {
+  const dispatch = useAppDispatch()
+  /**
+   * initial data body inscription event
+   */
+  const initialeData = {
+    email: '',
+    seatNumber: 1,
+    event: activity['@id']
+  }
+
+  /**
+   * state of form body
+   */
+  const [body, setBody] = useState<any>(initialeData)
+  const [alertInscription, setAlert] = useState<string | null>(null)
+
+  const resetForm = () => setBody(initialeData)
+
+  /**
+   * methods handle input change
+   * @param input 
+   * @param value 
+   */
+  const handleChangeValueForm = useCallback((
+    input: string,
+    value: any
+  ) => {
+    setBody((prev: any) => {
+      let tmpPrev = JSON.parse(JSON.stringify(prev))
+      tmpPrev[input] = value
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }, [body])
+
+  /**
+   * method handle submit form
+   */
+  const submitInscription = async (e: any) => {
+    e.preventDefault()
+
+    if(confirm(`Valider l'inscription à l'event ${activity.title} ?`)){
+      dispatch(setLoadingTreatment(true))
+    }
+
+    try{
+      setAlert(null)
+      const registration = await saveInscriptionEvent(body)
+      resetForm()
+      setAlert('Inscription fait avec succès')
+    }catch(e: any){
+      console.log('error method save activity', e)
+      alertErrorOccured()
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  }
+
+  return {
+    handleChangeValueForm,
+    body,
+    submitInscription,
+    alertInscription
+  }
+}
+
+export const useEventInscriptionGesture = (
+  listInscription: Array<any>,
+  total: number,
+  listsActivities: Array<any>
+) => {
+  const dispatch = useAppDispatch()
+  const { data, status }: any = useSession()
+  const initialQuery = {
+    page: 1,
+    event: null
+  }
+
+  /**
+   * state for create mode
+   * create state is for showing modal
+   * toUpdate state is for updating
+   */
+  const [create, setCreate] = useState(false);
+  const [toUpdate, setToUpdate] = useState<any>(null);
+
+  /**
+   * state query params
+   */
+  const [query, setQuery] = useState<GetActivitiesQueryType>(initialQuery)
+  const [filtered, setFiltered] = useState(false)
+
+  /**
+   * state list activities and inscription
+   */
+  const [activities, setActivities] = useState<Array<any>>(listsActivities)
+  const [registrations, setRegistraions] = useState<Array<any>>(listInscription)
+  const [totalItem, setTotalItem] = useState(total)
+
+  /**
+   * handle click on page to fetch data depending that page
+   * @param page 
+   */
+  const handleNavigatePage = async (page: number) => {
+    setQuery((prev: any) => ({
+      ...prev,
+      page
+    }))
+
+    dispatch(setLoadingTreatment(true))
+    try{
+      const token = data ? data.accessToken : null
+      await loadRegistrations(token, {
+        ...query,
+        page
+      })
+    }catch(e: any){
+      console.log('error method delete activity', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  } 
+
+
+  /**
+   * method handle filter change
+   * @param input 
+   * @param value 
+   */
+  const handleFilterChange = (
+    input: string, 
+    value: string
+  ) => {
+    setQuery((prev: any) => {
+      let tmpPrev = { ...prev }
+      tmpPrev[input] = value
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }
+
+  /**
+   * method submit filter form
+   * @param queryFilter 
+   */
+  const submitFilter = async () => {
+    const token = data ? data.accessToken : null
+    dispatch(setLoadingTreatment(true))
+    try{
+      setFiltered(true)
+      const queryFilter = formatQueryRegistrationsParams(query)
+      await loadRegistrations(token, {
+        ...queryFilter,
+        page: 1
+      })
+    }catch(e: any){
+      console.log('error method filter registration', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  }
+
+   /**
+   * method reset filter
+   * edited params avoid load activity if filter not submited
+   * @param edited 
+   */
+  const resetFilter = async () => {
+    const token = data ? data.accessToken : null
+    dispatch(setLoadingTreatment(true))
+    
+    try{
+      setQuery(initialeQuery)
+      const queryFilter = formatQueryRegistrationsParams(initialeQuery)
+      if(filtered){
+        await loadRegistrations(token, {
+          ...queryFilter
+        })
+        setFiltered(false)
+      }
+    }catch(e: any){
+      console.log('error method filter registration', e)
+      if(e.response && e.response.status == 401){
+        alertErrorToken()
+        logOut()
+      }else{
+        alertErrorOccured()
+      }
+    }finally{
+      dispatch(setLoadingTreatment(false))
+    }
+  }
+
+  const loadRegistrations = async (
+    token: string,
+    query?: GetRegistrationQueryType
+  ) => {
+    const result = await getRegistrations(token, query)
+    setRegistraions(result[RESPONSE_ATTR.data])
+    setTotalItem(result[RESPONSE_ATTR.total])
+  }
+
+  const countRegistrationByEvent = (
+    eventId: number
+  ) => {
+    return registrations.reduce((acc, item) => {
+      if(item.event.id == eventId) acc += item.seatNumber
+      return acc
+    }, 0)
+  }
+
+  /**
+   * handle submit delete activity
+   * @param id 
+   */
+  const handleDeleteRegistrations = async (
+    id: any
+  ) => {
+    if(confirm("Supprimer l'inscription ?")){
+      dispatch(setLoadingTreatment(true))
+      try{
+        const token = data ? data.accessToken : null
+        const result = await deleteRegistrations(token, id)
+
+        await loadRegistrations(token)
+        dispatch(setToast({
+          show: true,
+          message: 'Inscription supprimé'
+        }))
+      }catch(e: any){
+        console.log('error method delete registrations', e)
+        if(e.response && e.response.status == 401){
+          alertErrorToken()
+          logOut()
+        }else{
+          alertErrorOccured()
+        }
+      }finally{
+        dispatch(setLoadingTreatment(false))
+      }
+    }
+  }
+
+  /**
+   * show modal create
+   */
+  const showCreate = () => setCreate(true)
+
+  /**
+   * hide modal create
+   */
+  const hideCreate = () => {
+    setCreate(false)
+    setToUpdate(null)
+  }
+
+
+  /**
+   * edit registration
+   * show modal
+   * @param registration 
+   */
+  const handleEditRegistrations = (registration: any) => {
+    setToUpdate((prev: any) => ({ ...prev, ...registration }))
+    showCreate()
+  }
+
+  /**
+   * handele submit save activity
+   * @param body 
+   * @param id 
+   */
+  const handleSaveRegistration = async (
+    body: any,
+    id?: any
+  ) => {
+    if(confirm("Enregistrer l'inscription ?")){
+      dispatch(setLoadingTreatment(true))
+      try{
+        const token = data ? data.accessToken : null
+        await updateInscriptionEvent(token, body, id)
+        
+        // treatment after save activity
+        await loadRegistrations(token)
+        hideCreate()
+        dispatch(setToast({
+          show: true,
+          message: 'Activité enregistré'
+        }))
+      }catch(e: any){
+        console.log('error method save activity', e)
+        if(e.response && e.response.status == 401){
+          alertErrorToken()
+          logOut()
+        }else{
+          alertErrorOccured()
+        }
+      }finally{
+        dispatch(setLoadingTreatment(false))
+      }
+    }
+  }
+
+  return {
+    handleNavigatePage,
+    query,
+    resetFilter,
+    submitFilter,
+    handleFilterChange,
+    activities,
+    registrations,
+    totalItem,
+    countRegistrationByEvent,
+    handleDeleteRegistrations,
+    create,
+    toUpdate,
+    hideCreate,
+    handleEditRegistrations,
+    handleSaveRegistration
+  }
+}
+
+/**
+ * logics hooks for the update form registration
+ * @param toUpdate 
+ */
+ export const useFormRegistration = (
+  toUpdate: any
+) => {
+  /**
+   * initial data for the activity form
+   */
+  const initialeData = {
+    email: toUpdate.email,
+    seatNumber: toUpdate.seatNumber,
+    event: toUpdate.event['@id']
+  }
+
+  /**
+   * state of form body registration
+   * init to toUPdate or initialeData
+   */
+  const [body, setBody] = useState<any>(initialeData)
+
+  /**
+   * method handle value change of each form
+   * input for the attribut to change
+   * value for the value of change
+   * index for the attribut with array 
+   * @param input 
+   * @param value 
+   * @param index 
+   */
+  const handleChangeValueForm = useCallback((
+    input: string,
+    value: any
+  ) => {
+    setBody((prev: any) => {
+      let tmpPrev = JSON.parse(JSON.stringify(prev))
+      tmpPrev[input] = value
+      return {
+        ...prev,
+        ...tmpPrev
+      }
+    })
+  }, [body])
+
+  return {
+    body,
+    handleChangeValueForm,
+    toUpdate
   }
 }
 
