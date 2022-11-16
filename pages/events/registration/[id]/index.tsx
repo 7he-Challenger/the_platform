@@ -31,9 +31,9 @@ const EventInscription: NextPage = (props) => {
 
       <div className="container flex">
         <nav>
-            <a className="logo" href="/">
+            <Link className="logo" href="/">
                 <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
-            </a>
+            </Link>
             <div className="menu-icon" id="menu-button">
                 <div className="bar1"></div>
                 <div className="bar2"></div>
