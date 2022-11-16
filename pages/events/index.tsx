@@ -24,9 +24,11 @@ const EventList: NextPage = (props) => {
 
       <div className="container flex">
         <nav>
-            <Link className="logo" href="/">
-                <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
-            </Link>
+            <span className="logo">
+                <Link href="/">
+                    <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
+                </Link>
+            </span>
             <div className="menu-icon" id="menu-button">
                 <div className="bar1"></div>
                 <div className="bar2"></div>
