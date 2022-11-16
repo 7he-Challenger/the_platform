@@ -20,7 +20,8 @@ import {
   faRightToBracket,
   faCalendar,
   faUserFriends,
-  faUsersViewfinder
+  faUsersViewfinder,
+  faPenFancy
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   PropsWithChildren, useContext, useEffect, useState,
@@ -136,7 +137,8 @@ export default function SidebarNav() {
       <SidebarNavItem icon={faGauge} href={ROUTES.dashboard.path}>Tableau de bord </SidebarNavItem>
       <SidebarNavTitle>Activités</SidebarNavTitle>
       <SidebarNavItem icon={faPuzzlePiece} href={ROUTES.emploi_du_temps.path}>Gestion d&rsquo;activités</SidebarNavItem>
-      <SidebarNavItem icon={faCalendar} href={ROUTES.calendrier_activity.path}>Calendrier activités</SidebarNavItem>
+      <SidebarNavItem icon={faCalendar} href={ROUTES.calendrier_activity.path}>Calendrier d&rsquo;activités</SidebarNavItem>
+      <SidebarNavItem icon={faPenFancy} href={ROUTES.event_registration.path}>{ROUTES.event_registration.name}</SidebarNavItem>
 
       <SidebarNavTitle>Membre</SidebarNavTitle>
       <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>Gestion membres</SidebarNavItem>

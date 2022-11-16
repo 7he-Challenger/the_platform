@@ -4,6 +4,7 @@ import moment from "~lib/moment";
 import { ACTIVITY_TYPES } from "~constantes/datas";
 import { GetPresenceQueryType, GetUserQueryType } from "~repositories/user";
 import ROLES from "~constantes/roles";
+import { GetRegistrationQueryType } from "~repositories/registration";
 
 /**
  * format the route path into name title
@@ -228,4 +229,19 @@ export const getMemberYear = (
     if(moment(item.createdAt).isSame(new Date(), 'year')) acc.push(item)
     return acc
   }, [])
+}
+
+/**
+ * format the query from url to query params of get registrations
+ * @param query 
+ */
+ export const formatQueryRegistrationsParams = (
+  query: any
+) => {
+  const queryParams: GetRegistrationQueryType = {}
+
+  if(query['page']) queryParams['page'] = query['page'];
+  if(query['event']) queryParams['event'] = query['event'];
+
+  return queryParams
 }
