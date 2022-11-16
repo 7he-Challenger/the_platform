@@ -79,14 +79,14 @@ const EventList: NextPage = (props) => {
                       <div className="flex flex-column justify-content-between h-100">
                         <div className="mb-3">
                           <Card.Title>{ activity.title }</Card.Title>
-                          <Card.Text>
+                          <Card.Body>
                             <div>
                               {activity.locale}, {formatDate(activity.startDate)}
                             </div>
                             <div>
                               {activity.description}
                             </div>
-                          </Card.Text>
+                          </Card.Body>
                         </div>
                         <Link 
                           href={`/events/registration/${activity.id}`}
@@ -95,7 +95,7 @@ const EventList: NextPage = (props) => {
                             className={`${styles.itemActivityInscription}`}
                             // disabled={activity.seats == 0}
                           >
-                            S'inscrire
+                            S&rsquo;inscrire
 
                             {/* <span className="mx-2">({activity.seats})</span> */}
                           </Button>

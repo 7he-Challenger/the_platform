@@ -34,6 +34,11 @@ const ROUTES = {
   calendrier_activity: {
     path: `${dashboard}/emploi-du-temps/calendrier`,
     name: 'Calendrier d\'activité'
+  },
+
+  event_registration: {
+    path: `${dashboard}/emploi-du-temps/registration`,
+    name: 'Gestion d\'inscription des évènements'
   }
 }
 
