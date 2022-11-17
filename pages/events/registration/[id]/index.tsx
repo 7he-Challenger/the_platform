@@ -31,18 +31,23 @@ const EventInscription: NextPage = (props) => {
 
       <div className="container flex">
         <nav>
-            <a className="logo" href="#">
-                <div className="logo-container">
-                    <Image src="assets/icons/logo.jpg" alt="logo TechZara" width="30" height="30"/>
-                </div>
-                <span className="text">TechZara</span>
-            </a>
+            <span className="logo">
+                <Link href="/">
+                    <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
+                </Link>
+            </span>
             <div className="menu-icon" id="menu-button">
                 <div className="bar1"></div>
                 <div className="bar2"></div>
                 <div className="bar3"></div>
             </div>
             <ul className="menu">
+                <li>
+                    <Link href="/">Acceuil</Link>
+                </li>
+                <li>
+                    <Link href="/events">Evènements</Link>
+                </li>
                 <li>
                     <Link href="/login">Connexion</Link>
                 </li>
