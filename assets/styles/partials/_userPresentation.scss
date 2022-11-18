@@ -29,7 +29,7 @@ $techzara-blue : #29AAE3;
         width: $picture-w + 6px;
         height: 55px;
         position: absolute;
-        background: $white;
+        background: var(--background);
         transform: rotate(25deg);
       };
       &:hover{

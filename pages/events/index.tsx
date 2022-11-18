@@ -8,6 +8,7 @@ import { getPublicActivity } from '~repositories/activities'
 import { Button, Card } from 'react-bootstrap'
 import ENDPOINT from '~constantes/enpoint'
 import { formatDate } from '~lib/format'
+import { PublicLayout } from '~layout'
 
 const EventList: NextPage = (props) => {
   const {
@@ -15,68 +16,28 @@ const EventList: NextPage = (props) => {
   } = props as any
 
   return (
-    <div className={homeStyles.container}>
-      <Head>
-        <title>TechZara Platform</title>
-        <meta name="description" content="TechZara Platform app" />
-        <link rel="icon" href="/assets/icons/logo.png" />
-      </Head>
-
-      <div className="container flex">
-        <nav>
-            <span className="logo">
-                <Link href="/">
-                    <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
-                </Link>
-            </span>
-            <div className="menu-icon" id="menu-button">
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
-            </div>
-            <ul className="menu">
-                <li>
-                    <Link href="/">Acceuil</Link>
-                </li>
-                <li>
-                    <Link href="/events">Evènements</Link>
-                </li>
-                <li>
-                    <Link href="/login">Connexion</Link>
-                </li>
-            </ul>
-        </nav>
-        <div className="switch-mode-btn">
-            <input type="checkbox" className="dark-mode-checkbox-activated"/>
-            <div className="moon">
-                <div className="shadow"></div>
-            </div>
-            <div className="sun">
-                <div className="light"></div>
-            </div>
-        </div>
-
+    <PublicLayout>
         <section className="w-100 py-5 px-5">
           <div className="row">
             {
               activities.map((
                 activity: any, 
                 index: number
-              ) => (
-                <div
+                ) => (
+                  <div
                   key={`activity-item-${index}`}
                   className="col-lg-4 my-2"
-                >
+                  >
                   <Card className={styles.itemActivity}>
                     {
                       activity.posters.length > 0 && (
                         <Card.Img 
-                          variant="top"
-                          src={`${ENDPOINT.MEDIA_PATH}${activity.posters[0].contentUrl}`}
-                          className={styles.imgActivity}
+                        variant="top"
+                        src={`${ENDPOINT.MEDIA_PATH}${activity.posters[0].contentUrl}`}
+                        className={styles.imgActivity}
                         />
-                      )
-                    }
+                        )
+                      }
                     <Card.Body>
                       <div className="flex flex-column justify-content-between h-100">
                         <div className="mb-3">
@@ -96,7 +57,7 @@ const EventList: NextPage = (props) => {
                           <Button 
                             className={`${styles.itemActivityInscription}`}
                             // disabled={activity.seats == 0}
-                          >
+                            >
                             S&rsquo;inscrire
 
                             {/* <span className="mx-2">({activity.seats})</span> */}
@@ -110,15 +71,14 @@ const EventList: NextPage = (props) => {
             }
           </div>
         </section>
-      </div>
-    </div>
+  </PublicLayout>
   )
 }
 
 export const getServerSideProps = async (context: any) => {
   try {
     let activities: any = await getPublicActivity()
-
+    
     return {
       props: {
         activities

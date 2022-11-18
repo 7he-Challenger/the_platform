@@ -113,6 +113,9 @@
     width: 100%;
     flex-direction: column;
   }
+  .public-container-main{
+    margin-top: 75px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

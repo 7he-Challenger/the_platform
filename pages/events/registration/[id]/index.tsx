@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { useFormInscriptionEvent } from '~hooks/useEmploiDuTemps'
+import { PublicLayout } from '~layout'
 
 const EventInscription: NextPage = (props) => {
   const {
@@ -22,46 +23,7 @@ const EventInscription: NextPage = (props) => {
   } = useFormInscriptionEvent(activity)
 
   return (
-    <div className={homeStyles.container}>
-      <Head>
-        <title>TechZara Platform</title>
-        <meta name="description" content="TechZara Platform app" />
-        <link rel="icon" href="/assets/icons/logo.png" />
-      </Head>
-
-      <div className="container flex">
-        <nav>
-            <span className="logo">
-                <Link href="/">
-                    <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
-                </Link>
-            </span>
-            <div className="menu-icon" id="menu-button">
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
-            </div>
-            <ul className="menu">
-                <li>
-                    <Link href="/">Acceuil</Link>
-                </li>
-                <li>
-                    <Link href="/events">Evènements</Link>
-                </li>
-                <li>
-                    <Link href="/login">Connexion</Link>
-                </li>
-            </ul>
-        </nav>
-        <div className="switch-mode-btn">
-            <input type="checkbox" className="dark-mode-checkbox-activated"/>
-            <div className="moon">
-                <div className="shadow"></div>
-            </div>
-            <div className="sun">
-                <div className="light"></div>
-            </div>
-        </div>
+     <PublicLayout>
 
         <section className="memories">
           <h1>
@@ -80,7 +42,7 @@ const EventInscription: NextPage = (props) => {
                     required
                     value={body.email}
                     onChange={(e) => handleChangeValueForm('email', e.target.value)}
-                  />
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formSeats">
@@ -91,7 +53,7 @@ const EventInscription: NextPage = (props) => {
                     required
                     value={body.seatNumber}
                     onChange={(e) => handleChangeValueForm('seatNumber', parseInt(e.target.value))}
-                  />
+                    />
                 </Form.Group>
 
                 <div className="d-flex justify-content-end">
@@ -111,8 +73,7 @@ const EventInscription: NextPage = (props) => {
             </Card.Body>
           </Card>
         </section>
-      </div>
-    </div>
+      </PublicLayout>
   )
 }
 

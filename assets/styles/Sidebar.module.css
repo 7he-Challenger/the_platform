@@ -1,5 +1,6 @@
 .leftLogoContainer {
     background-color: white!important;
+    cursor: pointer;
 }
 
 .logoImage {

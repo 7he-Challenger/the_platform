@@ -142,7 +142,6 @@ export default function SidebarNav() {
 
       <SidebarNavTitle>Membre</SidebarNavTitle>
       <SidebarNavItem icon={faUserFriends} href={ROUTES.member.path}>Gestion membres</SidebarNavItem>
-      <SidebarNavItem icon={faUsersViewfinder} href={ROUTES.memberPresentation.path}>Presentation des membres</SidebarNavItem>
     </ul>
   )
 }

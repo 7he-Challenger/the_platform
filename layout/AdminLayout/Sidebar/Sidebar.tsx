@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { Button } from 'react-bootstrap'
 import SidebarNav from '~layout/AdminLayout/Sidebar/SidebarNav'
 import Style from '~assets/styles/Sidebar.module.css';
+import Link from 'next/link'
 
 export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
   const { isShow, isShowMd } = props
@@ -33,7 +34,9 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
       id="sidebar"
     >
       <div className={Style.leftLogoContainer + " sidebar-brand d-none d-md-flex align-items-center justify-content-center"}>
-        <img src="/assets/images/logo.jpg" width={"129px"} height={"61px"} alt="Logo Techzara" />
+        <Link href="/">
+          <img src="/assets/images/logo.png" width={"129px"} height={"61px"} alt="Logo Techzara" />
+        </Link>
       </div>
 
       <div className="sidebar-nav flex-fill">
