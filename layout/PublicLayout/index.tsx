@@ -7,6 +7,9 @@ import Script from 'next/script'
 import { useSession } from 'next-auth/react'
 import _ from 'lodash'
 import { logOut } from '~lib/auth'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 const PublicLayout = ({children, outside} : PropsWithChildren & {outside?: boolean}) => {
     const {data} = useSession()
@@ -63,8 +66,10 @@ const PublicLayout = ({children, outside} : PropsWithChildren & {outside?: boole
                         <Link href="/dashboard" >Administration</Link>
                     </li>
                     <li>
-                        <div onClick={handleLogout}>
-                            <Link href="#">Se deconnecter</Link>
+                        <div onClick={handleLogout} className="flex-center" style={{cursor:"pointer"}}>
+                            <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={`tooltip-logout`}>Se deconnecter</Tooltip>}>
+                                <FontAwesomeIcon size='2x' icon={faArrowRightFromBracket}/>
+                            </OverlayTrigger>
                         </div>
                     </li>
                     </>
