@@ -1,11 +1,11 @@
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSession } from "next-auth/react";
-import React, { useCallback } from "react";
+import React from "react";
 import ENDPOINT from "~constantes/enpoint";
 import { RESPONSE_ATTR } from "~constantes/response-attr";
 import { USER_TYPES } from "~constantes/user-types";
-import { AdminLayout } from "~layout";
+import { PublicLayout } from "~layout";
 import {  User } from "~models/user";
 import { getAllUser } from "~repositories/user";
 import Image from "react-bootstrap/Image";
@@ -19,7 +19,7 @@ const MemberPresentation = (props: TMemberProps) => {
     const userTypes = (userTypeId: number) => USER_TYPES.find(item => item.value === userTypeId)
 
     return (
-        <AdminLayout noMargin>
+        <PublicLayout outside>
           <div className="full-width flex-center main-pres-bg " >
             <h1 className="pres-header-title">Les membres de <span>Techzara communauté</span></h1>
             <div className="all-users-pres-wrap flex-wrap flex-center">
@@ -31,7 +31,7 @@ const MemberPresentation = (props: TMemberProps) => {
                                 className="user-pres-picture"
                                 src={user?.cover?.contentUrl ? ENDPOINT.MEDIA_PATH+(user?.cover?.contentUrl ||"") : "/assets/img/avatars/default.png"}
                                 alt="user picture"
-                            />
+                                />
                         </div>
                         <div className="user-pres-name flex-center">
                             {user?.firstname || ""} {user?.lastname || ""}
@@ -43,7 +43,7 @@ const MemberPresentation = (props: TMemberProps) => {
                 ))}
             </div>
           </div>
-        </AdminLayout>
+        </PublicLayout>
     );
 };
 

@@ -4,59 +4,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from '~assets/styles/Home.module.css'
 import Script from 'next/script'
+import { PublicLayout } from '~layout'
 // import globalStyle from '~assets/styles/globals.scss'
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>TechZara Platform</title>
-        <meta name="description" content="TechZara Platform app" />
-        <link rel="icon" href="/assets/icons/logo.png" />
-      </Head>
-
-      {/* <div className="loader-page">
-        <div className="loader">
-            <p className="loader_txt">Loading...</p>
-            <div className="loader_arc"></div>
-            <div className="loader_rnd_container">
-                <div className="loader_rnd"></div>
-            </div>
-        </div>
-    </div> */}
-    <div className="container flex">
-        <nav>
-            <span className="logo">
-                <Link href="/">
-                    <Image src="assets/images/logo.jpg" alt="logo TechZara" layout='fill'/>
-                </Link>
-            </span>
-            <div className="menu-icon" id="menu-button">
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
-            </div>
-            <ul className="menu">
-                <li>
-                    <Link href="/">Acceuil</Link>
-                </li>
-                <li>
-                    <Link href="/events">Evènements</Link>
-                </li>
-                <li>
-                    <Link href="/login">Connexion</Link>
-                </li>
-            </ul>
-        </nav>
-        <div className="switch-mode-btn">
-            <input type="checkbox" className="dark-mode-checkbox-activated"/>
-            <div className="moon">
-                <div className="shadow"></div>
-            </div>
-            <div className="sun">
-                <div className="light"></div>
-            </div>
-        </div>
+    <PublicLayout>
         <section className="hero">
             <div className="hero-content">
                 <div className="haingo top left">
@@ -261,12 +214,9 @@ const Home: NextPage = () => {
                 </div>
             </div>
         </footer>
-    </div>
-    <Script src="js/tz-animation.js" strategy='lazyOnload'></Script>
-    <Script src="js/main.js" strategy='lazyOnload'></Script>
-    <Script src="js/y-slide.js" strategy='lazyOnload'></Script>
-    <Script src="js/darkmode.js" strategy='lazyOnload'></Script>
-    </div>
+    <Script src="js/tz-animation.js" />
+    <Script src="js/y-slide.js" />
+    </PublicLayout>
   )
 }
 
