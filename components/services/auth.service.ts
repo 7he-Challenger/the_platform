@@ -4,7 +4,7 @@ import { OverlayTrigger } from "react-bootstrap";
 const API_URL = "https://localhost:3000/api/auth/";
 
 class AuthService {
-    register(lastname: string, firstname: string, username: string, email: string, phonenumber: number, password: string) {
+    register(lastname: string, firstname: string, username: string, email: string, phonenumber: string, password: string) {
         return axios.post(API_URL + "signup", {
             lastname,
             firstname,
